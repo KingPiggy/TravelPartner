@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         isFirstTime();
-
-
-
 
     }
 
@@ -49,5 +47,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    public void move(View v){
+        switch (v.getId()) {
+            case R.id.btn_main_map:
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+        }
     }
 }
