@@ -1,10 +1,12 @@
 package kr.ac.shinhan.travelpartner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TabHost;
 
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         isFirstTime();
 
+
         tabHost = (TabHost)findViewById(R.id.tapHost);
 
         tabHost.setup();
@@ -30,29 +33,33 @@ public class MainActivity extends AppCompatActivity {
 //        tabHost = getTabHost();
 
 
-//        TabHost.TabSpec tabSpec = tabHost.newTabSpec("tab_test1");
+//        TabHost.TabSpec tabSpec = tabHost.newTabSpec("Map2");
 //        tabSpec.setIndicator("Map");
 //        Context ctx = this.getApplicationContext();
 //        Intent i = new Intent(ctx, MapsActivity.class);
 //        tabSpec.setContent(i);
 //        tabHost.addTab(tabSpec);
-//        tabHost.addTab(tabHost.newTabSpec("Map2").setIndicator("맵").setContent(R.id.extext2));
+//        tabHost.addTab(tabHost.newTabSpec("Map2").setIndicator("Map").setContent(R.id.tab2));
 //        tabHost.setCurrentTab(0);
-
+//
 
         tabHost.addTab(tabHost.newTabSpec("Home").setContent(R.id.tab1).setIndicator("홈타이틀"));
 
-        Intent intent;
-        intent = new Intent().setClass(this,MapsActivity.class);
         tabHost.addTab(tabHost.newTabSpec("Travel")
                 .setIndicator("여행지")
-                .setContent(intent));
+                .setContent(new TabHost.TabContentFactory() {
+                    @Override
+                    public View createTabContent(String tag) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        View view = View.inflate(MainActivity.this, R.layout.activity_maps ,null);
+                        return view;
 
+                    }
+                }));
 
         tabHost.addTab(tabHost.newTabSpec("MyPage")
                 .setIndicator("마이페이지")
                 .setContent(R.id.tab3));
-
     }
 
     public void isFirstTime(){
