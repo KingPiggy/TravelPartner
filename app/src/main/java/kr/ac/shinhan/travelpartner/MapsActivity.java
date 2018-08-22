@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;          //화면이동, 마커달기 등등으로 쓰이는 구글맵 변수.
@@ -74,6 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
+        getLocationPermission();
         // Construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
         // Construct a PlaceDetectionClient.

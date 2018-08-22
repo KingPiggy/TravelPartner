@@ -24,7 +24,7 @@ public class UserPrefActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void move(View v){
+    public void finishPref(View v){
         switch (v.getId()){
             case R.id.btn_temp2:
                 setResult(Activity.RESULT_OK);

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
     <TabHost
         android:id="@+id/tapHost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -34,10 +34,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:background="#f1f1f1" />
-
+                    <!--주변 시설 검색 레이아웃-->
                     <LinearLayout
                         android:id="@+id/menu1"
                         android:layout_width="match_parent"
@@ -56,62 +54,43 @@
                             android:textColor="#1D1D1D"
                             android:textSize="14sp" />
 
-                        <RelativeLayout
-                            android:id="@+id/itembutton"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <Button
+                                android:id="@+id/btn_main_map"
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:onClick="move"
+                                android:text="MAP" />
+
+                            <Button
+                                android:id="@+id/btn_main_place"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:orientation="horizontal">
+                                android:onClick="move"
+                                android:text="PLACE" />
 
-                                <ImageButton
-                                    android:id="@+id/imageb1"
-                                    android:layout_width="50dp"
-                                    android:layout_height="70dp" />
+                            <Button
+                                android:id="@+id/btn_main_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="move"
+                                android:text="info" />
 
-                                <ImageButton
-                                    android:id="@+id/imageb2"
-                                    android:layout_width="50dp"
-                                    android:layout_height="70dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_toRightOf="@id/imageb1" />
-
-                                <ImageButton
-                                    android:id="@+id/imageb3"
-                                    android:layout_width="50dp"
-                                    android:layout_height="70dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_toRightOf="@id/imageb2" />
-
-                                <ImageButton
-                                    android:id="@+id/imageb4"
-                                    android:layout_width="50dp"
-                                    android:layout_height="70dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_toRightOf="@id/imageb3" />
-
-                                <ImageButton
-                                    android:id="@+id/imageb5"
-                                    android:layout_width="50dp"
-                                    android:layout_height="70dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_toRightOf="@id/imageb4" />
-
-                            </LinearLayout>
-                        </RelativeLayout>
+                        </LinearLayout>
                     </LinearLayout>
-
+                    <!--경계선-->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:background="#f1f1f1" />
 
+                    <!--추천 관광지, 가까운 관광지-->
                     <LinearLayout
                         android:id="@+id/menu3"
                         android:layout_width="match_parent"
@@ -153,16 +132,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:background="#f1f1f1" />
 
-                    <!--<Button-->
-                    <!--android:id="@+id/btn_main_map"-->
-                    <!--android:layout_width="100dp"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--android:onClick="move"-->
-                    <!--android:text="MAP BTN" />-->
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -170,12 +142,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/extext2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -183,13 +149,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                 </LinearLayout>
             </FrameLayout>
 
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="50dp">
+
             </TabWidget>
         </LinearLayout>
     </TabHost>
