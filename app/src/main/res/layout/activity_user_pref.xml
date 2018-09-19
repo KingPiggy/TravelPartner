@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserPrefActivity">
+    <!--
+    어플 설치 후 한 번만 실행되는 액티비티임.
+    사용자 환경설정하고 메인 액티비티로 넘어감
+    사용자 타입 : 장애인, 비장애인
+    보행보조기 : 목발 휠체어 보조기등
+    선택하는 건 라디오 버튼이나 스피너로 만들기
+    -->
+    <TextView
+        android:id="@+id/tv_userpref_usertype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용자 타입"/>
+    <Button
+        android:id="@+id/btn_temp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="넘어가"
+        android:onClick="finishPref"
+        android:layout_centerInParent="true"
+    />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="이동 수단"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="보행보조기"/>-->
+</RelativeLayout>
