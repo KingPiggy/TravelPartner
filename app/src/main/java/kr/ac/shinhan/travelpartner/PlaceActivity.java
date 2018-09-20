@@ -14,8 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.places.Place;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -74,7 +72,6 @@ public class PlaceActivity extends AppCompatActivity {
 
         mTitleArrange = (TextView) findViewById(R.id.tv_place_arrange_title);
         mViewArrange = (TextView) findViewById(R.id.tv_place_arrange_view);
-
         mTitleArrange.setOnClickListener(sortListener);
         mViewArrange.setOnClickListener(sortListener);
 
@@ -118,8 +115,7 @@ public class PlaceActivity extends AppCompatActivity {
         mContentTypeSpinner.setOnItemSelectedListener(contentTypeSpinnerListener);
     }
 
-    //arrange : OP 제목 조회, 각 선택되었을 때 이미지 셀렉터로 처리하기
-    //2번
+
     View.OnClickListener sortListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -136,7 +132,6 @@ public class PlaceActivity extends AppCompatActivity {
         }
     };
 
-    //3번
     AdapterView.OnItemSelectedListener areaSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -181,7 +176,6 @@ public class PlaceActivity extends AppCompatActivity {
 
                 URL areaBasedListURL = new URL(SERVICE_URL + SERVICE_AREA_BASED_LIST + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
                         + "&numOfRows=" + NUM_OF_ITEM + "&pageNo=" + page + "&arrange=" + arrange + "&contentTypeId=" + contentType + "&sigunguCode=" + guCode);
-                Log.d("hoon", "URL : " + areaBasedListURL.toString());
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
 
@@ -217,6 +211,7 @@ public class PlaceActivity extends AppCompatActivity {
                                 title = parser.getText();
                                 placeItem.setTitle(title);
                             }
+                            Log.d("hoon", "파싱 값 : " + title + tel + contentId);
                             break;
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
@@ -264,11 +259,11 @@ public class PlaceActivity extends AppCompatActivity {
                             if (tag.equals("code")) {
                                 parser.next();
                                 value = parser.getText();
+
                             } else if (tag.equals("name")) {
                                 parser.next();
                                 key = parser.getText();
                             }
-                            //구 이름, 구 코드
                             if (!guCodeMap.containsKey(key))
                                 guCodeMap.put(key, value);
                             break;

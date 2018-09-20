@@ -13,6 +13,6 @@ public class ServiceDefinition {
     public static final String AREA_CODE = "1"; // 서울의 지역코드
     public static final String NUM_OF_ROWS = "30";
     public static final String NUM_OF_ITEM = "5";
-    public static final String KEY = "OxP7Yce7jnNVFihdyT%2FAp4pC%2FPwXwQoQiKrQr%2Bc8kOaQs%2FXjPH8m2MzB6s3CzMAHh8HnJ2Cjw93kiYRmCPgZkA%3D%3D";
+    public static final String KEY = "hm0Xm5tGo0Inj8Z9yWxp%2Fc7Jx1T1isdFAPUx1pUas7GVryJG3nforJjBnCGddcSv%2BRXS95cVjO2CSrtxDRq4SQ%3D%3D";
 
 }

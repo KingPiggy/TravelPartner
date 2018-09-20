@@ -63,7 +63,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        Log.d("hoon", "어댑터 : items의 사이즈" + items.size());
         return this.items.size();
     }
 
