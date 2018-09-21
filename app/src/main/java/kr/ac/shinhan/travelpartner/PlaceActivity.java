@@ -48,6 +48,12 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_U
 * 1. 지역코드 조회하여 스피너에 뿌려줌
 * 2. 지역코드, 관광타입을 스피너에서 받아오고, 정렬기준에 따라 아이템을 RecyclerVIew에 뿌려줌
 * 3. EditText의 값을 키워드로 하여 아이템 검색
+*
+* 해야될 것
+* PLACE 처음 들어왔을 때 RecyclerView 가장 첫 아이템 null 상태로 들어올 때가 생김 -> 원인??
+* 스크롤 끝까지 내렸을 때 다음 아이템 가져오기
+* -> 파싱할 때 아이템 전체 파싱하기 (처음 파싱할 때 로딩시간 길어짐, 데이터 잡아먹음)
+* -> 스크롤 끝인거 인식해서 pageNo 이용해서 동적으로 파싱하기 (EndlessRecyclerView 이용)
 * */
 public class PlaceActivity extends AppCompatActivity {
     private String guCode, contentType, arrange, contentId;
