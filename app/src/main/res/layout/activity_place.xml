@@ -7,12 +7,26 @@
     android:orientation="vertical"
     tools:context=".PlaceActivity">
 
-    <TextView
-        android:id="@+id/temp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="검색"
-        android:textSize="23dp" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edittext_place_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.0"
+            android:hint="검색"
+            android:textSize="23dp" />
+        <Button
+            android:id="@+id/btn_place_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+    </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"

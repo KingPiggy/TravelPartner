@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,22 +41,29 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.NUM_OF_RO
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_AREACODE;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_AREA_BASED_LIST;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_SEARCH_KEYWORD;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
-
+/*
+* API에서 받아오는 서비스 areaCode, areaBasedList, searchKeyword
+* 1. 지역코드 조회하여 스피너에 뿌려줌
+* 2. 지역코드, 관광타입을 스피너에서 받아오고, 정렬기준에 따라 아이템을 RecyclerVIew에 뿌려줌
+* 3. EditText의 값을 키워드로 하여 아이템 검색
+* */
 public class PlaceActivity extends AppCompatActivity {
     private String guCode, contentType, arrange, contentId;
-    private int page;
     private String title, tel, addr1, thumbnail;
+    private int page;
     private Spinner mAreaSpinner, mContentTypeSpinner;
-    private Button mScrollBtn;
+    private Button mScrollBtn, mSearchBtn;
     private TextView mTitleArrange, mViewArrange; //버튼 셀렉터로 대체 가능
+    private EditText mSearchEditText;
     private ArrayList<String> guNameList;
-    private ArrayList<PlaceItem> items;
+    private ArrayList<PlaceItem> items = new ArrayList<PlaceItem>();
     private HashMap<String, String> guCodeMap;
-    private EndlessRecyclerViewScrollListener scrollListener;
-    private RecyclerAdapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, items, R.layout.activity_main);
     RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
+    LinearLayoutManager mLayoutManager;
+    EndlessRecyclerViewScrollListener scrollListener;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +73,10 @@ public class PlaceActivity extends AppCompatActivity {
         contentType = "";
         guCode = "";
         page = 1;
+
+        mSearchEditText = (EditText)findViewById(R.id.edittext_place_search);
+        mSearchBtn = (Button)findViewById(R.id.btn_place_search);
+        mSearchBtn.setOnClickListener(searchListener);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_place);
         mRecyclerView.setHasFixedSize(true);
@@ -87,16 +100,14 @@ public class PlaceActivity extends AppCompatActivity {
         PlaceItemParsing placeItemParsing = new PlaceItemParsing();
         placeItemParsing.execute(guCode, contentType, arrange, Integer.toString(page));
 
-
 //        scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
 //            @Override
 //            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                //1번
 //                new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
-//                recyclerAdapter.notifyDataSetChanged();
 //            }
 //        };
 
+        mRecyclerView.setAdapter(recyclerAdapter);
 //        mRecyclerView.addOnScrollListener(scrollListener);
         mRecyclerView.setNestedScrollingEnabled(false);
     }
@@ -115,6 +126,14 @@ public class PlaceActivity extends AppCompatActivity {
         mContentTypeSpinner.setOnItemSelectedListener(contentTypeSpinnerListener);
     }
 
+    View.OnClickListener searchListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String keyword = mSearchEditText.getText().toString();
+            Toast.makeText(getApplicationContext(), keyword, Toast.LENGTH_SHORT).show();
+            new SerachKeyword().execute(keyword);
+        }
+    };
 
     View.OnClickListener sortListener = new View.OnClickListener() {
         @Override
@@ -169,10 +188,7 @@ public class PlaceActivity extends AppCompatActivity {
                 contentType = strings[1];
                 arrange = strings[2];
                 page = strings[3];
-                Log.d("hoon", "doInBackground의 guCode : " + guCode);
-                Log.d("hoon", "doInBackground의 contentType : " + contentType);
-                Log.d("hoon", "doInBackground의 arrange : " + arrange);
-                Log.d("hoon", "doInBackground의 page : " + page);
+                items.clear();
 
                 URL areaBasedListURL = new URL(SERVICE_URL + SERVICE_AREA_BASED_LIST + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
                         + "&numOfRows=" + NUM_OF_ITEM + "&pageNo=" + page + "&arrange=" + arrange + "&contentTypeId=" + contentType + "&sigunguCode=" + guCode);
@@ -182,13 +198,13 @@ public class PlaceActivity extends AppCompatActivity {
                 // 지역기반 관광 정보 조회 파싱
                 parser.setInput(areaBasedListURL.openStream(), "UTF-8");
                 int parserEvent = parser.getEventType();
-                items = new ArrayList<PlaceItem>();
+
                 PlaceItem placeItem = null;
                 while (parserEvent != XmlPullParser.END_DOCUMENT) {
                     switch (parserEvent) {
                         case XmlPullParser.START_TAG:
                             String tag = parser.getName();
-                            if (tag.equals("item")){
+                            if (tag.equals("item")) {
                                 placeItem = new PlaceItem();
                             } else if (tag.equals("addr1")) {
                                 parser.next();
@@ -211,11 +227,10 @@ public class PlaceActivity extends AppCompatActivity {
                                 title = parser.getText();
                                 placeItem.setTitle(title);
                             }
-                            Log.d("hoon", "파싱 값 : " + title + tel + contentId);
                             break;
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
-                            if(endTag.equals("item")) {
+                            if (endTag.equals("item")) {
                                 items.add(placeItem);
                             }
                             break;
@@ -231,12 +246,10 @@ public class PlaceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
             super.onPostExecute(placeItems);
-            if(placeItems.isEmpty()){
-                //아이템 없다고 띄우기
+            if (placeItems.isEmpty()) {
                 items.add(new PlaceItem());
             }
-            recyclerAdapter = new RecyclerAdapter(getApplicationContext(), placeItems, R.layout.activity_main);
-            mRecyclerView.setAdapter(recyclerAdapter);
+            recyclerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -288,6 +301,77 @@ public class PlaceActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             initSpinner();
+        }
+    }
+
+    class SerachKeyword extends AsyncTask<String,String, ArrayList<PlaceItem>> {
+        @Override
+        protected ArrayList<PlaceItem> doInBackground(String... strings) {
+            try {
+                //keyword = URLEncoder.encode(strings[0], "UTF-8");
+                String keyword = strings[0];
+
+                items.clear();
+                Log.d("hoon", "인코딩한 keyword : " + keyword);
+                URL url = new URL(SERVICE_URL + SERVICE_SEARCH_KEYWORD + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
+                        + "&keyword=" + URLEncoder.encode(keyword, "UTF-8"));
+                Log.d("hoon", "URL" + url);
+                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+                XmlPullParser parser = parserCreator.newPullParser();
+                parser.setInput(url.openStream(), "UTF-8");
+                int parserEvent = parser.getEventType();
+
+                PlaceItem placeItem = null;
+                while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                    switch (parserEvent) {
+                        case XmlPullParser.START_TAG:
+                            String tag = parser.getName();
+                            if (tag.equals("item")) {
+                                placeItem = new PlaceItem();
+                            } else if (tag.equals("addr1")) {
+                                parser.next();
+                                addr1 = parser.getText();
+                                placeItem.setAddr(addr1);
+                            } else if (tag.equals("contentid")) {
+                                parser.next();
+                                contentId = parser.getText();
+                                placeItem.setContentId(contentId);
+                            } else if (tag.equals("firstimage2")) {
+                                parser.next();
+                                thumbnail = parser.getText();
+                                placeItem.setImage(thumbnail);
+                            } else if (tag.equals("tel")) {
+                                parser.next();
+                                tel = parser.getText();
+                                placeItem.setTel(tel);
+                            } else if (tag.equals("title")) {
+                                parser.next();
+                                title = parser.getText();
+                                placeItem.setTitle(title);
+                            }
+                            break;
+                        case XmlPullParser.END_TAG:
+                            String endTag = parser.getName();
+                            if (endTag.equals("item")) {
+                                items.add(placeItem);
+                            }
+                            break;
+                    }
+                    parserEvent = parser.next();
+                }
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            return items;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
+            super.onPostExecute(placeItems);
+            if (placeItems.isEmpty()) {
+                items.add(new PlaceItem());
+            }
+            recyclerAdapter.notifyDataSetChanged();
         }
     }
 }

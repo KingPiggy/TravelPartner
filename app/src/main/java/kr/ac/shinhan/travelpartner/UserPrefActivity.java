@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import static kr.ac.shinhan.travelpartner.MainActivity.PREFNAME;
-
+/*
+* 첫 설치 후 한 번만 실행되는 액티비티, 사용자 타입 설정
+* */
 public class UserPrefActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

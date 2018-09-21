@@ -41,14 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlaceItem item = items.get(holder.getAdapterPosition());
-        //d=get(position)
-        //URL 이미지 설정
-        Log.d("hoon", "어댑터에서 item 타이틀값 : " + item.getTitle());
-        Log.d("hoon", "어댑터에서 item 텔값 : " + item.getTel());
-        Log.d("hoon", "어댑터에서 item 주소값 : " + item.getAddr());
-        Log.d("hoon", "어댑터에서 item 이미지값 : " + item.getImage());
 
-        holder.mImage.setBackgroundColor(123);
         holder.mTitle.setText(item.getTitle());
         holder.mContentType.setText(item.getContentType());
         holder.mTel.setText(item.getTel());
