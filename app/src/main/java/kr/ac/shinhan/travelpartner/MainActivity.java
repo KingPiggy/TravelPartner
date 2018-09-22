@@ -7,11 +7,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
+
+import com.google.android.gms.maps.MapFragment;
+
+import kr.ac.shinhan.travelpartner.bottombar.BlankFragment;
+import kr.ac.shinhan.travelpartner.bottombar.BottomNavigationViewHelper;
+import kr.ac.shinhan.travelpartner.bottombar.HomeFragment;
+import kr.ac.shinhan.travelpartner.bottombar.MypageFragment;
+import kr.ac.shinhan.travelpartner.bottombar.SettionFragment;
+import kr.ac.shinhan.travelpartner.bottombar.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +32,19 @@ public class MainActivity extends AppCompatActivity {
     public static final int USERSETTINGS = 10000;
     public static final int PERMISSION_INTERNET = 100;
     public static final int PERMISSON_ACCESS_FINE_LOCATION = 200;
-    TabHost tabHost;
+    BottomNavigationView bottomNavigationView;
+    BlankFragment fragment;
+    HomeFragment homeFragment;
+    MapFragment mapFragment;
+    MypageFragment mypageFragment;
+    BlankFragment pathInfoFragment;
+    SettionFragment SettionFragment;
+
+    private ViewPager mainViewPager;
+    ViewPagerAdapter adapter;
+
+    int currentMenu;
+    MenuItem prevMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +54,57 @@ public class MainActivity extends AppCompatActivity {
         permission();
         isFirstTime();
 
+        mainViewPager = (ViewPager) findViewById(R.id.mainViewPager);
+        mainViewPager.setOffscreenPageLimit(5);
 
-        tabHost = (TabHost) findViewById(R.id.tapHost);
-
-        tabHost.setup();
-
-
-//        tabHost = getTabHost();
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
 
-//        TabHost.TabSpec tabSpec = tabHost.newTabSpec("Map2");
-//        tabSpec.setIndicator("Map");
-//        Context ctx = this.getApplicationContext();
-//        Intent i = new Intent(ctx, MapsActivity.class);
-//        tabSpec.setContent(i);
-//        tabHost.addTab(tabSpec);
-//        tabHost.addTab(tabHost.newTabSpec("Map2").setIndicator("Map").setContent(R.id.tab2));
-//        tabHost.setCurrentTab(0);
-//
+        currentMenu = R.id.action_home;
+        setupViewPager(mainViewPager);
+        prevMenuItem = bottomNavigationView.getMenu().getItem(0);
 
-        tabHost.addTab(tabHost.newTabSpec("Home").setContent(R.id.tab1).setIndicator("홈타이틀"));
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+                        currentMenu = R.id.action_home;
+                        mainViewPager.setCurrentItem(0);
+                        break;
+                    case R.id.action_Map:
+                        currentMenu = R.id.action_Map;
+                        mainViewPager.setCurrentItem(1);
+                        break;
+                    case R.id.action_Mypage:
+                        currentMenu = R.id.action_Mypage;
+                        mainViewPager.setCurrentItem(2);
+                        break;
+                    case R.id.action_settings:
+                        currentMenu = R.id.action_Mypage;
+                        mainViewPager.setCurrentItem(3);
+                        break;
+                }
+                return true;
+            }
+        });
+        mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        tabHost.addTab(tabHost.newTabSpec("MyPage")
-                .setIndicator("마이페이지")
-                .setContent(R.id.tab3));
+            }
+            @Override
+            public void onPageSelected(int position) {
+                currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -119,5 +171,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
         }
+    }
+    public void setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getFragmentManager());
+
+        homeFragment = new HomeFragment();
+        mapFragment = new MapFragment();
+        mypageFragment = new MypageFragment();
+        SettionFragment = new SettionFragment();
+        
+
+
+        adapter.addFragment(homeFragment);
+        adapter.addFragment( mapFragment);
+        adapter.addFragment(mypageFragment);
+        adapter.addFragment(SettionFragment);
+
+        viewPager.setAdapter(adapter);
     }
 }
