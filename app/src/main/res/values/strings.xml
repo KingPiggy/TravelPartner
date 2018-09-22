@@ -4,5 +4,8 @@
     <string name="default_info_title" />
     <string name="default_info_snippet" />
     <string name="option_get_place" />
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">Home</string>
+    <string name="title_Map">Map</string>
+    <string name="title_notifications">Notifications</string>
+
 </resources>

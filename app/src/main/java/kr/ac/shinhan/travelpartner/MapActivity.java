@@ -35,6 +35,8 @@ public class MapActivity extends AppCompatActivity implements MapView.POIItemEve
         mMapView.setPOIItemEventListener(this);
        // mMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.3358, 126.5840), true);
 
+
+        //getIntent(), 위도경도값 받아오기
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(37.5536067, 126.9696195);
         mMapView.setMapCenterPoint(mapPoint, true);
 
