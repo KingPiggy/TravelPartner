@@ -15,8 +15,6 @@
          location permissions for the 'MyLocation' functionality.
     -->
 
-
-
     <application
         android:name=".Font"
         android:allowBackup="false"
@@ -27,7 +25,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyARz3oGBFIi8M6r03yHbaRIYJ_eNWP8OVg" />
+            android:value="AIzaSyCMBP2B4Et9yJV-DUcFC6S_cBZChsUnuOU" />
 
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
@@ -37,11 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
         <activity android:name=".UserPrefActivity" />
         <activity android:name=".PlaceInfoActivity"/>
-        <activity android:name=".PlaceActivity"/>
+        <activity android:name=".PlaceActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 </manifest>

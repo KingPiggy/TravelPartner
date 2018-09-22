@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:id="@+id/tab1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6.0"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager_main_notice"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9.0"
+                android:overScrollMode="never" />
+
+            <com.android.woong.viewpagerindicator.custom.CircleAnimIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1.0"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/boundary" />
+        <!--주변 시설 검색 레이아웃-->
+        <LinearLayout
+            android:id="@+id/menu1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6.4"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="주변 시설 검색"
+                android:textColor="#1D1D1D"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_main_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:onClick="move"
+                    android:text="MAP" />
+
+                <Button
+                    android:id="@+id/btn_main_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="move"
+                    android:text="PLACE" />
+
+                <Button
+                    android:id="@+id/btn_main_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="move"
+                    android:text="info" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <!--경계선-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/boundary" />
+
+        <!--추천 관광지, 가까운 관광지-->
+        <LinearLayout
+            android:id="@+id/menu3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="추천 관광지" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="가까운 관광지" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8.5"
+                android:elevation="5dp">
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/boundary" />
+    </LinearLayout>
+</FrameLayout>

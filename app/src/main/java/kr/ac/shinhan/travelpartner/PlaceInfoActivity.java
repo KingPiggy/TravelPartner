@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
@@ -17,18 +16,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static kr.ac.shinhan.travelpartner.PlaceActivity.*;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.APPNAME;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.KEY;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_COMMON;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_INTRO;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
 public class PlaceInfoActivity extends AppCompatActivity {
-    public final String SERVICE_URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/";
-    public final String SERVICE_COMMON = "detailCommon?";
-    public final String OS = "AND";
-    public final String APPNAME = "TravelPartner";
-    public final String KEY = "OxP7Yce7jnNVFihdyT%2FAp4pC%2FPwXwQoQiKrQr%2Bc8kOaQs%2FXjPH8m2MzB6s3CzMAHh8HnJ2Cjw93kiYRmCPgZkA%3D%3D";
-    private TextView mHomepage, mModifiedTime, mTel, mTitle, mAddr, mOverview;
+    // 서비스 : 공통정보 조회, 소개정보 조회, 반복정보 조회, 이미지정보 조회(컨텐츠ID에 따라 상세이미지들), 무장애정보 조회
+    // 반복정보 조회 : 콘텐츠ID, 관광타입 ID 필수
+    // 이미지정보 조회 : 콘텐츠ID 조회
+    // 무장애정보 조회 : 콘텐츠ID 조회
+    private TextView mHomepage, mModifiedTime, mTel, mTitle, mAddr, mOverview, mContentTypeId;
     private ImageView image;
-    private String tag, contentId;
-    private String homepage, modifiedtime, tel, title, addr1, overview, firstimage;
+    private String tag, contentId, tempStr;
+    private String homepage, modifiedtime, tel, title, addr1, overview, firstimage, contentTypeId;
     private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle = (TextView)findViewById(R.id.tv_info_title);
         mAddr = (TextView)findViewById(R.id.tv_info_addr);
         mOverview = (TextView)findViewById(R.id.tv_info_overview);
+
         image = (ImageView)findViewById(R.id.iv_info_image);
 
         init();
@@ -54,15 +58,17 @@ public class PlaceInfoActivity extends AppCompatActivity {
             @Override
             public void run() {
                 setDetailCommon();
+                setDetailIntro();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mHomepage.setText(homepage);
-                        mModifiedTime.setText(modifiedtime);
+                        mModifiedTime.setText("최종 수정일 : " + modifiedtime);
                         mTel.setText(tel);
                         mTitle.setText(title);
                         mAddr.setText(addr1);
                         mOverview.setText(overview);
+                        mContentTypeId.setText(contentTypeId);
                         setImage();
                     }
                 });
@@ -72,8 +78,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
     public void setDetailCommon(){
         try {
-            URL url = new URL(SERVICE_URL + SERVICE_COMMON + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
-            "&contentId="+ contentId + "&defaultYN=Y" + "&firstImageYN=Y" + "&addrinfoYN=Y" + "&overviewYN=Y" );
+            URL url = new URL(SERVICE_URL + SERVICE_DETAIL_COMMON + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
+                    "&contentId="+ contentId + "&defaultYN=Y" + "&firstImageYN=Y" + "&addrinfoYN=Y" + "&overviewYN=Y" );
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
             parser.setInput(url.openStream(), "UTF-8");
@@ -90,11 +96,16 @@ public class PlaceInfoActivity extends AppCompatActivity {
                         }
                         else if(tag.equals("modifiedtime")){
                             parser.next();
-                            modifiedtime = parser.getText();
+                            tempStr = parser.getText().substring(0,7);
+                            modifiedtime = tempStr;
                         }
                         else if(tag.equals("tel")){
                             parser.next();
                             tel = parser.getText();
+                        }
+                        else if(tag.equals("contenttypeid")){
+                            parser.next();
+                            contentTypeId = parser.getText();
                         }
                         else if(tag.equals("title")){
                             parser.next();
@@ -126,6 +137,36 @@ public class PlaceInfoActivity extends AppCompatActivity {
         }
 
     }
+    public void setDetailIntro(){
+        try {
+            URL url = new URL(SERVICE_URL + SERVICE_DETAIL_INTRO + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
+                    "&contentId="+ contentId + "&contentTypeId=" + contentTypeId + "&introYN=Y");
+            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = parserCreator.newPullParser();
+            parser.setInput(url.openStream(), "UTF-8");
+            int parserEvent = parser.getEventType();
+            while(parserEvent != XmlPullParser.END_DOCUMENT){
+                switch (parserEvent){
+                    case XmlPullParser.START_TAG:
+                        tag = parser.getName();
+                        if(tag.equals("homepage")){
+                            parser.next();
+                            homepage = parser.getText();
+                        }
+                        else if(tag.equals("modifiedtime")) {
+                            parser.next();
+                            tempStr = parser.getText().substring(0, 7);
+                            modifiedtime = tempStr;
+                        }
+                        break;
+                }
+                parserEvent = parser.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     public void setImage(){
         Thread mThread = new Thread(){
             public void run(){
@@ -137,11 +178,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
                     InputStream is = conn.getInputStream();
                     bitmap = BitmapFactory.decodeStream(is);
-                    }
+                }
 
-                  catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }

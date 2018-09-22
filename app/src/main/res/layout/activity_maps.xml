@@ -6,4 +6,5 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:apiKey="AIzaSyARz3oGBFIi8M6r03yHbaRIYJ_eNWP8OVg"
     tools:context="kr.ac.shinhan.travelpartner.MapsActivity" />

@@ -26,7 +26,7 @@ allprojects {
 
 dependencies {
     implementation 'com.github.katoro:Typekit:1.0.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-media-compat:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
@@ -37,8 +37,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-  //  implementation 'gun0912.ted:tedpermission:1.0.2'
+    //  implementation 'gun0912.ted:tedpermission:1.0.2'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 
-
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.1'
 }
