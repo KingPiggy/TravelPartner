@@ -48,7 +48,6 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_U
 * 1. 지역코드 조회하여 스피너에 뿌려줌
 * 2. 지역코드, 관광타입을 스피너에서 받아오고, 정렬기준에 따라 아이템을 RecyclerVIew에 뿌려줌
 * 3. EditText의 값을 키워드로 하여 아이템 검색
-*
 * 해야될 것
 * PLACE 처음 들어왔을 때 RecyclerView 가장 첫 아이템 null 상태로 들어올 때가 생김 -> 원인??
 * 스크롤 끝까지 내렸을 때 다음 아이템 가져오기
@@ -253,7 +252,7 @@ public class PlaceActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
             super.onPostExecute(placeItems);
             if (placeItems.isEmpty()) {
-                items.add(new PlaceItem());
+                //items.add(new PlaceItem());
             }
             recyclerAdapter.notifyDataSetChanged();
         }
@@ -375,7 +374,7 @@ public class PlaceActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
             super.onPostExecute(placeItems);
             if (placeItems.isEmpty()) {
-                items.add(new PlaceItem());
+                //items.add(new PlaceItem());
             }
             recyclerAdapter.notifyDataSetChanged();
         }

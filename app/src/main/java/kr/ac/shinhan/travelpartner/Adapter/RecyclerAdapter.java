@@ -40,6 +40,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (getItemCount() <= 0 && position >= getItemCount()) {
+            return;
+        }
         PlaceItem item = items.get(holder.getAdapterPosition());
 
         holder.mTitle.setText(item.getTitle());
@@ -56,6 +59,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        if (items == null){
+            return 0;
+        }
         return this.items.size();
     }
 

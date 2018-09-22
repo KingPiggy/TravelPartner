@@ -33,7 +33,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:background="#f1f1f1" />
+                        android:background="@color/mainColor" />
                     <!--주변 시설 검색 레이아웃-->
                     <LinearLayout
                         android:id="@+id/menu1"
@@ -87,7 +87,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:background="#f1f1f1" />
+                        android:background="@color/mainColor" />
 
                     <!--추천 관광지, 가까운 관광지-->
                     <LinearLayout
@@ -131,7 +131,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="16dp"
-                        android:background="#f1f1f1" />
+                        android:background="@color/mainColor" />
 
 
                 </LinearLayout>

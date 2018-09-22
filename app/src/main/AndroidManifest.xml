@@ -15,8 +15,6 @@
          location permissions for the 'MyLocation' functionality.
     -->
 
-
-
     <application
         android:name=".Font"
         android:allowBackup="false"
