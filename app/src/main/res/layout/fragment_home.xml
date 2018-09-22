@@ -4,13 +4,29 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     >
-
         <LinearLayout
             android:id="@+id/tab1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:overScrollMode="never" />
+
+                <com.android.woong.viewpagerindicator.custom.CircleAnimIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true" />
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="16dp"

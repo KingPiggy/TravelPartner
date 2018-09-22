@@ -71,7 +71,6 @@ public class PlaceActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
-    EndlessRecyclerViewScrollListener scrollListener;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,15 +107,7 @@ public class PlaceActivity extends AppCompatActivity {
         PlaceItemParsing placeItemParsing = new PlaceItemParsing();
         placeItemParsing.execute(guCode, contentType, arrange, Integer.toString(page));
 
-//        scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
-//            }
-//        };
-
         mRecyclerView.setAdapter(recyclerAdapter);
-//        mRecyclerView.addOnScrollListener(scrollListener);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

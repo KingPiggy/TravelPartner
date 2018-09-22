@@ -33,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int PERMISSION_INTERNET = 100;
     public static final int PERMISSON_ACCESS_FINE_LOCATION = 200;
     BottomNavigationView bottomNavigationView;
-    BlankFragment fragment;
     HomeFragment homeFragment;
     MapFragment mapFragment;
     MypageFragment mypageFragment;
-    BlankFragment pathInfoFragment;
     SettionFragment SettionFragment;
 
     private ViewPager mainViewPager;
@@ -92,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
             @Override
             public void onPageSelected(int position) {
