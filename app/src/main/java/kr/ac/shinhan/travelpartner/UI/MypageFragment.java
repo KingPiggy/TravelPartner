@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner.bottombar;
+package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 
 import kr.ac.shinhan.travelpartner.R;
 
-public class HomeFragment extends Fragment {
+public class MypageFragment extends Fragment {
 
     View view;
 
-    public HomeFragment(){
+    public MypageFragment(){
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_info, container, false);
 
         return view;
     }

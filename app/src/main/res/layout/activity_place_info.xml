@@ -27,16 +27,10 @@
                 android:hint="타이틀" />
 
             <TextView
-                android:id="@+id/tv_info_contenttypeid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_info_title" />
-
-            <TextView
                 android:id="@+id/tv_info_homepage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_info_contenttypeid" />
+                android:layout_below="@id/tv_info_title" />
 
             <TextView
                 android:id="@+id/tv_info_modifiedtime"

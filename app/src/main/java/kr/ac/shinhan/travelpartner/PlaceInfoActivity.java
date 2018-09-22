@@ -47,7 +47,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle = (TextView)findViewById(R.id.tv_info_title);
         mAddr = (TextView)findViewById(R.id.tv_info_addr);
         mOverview = (TextView)findViewById(R.id.tv_info_overview);
-        mContentTypeId = (TextView)findViewById(R.id.tv_info_contenttypeid);
 
         image = (ImageView)findViewById(R.id.iv_info_image);
 

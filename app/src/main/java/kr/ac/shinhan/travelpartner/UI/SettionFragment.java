@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner.bottombar;
+package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
 import android.os.Bundle;
