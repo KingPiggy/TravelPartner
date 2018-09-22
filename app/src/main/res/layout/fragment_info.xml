@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_info_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="타이틀"/>
+            <ImageView
+                android:id="@+id/iv_info_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/tv_info_title"
+                />
+            <TextView
+                android:id="@+id/tv_info_homepage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_info_image"/>
+            <TextView
+                android:id="@+id/tv_info_modifiedtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info_homepage"/>
+            <TextView
+                android:id="@+id/tv_info_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info_modifiedtime"/>
+            <TextView
+                android:id="@+id/tv_info_addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info_tel"/>
+            <TextView
+                android:id="@+id/tv_info_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info_addr"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</FrameLayout>
