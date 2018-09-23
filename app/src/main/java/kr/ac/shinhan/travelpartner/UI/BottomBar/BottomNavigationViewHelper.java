@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner.bottombar;
+package kr.ac.shinhan.travelpartner.UI.BottomBar;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

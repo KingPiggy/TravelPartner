@@ -17,15 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.maps.MapFragment;
-
-import kr.ac.shinhan.travelpartner.Adapter.VpAdapter;
-import kr.ac.shinhan.travelpartner.UI.CircularViewPagerHandler;
-import kr.ac.shinhan.travelpartner.bottombar.BottomNavigationViewHelper;
+import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
+import kr.ac.shinhan.travelpartner.UI.BottomBar.ViewPagerAdapter;
+import kr.ac.shinhan.travelpartner.UI.FavoriteFragment;
 import kr.ac.shinhan.travelpartner.UI.HomeFragment;
-import kr.ac.shinhan.travelpartner.UI.MypageFragment;
-import kr.ac.shinhan.travelpartner.UI.SettionFragment;
-import kr.ac.shinhan.travelpartner.bottombar.ViewPagerAdapter;
+import kr.ac.shinhan.travelpartner.UI.MyPageFragment;
+import kr.ac.shinhan.travelpartner.UI.PlaceFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment;
-    MapFragment mapFragment;
-    MypageFragment mypageFragment;
-    SettionFragment SettionFragment;
+    PlaceFragment placeFragment;
+    FavoriteFragment favoriteFragment;
+    MyPageFragment myPageFragment;
 
     private ViewPager mainViewPager;
     ViewPagerAdapter adapter;
@@ -176,14 +173,14 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getFragmentManager());
 
         homeFragment = new HomeFragment();
-        mapFragment = new MapFragment();
-        mypageFragment = new MypageFragment();
-        SettionFragment = new SettionFragment();
+        placeFragment = new PlaceFragment();
+        favoriteFragment = new FavoriteFragment();
+        myPageFragment = new MyPageFragment();
 
         adapter.addFragment(homeFragment);
-        adapter.addFragment(mapFragment);
-        adapter.addFragment(mypageFragment);
-        adapter.addFragment(SettionFragment);
+        adapter.addFragment(placeFragment);
+        adapter.addFragment(favoriteFragment);
+        adapter.addFragment(myPageFragment);
 
         viewPager.setAdapter(adapter);
     }

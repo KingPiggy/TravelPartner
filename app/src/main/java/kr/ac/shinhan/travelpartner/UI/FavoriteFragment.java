@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 
 import kr.ac.shinhan.travelpartner.R;
 
-public class MypageFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     View view;
 
-    public MypageFragment(){
+    public FavoriteFragment(){
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_info, container, false);
+        view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         return view;
     }

@@ -1,21 +1,17 @@
 package kr.ac.shinhan.travelpartner.Adapter;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import kr.ac.shinhan.travelpartner.R;
 
-public class VpAdapter extends FragmentPagerAdapter {
+public class VpAdapter extends PagerAdapter {
     private int[] images = {R.drawable.brown, R.drawable.cony, R.drawable.edward
             , R.drawable.sally, R.drawable.yoon};
     private int[] pages;
@@ -23,26 +19,19 @@ public class VpAdapter extends FragmentPagerAdapter {
     private Context context;
     private int mCount;
 
-    public VpAdapter(android.support.v4.app.FragmentManager fm) {
-        super(fm);
-    }
 
 
-//    this.context = context;
-//    int actualNoOfIDs = images.length;
-//    mCount = actualNoOfIDs + 2;
-//    pages = new int[mCount];
-//
-//        for (int i = 0; i < actualNoOfIDs; i++) {
-//        pages[i + 1] = images[i];
-//    }
-//    pages[0] = images[actualNoOfIDs - 1];
-//    pages[mCount - 1] = images[0];
+    public VpAdapter(Context context) {
+        this.context = context;
+        int actualNoOfIDs = images.length;
+        mCount = actualNoOfIDs + 2;
+        pages = new int[mCount];
 
-    @Override
-    public Fragment getItem(int position) {
-
-        return null;
+        for (int i = 0; i < actualNoOfIDs; i++) {
+            pages[i + 1] = images[i];
+        }
+        pages[0] = images[actualNoOfIDs - 1];
+        pages[mCount - 1] = images[0];
     }
 
     public int getCount() {
@@ -54,7 +43,6 @@ public class VpAdapter extends FragmentPagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == ((View) object);
     }
-
 
     public Object instantiateItem(ViewGroup container, final int position) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
