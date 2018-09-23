@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0">
 
-                <com.android.woong.viewpagerindicator.custom.CircleAnimIndicator
+                <kr.ac.shinhan.travelpartner.UI.Indicator.CircleAnimIndicator
                     android:id="@+id/indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

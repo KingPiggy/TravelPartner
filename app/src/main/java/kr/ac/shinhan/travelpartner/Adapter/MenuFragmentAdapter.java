@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner.UI.BottomBar;
+package kr.ac.shinhan.travelpartner.Adapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -6,11 +6,11 @@ import android.app.FragmentManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends android.support.v13.app.FragmentStatePagerAdapter {
+public class MenuFragmentAdapter extends android.support.v13.app.FragmentStatePagerAdapter {
 
     public List<Fragment> mFragmentList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager manager) {
+    public MenuFragmentAdapter(FragmentManager manager) {
         super(manager);
     }
 

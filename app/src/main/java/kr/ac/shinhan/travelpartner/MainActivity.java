@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
-import kr.ac.shinhan.travelpartner.UI.BottomBar.ViewPagerAdapter;
+import kr.ac.shinhan.travelpartner.Adapter.MenuFragmentAdapter;
 import kr.ac.shinhan.travelpartner.UI.FavoriteFragment;
 import kr.ac.shinhan.travelpartner.UI.HomeFragment;
 import kr.ac.shinhan.travelpartner.UI.MyPageFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     MyPageFragment myPageFragment;
 
     private ViewPager mainViewPager;
-    ViewPagerAdapter adapter;
+    MenuFragmentAdapter adapter;
 
     int currentMenu;
     MenuItem prevMenuItem;
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter = new MenuFragmentAdapter(getFragmentManager());
 
         homeFragment = new HomeFragment();
         placeFragment = new PlaceFragment();

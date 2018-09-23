@@ -1,4 +1,4 @@
-package com.android.woong.viewpagerindicator.custom;
+package kr.ac.shinhan.travelpartner.UI.Indicator;
 
 import android.content.Context;
 import android.util.AttributeSet;

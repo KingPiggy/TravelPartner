@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner;
+package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Application;
 import com.tsengvn.typekit.Typekit;
