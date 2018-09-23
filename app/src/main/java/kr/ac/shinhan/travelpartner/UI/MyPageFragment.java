@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 
 import kr.ac.shinhan.travelpartner.R;
 
-public class MypageFragment extends Fragment {
+public class MyPageFragment extends Fragment {
 
     View view;
 
-    public MypageFragment(){
+    public MyPageFragment(){
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_info, container, false);
+        view = inflater.inflate(R.layout.fragment_my_page, container, false);
 
         return view;
     }

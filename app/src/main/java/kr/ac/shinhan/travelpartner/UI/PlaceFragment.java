@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import kr.ac.shinhan.travelpartner.R;
 
-public class SettionFragment extends Fragment {
+public class PlaceFragment extends Fragment {
 
     View view;
 
-    public SettionFragment(){
+    public PlaceFragment(){
 
     }
 

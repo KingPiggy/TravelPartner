@@ -1,4 +1,4 @@
-package kr.ac.shinhan.travelpartner.UI;
+package kr.ac.shinhan.travelpartner.UI.Indicator;
 
 import android.support.v4.view.ViewPager;
 
@@ -6,9 +6,9 @@ public class CircularViewPagerHandler implements ViewPager.OnPageChangeListener 
     private ViewPager mViewPager;
     private int mCurrentPosition;
     private int mScrollState;
-    com.android.woong.viewpagerindicator.custom.CircleAnimIndicator circleAnimIndicator;
+    CircleAnimIndicator circleAnimIndicator;
 
-    public CircularViewPagerHandler(final ViewPager viewPager, com.android.woong.viewpagerindicator.custom.CircleAnimIndicator circleAnimIndicator) {
+    public CircularViewPagerHandler(final ViewPager viewPager, CircleAnimIndicator circleAnimIndicator) {
         mViewPager = viewPager;
         this.circleAnimIndicator = circleAnimIndicator;
     }

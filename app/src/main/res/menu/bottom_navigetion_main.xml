@@ -10,22 +10,22 @@
     <item
         android:id="@+id/action_Map"
         android:enabled="true"
-        android:icon="@drawable/ic_map_black_24dp"
-        android:title="지도"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="장소 찾기"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_Mypage"
         android:enabled="true"
-        android:icon="@drawable/ic_android_black_24dp"
+        android:icon="@drawable/ic_star_black_24dp"
         android:title="즐겨찾기"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
         android:enabled="true"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="설정"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="마이페이지"
         app:showAsAction="ifRoom" />
 
 </menu>
