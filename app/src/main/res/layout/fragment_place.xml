@@ -32,7 +32,7 @@
                 android:id="@+id/btn_place_search"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignBottom="@id/edittext_place_search"
+                android:layout_marginTop="7dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/ic_search_black_24dp" />
 
@@ -58,7 +58,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3">
+                android:layout_weight="2">
 
                 <TextView
                     android:id="@+id/tv_place_arrange_title"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/sort_view"
                     android:textSize="14sp" />

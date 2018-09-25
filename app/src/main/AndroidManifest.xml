@@ -40,7 +40,6 @@
         </activity>
         <activity android:name=".UserPrefActivity" />
         <activity android:name=".PlaceInfoActivity" />
-        <activity android:name=".PlaceActivity" />
         <activity android:name=".MapActivity" />
     </application>
 

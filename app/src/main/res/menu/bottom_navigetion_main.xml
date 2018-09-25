@@ -8,21 +8,21 @@
         android:title="홈"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_Map"
+        android:id="@+id/action_place"
         android:enabled="true"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="장소 찾기"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_Mypage"
+        android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/ic_star_black_24dp"
         android:title="즐겨찾기"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_my_page"
         android:enabled="true"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="마이페이지"

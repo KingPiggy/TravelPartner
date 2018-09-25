@@ -72,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
                         currentMenu = R.id.action_home;
                         mainViewPager.setCurrentItem(0);
                         break;
-                    case R.id.action_Map:
-                        currentMenu = R.id.action_Map;
+                    case R.id.action_place:
+                        currentMenu = R.id.action_place;
                         mainViewPager.setCurrentItem(1);
                         break;
-                    case R.id.action_Mypage:
-                        currentMenu = R.id.action_Mypage;
+                    case R.id.action_favorites:
+                        currentMenu = R.id.action_favorites;
                         mainViewPager.setCurrentItem(2);
                         break;
-                    case R.id.action_settings:
-                        currentMenu = R.id.action_Mypage;
+                    case R.id.action_my_page:
+                        currentMenu = R.id.action_my_page;
                         mainViewPager.setCurrentItem(3);
                         break;
                 }
@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void permission() {
@@ -158,16 +157,12 @@ public class MainActivity extends AppCompatActivity {
     public void move(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.btn_main_place:
-                intent = new Intent(getApplicationContext(), PlaceActivity.class);
-                startActivity(intent);
-                break;
             case R.id.btn_main_info:
                 intent = new Intent(getApplicationContext(), PlaceInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_main_map:
-                intent = new Intent(getApplicationContext(),MapActivity.class);
+                intent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(intent);
                 break;
         }

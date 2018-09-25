@@ -3,12 +3,8 @@ package kr.ac.shinhan.travelpartner.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import kr.ac.shinhan.travelpartner.PlaceActivity;
 
 public class AreaSpinnerAdapter extends ArrayAdapter<String>{
     ArrayList<String> guNameList;
