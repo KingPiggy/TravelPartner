@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'mapkey'
+            keyPassword '232426'
+            storeFile file('C:/Users/qpyu6/tpmap.jks')
+            storePassword '232426'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "kr.ac.shinhan.travelpartner"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -44,5 +53,4 @@ dependencies {
     compile files('libs/libDaumMapAndroid.jar')
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v13:27.1.1'
-
 }
