@@ -25,11 +25,11 @@
             android:focusableInTouchMode="true"
             />
         <Button
+            android:id="@+id/temp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"/>
     </LinearLayout>
-
 
 
     <View

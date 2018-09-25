@@ -55,7 +55,7 @@
                     android:layout_alignLeft="@id/tv_placeitem_contenttype"
                     android:layout_below="@id/tv_placeitem_contenttype"
                     android:text="@string/ready_for_update"
-                    android:textSize="30dp" />
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:id="@+id/iv_placeitem_tel"

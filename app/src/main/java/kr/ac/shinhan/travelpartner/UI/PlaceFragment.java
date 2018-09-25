@@ -2,6 +2,8 @@ package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,10 @@ public class PlaceFragment extends Fragment {
     private HashMap<String, String> guCodeMap;
     private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getActivity(), items, R.layout.activity_main);
 
+    private boolean mLoading = false;
+
+    RecyclerView mRecyclerView;
+    LinearLayoutManager mLayoutManager;
 
     public PlaceFragment(){
 

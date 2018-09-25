@@ -72,7 +72,7 @@ public class PlaceActivity extends AppCompatActivity {
         page = 1;
 
         mSearchEditText = (EditText) findViewById(R.id.edittext_place_search);
-        mSearchBtn = (Button) findViewById(R.id.btn_place_search);
+        mSearchBtn = (Button) findViewById(R.id.temp);
         mSearchBtn.setOnClickListener(searchListener);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_place);
@@ -116,17 +116,6 @@ public class PlaceActivity extends AppCompatActivity {
         mRecyclerView.setNestedScrollingEnabled(false);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-    }
 
     public void initSpinner() {
         String[] contentTypeList = {"전체 타입", "관광지", "문화시설", "행사/공연/축제", "레포츠", "숙박", "쇼핑", "음식점"};
