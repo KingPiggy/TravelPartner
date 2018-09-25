@@ -1,7 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mainColor">
+
+            <EditText
+                android:id="@+id/edittext_place_search"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_toLeftOf="@id/btn_place_search"
+                android:background="#fff"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/search"
+                android:maxHeight="50dp"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/btn_place_search"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@id/edittext_place_search"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_search_black_24dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_place_area"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3" />
+
+            <Spinner
+                android:id="@+id/spinner_place_contenttype"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/tv_place_arrange_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tv_place_arrange_view"
+                    android:text="@string/sort_title"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_place_arrange_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/sort_view"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/boundary" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_place_scrollup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/mainColor"
+            android:src="@drawable/icon_floatingbtn_up" />
+
+    </LinearLayout>
 </FrameLayout>

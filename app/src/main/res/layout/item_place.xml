@@ -5,10 +5,9 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview_placeitem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         cardCornerRadius="5dp"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,16 +15,27 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_placeitem_thumbnail"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitXY" />
 
                 <TextView
                     android:id="@+id/tv_placeitem_contenttype"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:hint="#Content Type"
+                    android:layout_toRightOf="@id/iv_placeitem_thumbnail"
+                    android:layout_alignTop="@id/iv_placeitem_thumbnail"
+                    android:hint="#관광타입"
                     android:textColor="@color/mainColor"
                     android:textSize="14dp" />
 
@@ -34,50 +44,62 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/mainColor" />
+                    android:layout_marginRight="15dp"
+                    android:layout_alignTop="@id/tv_placeitem_contenttype"
+                    android:src="@drawable/ic_star_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/tv_placeitem_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_placeitem_contenttype"
+                    android:layout_below="@id/tv_placeitem_contenttype"
+                    android:text="@string/ready_for_update"
+                    android:textSize="30dp" />
+
+                <ImageView
+                    android:id="@+id/iv_placeitem_tel"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignLeft="@id/tv_placeitem_title"
+                    android:layout_below="@id/tv_placeitem_title"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_phone_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_placeitem_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_placeitem_tel"
+                    android:layout_toRightOf="@id/iv_placeitem_tel"
+                    android:text="@string/none_value"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/iv_placeitem_addr"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignLeft="@id/tv_placeitem_title"
+                    android:layout_below="@id/iv_placeitem_tel"
+                    android:src="@drawable/ic_place_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_placeitem_addr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_placeitem_addr"
+                    android:layout_toRightOf="@id/iv_placeitem_addr"
+                    android:text="@string/none_value"
+                    android:textSize="14dp" />
+
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_placeitem_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:hint="Title"
-                android:textSize="30dp" />
-
-            <ImageView
-                android:id="@+id/iv_placeitem_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/tv_placeitem_tel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:hint="Tel"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_placeitem_addr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Addr"
-                android:textSize="14dp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@color/mainColor" />
+                android:layout_height="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/boundary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,12 +109,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="15dp"
                     android:hint="평점이나 샾 무장애정보, 표시아이콘" />
             </LinearLayout>
         </LinearLayout>
-
-
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

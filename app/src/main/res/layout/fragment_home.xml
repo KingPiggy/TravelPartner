@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/menu1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8.0"
@@ -47,9 +48,8 @@
             android:layout_height="10dp"
             android:background="@color/boundary" />
 
-        <!--주변 시설 검색 레이아웃-->
         <LinearLayout
-            android:id="@+id/menu1"
+            android:id="@+id/menu2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6.0"
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="주변 시설 검색"
+                android:text="추천 관광지"
                 android:textColor="#1D1D1D"
                 android:textSize="14dp" />
 
@@ -96,13 +96,12 @@
 
             </LinearLayout>
         </LinearLayout>
-        <!--경계선-->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="@color/boundary" />
 
-        <!--추천 관광지, 가까운 관광지-->
         <LinearLayout
             android:id="@+id/menu3"
             android:layout_width="match_parent"
@@ -110,34 +109,15 @@
             android:layout_weight="6.0"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="추천 관광지" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="가까운 관광지" />
-
-            </LinearLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8.5"
-                android:elevation="5dp">
-
-            </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="리뷰"
+                android:textColor="#1D1D1D"
+                android:textSize="14dp" />
 
         </LinearLayout>
 

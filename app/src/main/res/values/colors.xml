@@ -3,9 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mainColor">#1088FF</color>
+    <color name="mainColor">#FAD956</color>
     <color name="boundary">#f1f1f1</color>
     <color name="bottomBar">#FAD956 </color>
+    <color name="floatingButton">#5677fa</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="spaceGray">#c0c5ce</color>

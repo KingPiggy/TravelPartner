@@ -31,7 +31,6 @@ import kr.ac.shinhan.travelpartner.Adapter.AreaSpinnerAdapter;
 import kr.ac.shinhan.travelpartner.Adapter.ContentTypeSpinnerAdapter;
 import kr.ac.shinhan.travelpartner.Adapter.RecyclerAdapter;
 import kr.ac.shinhan.travelpartner.Item.PlaceItem;
-import kr.ac.shinhan.travelpartner.Listener.EndlessRecyclerViewScrollListener;
 
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.APPNAME;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.AREA_CODE;
@@ -43,16 +42,7 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_A
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_AREA_BASED_LIST;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_SEARCH_KEYWORD;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
-/*
- * API에서 받아오는 서비스 areaCode, areaBasedList, searchKeyword
- * 1. 지역코드 조회하여 스피너에 뿌려줌
- * 2. 지역코드, 관광타입을 스피너에서 받아오고, 정렬기준에 따라 아이템을 RecyclerVIew에 뿌려줌
- * 3. EditText의 값을 키워드로 하여 아이템 검색
- * 해야될 것
- * 스크롤 끝까지 내렸을 때 다음 아이템 가져오기
- * -> 파싱할 때 아이템 전체 파싱하기 (처음 파싱할 때 로딩시간 길어짐, 데이터 잡아먹음)
- * -> 스크롤 끝인거 인식해서 pageNo 이용해서 동적으로 파싱하기 (EndlessRecyclerView 이용)
- * */
+
 public class PlaceActivity extends AppCompatActivity {
     private String guCode, contentType, arrange, contentId;
     private String title, tel, addr1, thumbnail;
@@ -81,8 +71,8 @@ public class PlaceActivity extends AppCompatActivity {
         guCode = "";
         page = 1;
 
-        mSearchEditText = (EditText)findViewById(R.id.edittext_place_search);
-        mSearchBtn = (Button)findViewById(R.id.btn_place_search);
+        mSearchEditText = (EditText) findViewById(R.id.edittext_place_search);
+        mSearchBtn = (Button) findViewById(R.id.btn_place_search);
         mSearchBtn.setOnClickListener(searchListener);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_place);
@@ -156,7 +146,6 @@ public class PlaceActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             String keyword = mSearchEditText.getText().toString();
-            Toast.makeText(getApplicationContext(), keyword, Toast.LENGTH_SHORT).show();
             new SerachKeyword().execute(keyword);
         }
     };
@@ -333,7 +322,7 @@ public class PlaceActivity extends AppCompatActivity {
         }
     }
 
-    class SerachKeyword extends AsyncTask<String,String, ArrayList<PlaceItem>> {
+    class SerachKeyword extends AsyncTask<String, String, ArrayList<PlaceItem>> {
         @Override
         protected ArrayList<PlaceItem> doInBackground(String... strings) {
             try {
@@ -377,7 +366,8 @@ public class PlaceActivity extends AppCompatActivity {
                                 parser.next();
                                 title = parser.getText();
                                 placeItem.setTitle(title);
-                                break;                            }
+                                break;
+                            }
 
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();

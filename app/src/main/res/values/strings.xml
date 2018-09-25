@@ -8,4 +8,9 @@
     <string name="title_Map">Map</string>
     <string name="title_notifications">Notifications</string>
     <string name="hello_blank_fragment">d</string>
+    <string name="search">검색</string>
+    <string name="sort_title">제목순</string>
+    <string name="sort_view">조회순</string>
+    <string name="none_value">없음</string>
+    <string name="ready_for_update">준비중입니다.</string>
 </resources>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#FAD956"
     tools:context=".SplashActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="TravelPartner"
-        android:textSize="40dp"
-        android:textColor="#FFB6C1"/>
+        android:textSize="50dp"
+        android:textColor="#FFF"/>
 
 </RelativeLayout>
