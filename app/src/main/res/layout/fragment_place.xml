@@ -67,7 +67,9 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/tv_place_arrange_view"
                     android:text="@string/sort_title"
-                    android:textSize="14sp" />
+                    android:textSize="13dp"
+                    android:textColor="@color/cobaltblue"
+                    />
 
                 <TextView
                     android:id="@+id/tv_place_arrange_view"
@@ -78,7 +80,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/sort_view"
-                    android:textSize="14sp" />
+                    android:textSize="12dp" />
 
             </RelativeLayout>
         </LinearLayout>

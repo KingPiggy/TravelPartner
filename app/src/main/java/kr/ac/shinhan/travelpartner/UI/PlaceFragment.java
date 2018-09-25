@@ -1,6 +1,8 @@
 package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -50,12 +52,11 @@ public class PlaceFragment extends Fragment {
     View view;
     private String guCode, contentType, arrange, contentId;
     private String title, tel, addr1, thumbnail;
-
     private int page;
     private Spinner mAreaSpinner, mContentTypeSpinner;
     private Button mSearchBtn;
     private FloatingActionButton mScrollBtn;
-    private TextView mTitleArrange, mViewArrange; //버튼 셀렉터로 대체 가능
+    private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
     private ArrayList<String> guNameList;
     private ArrayList<PlaceItem> items = new ArrayList<PlaceItem>();
@@ -91,6 +92,8 @@ public class PlaceFragment extends Fragment {
 
         mTitleArrange = (TextView) view.findViewById(R.id.tv_place_arrange_title);
         mViewArrange = (TextView) view.findViewById(R.id.tv_place_arrange_view);
+        mTitleArrange.setPaintFlags(mTitleArrange.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mViewArrange.setPaintFlags(mViewArrange.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         mTitleArrange.setOnClickListener(sortListener);
         mViewArrange.setOnClickListener(sortListener);
 
@@ -128,7 +131,7 @@ public class PlaceFragment extends Fragment {
     }
 
     public void initSpinner() {
-        String[] contentTypeList = {"전체 타입", "관광지", "문화시설", "레포츠", "숙박", "쇼핑", "음식점"};
+        String[] contentTypeList = {"장소 유형", "관광지", "문화시설", "레포츠", "숙박", "쇼핑", "음식점"};
 
         mAreaSpinner = view.findViewById(R.id.spinner_place_area);
         AreaSpinnerAdapter mAreaSpinnerAdapter = new AreaSpinnerAdapter(this.getActivity(), android.R.layout.simple_spinner_item, guNameList);
@@ -155,10 +158,18 @@ public class PlaceFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.tv_place_arrange_title:
                     arrange = "O";
+                    mTitleArrange.setTextSize(13);
+                    mTitleArrange.setTextColor(Color.parseColor("#00498c"));
+                    mViewArrange.setTextSize(12);
+                    mViewArrange.setTextColor(Color.parseColor("#000000"));
                     new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
                     break;
                 case R.id.tv_place_arrange_view:
                     arrange = "P";
+                    mViewArrange.setTextSize(13);
+                    mViewArrange.setTextColor(Color.parseColor("#00498c"));
+                    mTitleArrange.setTextSize(12);
+                    mTitleArrange.setTextColor(Color.parseColor("#000000"));
                     new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
                     break;
             }
