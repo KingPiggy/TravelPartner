@@ -1,7 +1,10 @@
 package kr.ac.shinhan.travelpartner.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     Context context;
     ArrayList<PlaceItem> items;
     int itemLayout;
-
+    Bitmap bitmap;
     public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
         this.context = context;
         this.items = items;
@@ -44,22 +52,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             return;
         }
         PlaceItem item = items.get(holder.getAdapterPosition());
-
         holder.mTitle.setText(item.getTitle());
         holder.mContentType.setText(item.getContentType());
         holder.mTel.setText(item.getTel());
         holder.mAddr.setText(item.getAddr());
+        //Picasso.with(context).load(item.getUrl_image()).resize(40, 40).into(holder.clanImage);
+        Picasso.get().load(item.getImage()).into(holder.mImage);
+
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
 //            }
 //        });
+
     }
 
     @Override
     public int getItemCount() {
-        if (items == null){
+        if (items == null) {
             return 0;
         }
         return this.items.size();
@@ -81,3 +92,4 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 }
+

@@ -61,6 +61,7 @@ public class PlaceFragment extends Fragment {
     private ArrayList<String> guNameList;
     private ArrayList<PlaceItem> items = new ArrayList<PlaceItem>();
     private HashMap<String, String> guCodeMap;
+    private UISetting uiSetting = new UISetting();
     private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getActivity(), items, R.layout.activity_main);
 
     private boolean mLoading = false;
@@ -239,6 +240,11 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 contentId = parser.getText();
                                 placeItem.setContentId(contentId);
+                            } else if (tag.equals("contenttypeid")) {
+                                parser.next();
+                                contentType = parser.getText();
+                                contentType = uiSetting.setContentTypeId(contentType);
+                                placeItem.setContentType(contentType);
                             } else if (tag.equals("firstimage2")) {
                                 parser.next();
                                 thumbnail = parser.getText();
@@ -364,6 +370,11 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 contentId = parser.getText();
                                 placeItem.setContentId(contentId);
+                            }  else if (tag.equals("contenttypeid")) {
+                                parser.next();
+                                contentType = parser.getText();
+                                contentType = uiSetting.setContentTypeId(contentType);
+                                placeItem.setContentType(contentType);
                             } else if (tag.equals("firstimage2")) {
                                 parser.next();
                                 thumbnail = parser.getText();
@@ -382,7 +393,7 @@ public class PlaceFragment extends Fragment {
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
                             if (endTag.equals("item")) {
-                                items.add(placeItem);
+
                             }
                             break;
                     }

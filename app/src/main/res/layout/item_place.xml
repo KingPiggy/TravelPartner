@@ -57,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/tv_placeitem_contenttype"
                     android:layout_below="@id/tv_placeitem_contenttype"
+                    android:layout_marginTop="7dp"
                     android:text="@string/ready_for_update"
                     android:textSize="20dp" />
 
@@ -66,7 +67,7 @@
                     android:layout_height="18dp"
                     android:layout_alignLeft="@id/tv_placeitem_title"
                     android:layout_below="@id/tv_placeitem_title"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="25dp"
                     android:src="@drawable/ic_phone_black_24dp" />
 
                 <TextView

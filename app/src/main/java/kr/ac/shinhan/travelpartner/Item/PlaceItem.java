@@ -6,14 +6,6 @@ public class PlaceItem {
     public PlaceItem() {
     }
 
-    public PlaceItem(String contentType, String title, String tel, String addr, String image) {
-        this.contentType = contentType;
-        this.title = title;
-        this.tel = tel;
-        this.addr = addr;
-        this.image = image;
-    }
-
     public String getContentId() {
         return contentId;
     }

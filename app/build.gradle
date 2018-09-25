@@ -53,4 +53,6 @@ dependencies {
     compile files('libs/libDaumMapAndroid.jar')
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v13:27.1.1'
+    //URL image 로딩
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
