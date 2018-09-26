@@ -9,6 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -26,13 +32,14 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_INTRO;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
-public class PlaceInfoActivity extends AppCompatActivity {
+public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback{
     private PlaceItem placeItem;
     private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
     private double lat, lon;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,31 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        Intent intent = getIntent();
+        lat = intent.getDoubleExtra("latitude", 0);  //위도
+        lon = intent.getDoubleExtra("longitude", 0); //경도
+        title = intent.getStringExtra("title");
+        Log.d("Bae","title : " + title);
+        Log.d("Bae","lat : " + lat);
+        Log.d("Bae","lon : " + lon);
+
+        LatLng seoul = new LatLng(lat, lon);
+        MarkerOptions makerOptions = new MarkerOptions();
+        makerOptions
+                .position(seoul)
+                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.");
+        mMap.addMarker(makerOptions);
+
+        //카메라를 여의도 위치로 옮긴다.
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
     }
 
 //    class PlaceInfoParsing extends AsyncTask<String, String, PlaceItem> {
