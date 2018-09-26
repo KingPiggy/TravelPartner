@@ -13,7 +13,7 @@ public class ServiceDefinition {
     public static final String APPNAME = "TravelPartner";
     public static final String AREA_CODE = "1"; // 서울의 지역코드
     public static final String NUM_OF_ROWS = "30";
-    public static final String NUM_OF_ITEM = "10";
+    public static final String NUM_OF_ITEM = "1000";
     public static final String KEY = "hm0Xm5tGo0Inj8Z9yWxp%2Fc7Jx1T1isdFAPUx1pUas7GVryJG3nforJjBnCGddcSv%2BRXS95cVjO2CSrtxDRq4SQ%3D%3D";
 
 }

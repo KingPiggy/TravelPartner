@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,9 +53,10 @@ public class PlaceFragment extends Fragment {
     View view;
     private String guCode, contentType, arrange, contentId;
     private String title, tel, addr1, thumbnail;
-    private int page;
+    private double latitude, longitude;
     private Spinner mAreaSpinner, mContentTypeSpinner;
     private Button mSearchBtn;
+    private ProgressBar mProgressBar;
     private FloatingActionButton mScrollBtn;
     private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
@@ -63,8 +65,6 @@ public class PlaceFragment extends Fragment {
     private HashMap<String, String> guCodeMap;
     private UISetting uiSetting = new UISetting();
     private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getActivity(), items, R.layout.activity_main);
-
-    private boolean mLoading = false;
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -80,8 +80,8 @@ public class PlaceFragment extends Fragment {
         arrange = "O";
         contentType = "";
         guCode = "";
-        page = 1;
 
+        mProgressBar = (ProgressBar)view.findViewById(R.id.progressbar_place_progress);
         mSearchEditText = (EditText) view.findViewById(R.id.edittext_place_search);
         mSearchBtn = (Button) view.findViewById(R.id.btn_place_search);
         mSearchBtn.setOnClickListener(searchListener);
@@ -108,24 +108,9 @@ public class PlaceFragment extends Fragment {
 
         new AreaCode().execute();
         PlaceItemParsing placeItemParsing = new PlaceItemParsing();
-        placeItemParsing.execute(guCode, contentType, arrange, Integer.toString(page));
+        placeItemParsing.execute(guCode, contentType, arrange);
 
         mRecyclerView.setAdapter(recyclerAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int totalItem = mLayoutManager.getItemCount();
-                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-
-                if (!mLoading && lastVisibleItem == totalItem - 1) {
-                    mLoading = true;
-                    page++;
-                    new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
-                }
-            }
-        });
         mRecyclerView.setNestedScrollingEnabled(false);
 
         return view;
@@ -163,7 +148,7 @@ public class PlaceFragment extends Fragment {
                     mTitleArrange.setTextColor(Color.parseColor("#00498c"));
                     mViewArrange.setTextSize(12);
                     mViewArrange.setTextColor(Color.parseColor("#000000"));
-                    new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
+                    new PlaceItemParsing().execute(guCode, contentType, arrange);
                     break;
                 case R.id.tv_place_arrange_view:
                     arrange = "P";
@@ -171,7 +156,7 @@ public class PlaceFragment extends Fragment {
                     mViewArrange.setTextColor(Color.parseColor("#00498c"));
                     mTitleArrange.setTextSize(12);
                     mTitleArrange.setTextColor(Color.parseColor("#000000"));
-                    new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
+                    new PlaceItemParsing().execute(guCode, contentType, arrange);
                     break;
             }
         }
@@ -182,8 +167,7 @@ public class PlaceFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String guName = guNameList.get(position);
             guCode = guCodeMap.get(guName);
-            Toast.makeText(getActivity(), "guCode : " + guCode, Toast.LENGTH_SHORT).show();
-            new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
+            new PlaceItemParsing().execute(guCode, contentType, arrange);
         }
 
         @Override
@@ -196,8 +180,7 @@ public class PlaceFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String[] contentTypeList = {"", "12", "14", "28", "32", "38", "39"};
             contentType = contentTypeList[position];
-            Toast.makeText(getActivity(), "contentType : " + contentType, Toast.LENGTH_SHORT).show();
-            new PlaceItemParsing().execute(guCode, contentType, arrange, Integer.toString(page));
+            new PlaceItemParsing().execute(guCode, contentType, arrange);
         }
 
         @Override
@@ -206,6 +189,13 @@ public class PlaceFragment extends Fragment {
     };
 
     class PlaceItemParsing extends AsyncTask<String, String, ArrayList<PlaceItem>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected ArrayList<PlaceItem> doInBackground(String... strings) {
             try {
@@ -213,11 +203,10 @@ public class PlaceFragment extends Fragment {
                 guCode = strings[0];
                 contentType = strings[1];
                 arrange = strings[2];
-                page = strings[3];
                 items.clear();
 
                 URL areaBasedListURL = new URL(SERVICE_URL + SERVICE_AREA_BASED_LIST + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
-                        + "&numOfRows=" + NUM_OF_ITEM + "&pageNo=" + page + "&arrange=" + arrange + "&contentTypeId=" + contentType + "&sigunguCode=" + guCode);
+                        + "&numOfRows=" + NUM_OF_ITEM + "&arrange=" + arrange + "&contentTypeId=" + contentType + "&sigunguCode=" + guCode);
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
 
@@ -249,6 +238,14 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 thumbnail = parser.getText();
                                 placeItem.setImage(thumbnail);
+                            } else if (tag.equals("mapx")) {
+                                parser.next();
+                                latitude = Double.parseDouble(parser.getText());
+                                placeItem.setLatitude(latitude);
+                            } else if (tag.equals("mapy")) {
+                                parser.next();
+                                longitude = Double.parseDouble(parser.getText());
+                                placeItem.setLongitude(longitude);
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
@@ -280,10 +277,9 @@ public class PlaceFragment extends Fragment {
             if (placeItems.isEmpty()) {
                 //items.add(new PlaceItem());
             }
-            mLoading = false;
-            mRecyclerView.getRecycledViewPool().clear();
-            //mLayoutManager.scrollToPositionWithOffset(0,0);
             recyclerAdapter.notifyDataSetChanged();
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 

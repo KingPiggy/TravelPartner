@@ -1,6 +1,7 @@
 package kr.ac.shinhan.travelpartner.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -26,13 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.shinhan.travelpartner.Item.PlaceItem;
+import kr.ac.shinhan.travelpartner.PlaceInfoActivity;
 import kr.ac.shinhan.travelpartner.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     Context context;
     ArrayList<PlaceItem> items;
     int itemLayout;
-    Bitmap bitmap;
+    double lat, lon;
+    String contentId;
     public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
         this.context = context;
         this.items = items;
@@ -56,15 +59,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.mContentType.setText(item.getContentType());
         holder.mTel.setText(item.getTel());
         holder.mAddr.setText(item.getAddr());
-        //Picasso.with(context).load(item.getUrl_image()).resize(40, 40).into(holder.clanImage);
+        lat = item.getLatitude();
+        lon = item.getLongitude();
+        contentId = item.getContentId();
         Picasso.get().load(item.getImage()).into(holder.mImage);
-
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            Intent intent;
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(v.getContext(), PlaceInfoActivity.class);
+                intent.putExtra("latitude", lat);
+                intent.putExtra("longitude", lon);
+                intent.putExtra("contentid", contentId);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 

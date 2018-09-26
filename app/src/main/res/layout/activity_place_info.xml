@@ -13,66 +13,42 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_info_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
             <TextView
                 android:id="@+id/tv_info_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
+                android:layout_below="@id/iv_info_image"
                 android:hint="타이틀" />
 
-            <LinearLayout
-                android:id="@+id/tv_icon_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/tv_info_title">
-            </LinearLayout>
-
-
-
-            <ImageView
-                android:id="@+id/iv_info_image"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_below="@id/tv_icon_layout" />
-
             <TextView
-                android:id="@+id/tv_info_addr"
+                android:id="@+id/tv_info_contenttypeid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/iv_info_image"
-                android:layout_below="@id/tv_icon_layout"
-                android:text="주소입력창"/>
+                android:layout_below="@id/tv_info_title" />
 
             <TextView
                 android:id="@+id/tv_info_tel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/iv_info_image"
-                android:layout_below="@id/tv_info_addr"
-                android:text="모양: 010-9489-5187"/>
+                android:layout_below="@id/tv_info_contenttypeid" />
 
-            <Button
-                android:id="@+id/tv_info_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/iv_info_image"
-                android:layout_above="@id/tv_info_favorite"
-                android:text="정보 더보기"/>
-            <Button
-                android:id="@+id/tv_info_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/iv_info_image"
-                android:text="즐겨찾기"/>
-            <ImageView
-                android:id="@+id/tv_info_map"
+            <TextView
+                android:id="@+id/tv_info_addr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_info_favorite" />
+                android:layout_below="@id/tv_info_tel" />
+
+            <TextView
+                android:id="@+id/tv_info_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info_addr" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

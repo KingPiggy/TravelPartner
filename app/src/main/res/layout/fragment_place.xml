@@ -32,8 +32,8 @@
                 android:id="@+id/btn_place_search"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="7dp"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/ic_search_black_24dp" />
 
         </RelativeLayout>
@@ -67,9 +67,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/tv_place_arrange_view"
                     android:text="@string/sort_title"
-                    android:textSize="13dp"
                     android:textColor="@color/cobaltblue"
-                    />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/tv_place_arrange_view"
@@ -90,11 +89,24 @@
             android:layout_height="10dp"
             android:background="@color/boundary" />
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_place"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+            <ProgressBar
+                android:id="@+id/progressbar_place_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressBackgroundTint="@color/cobaltblue"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_place_scrollup"
