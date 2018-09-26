@@ -119,7 +119,13 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="08:00~18:00"/>
-
+                <fragment
+                    android:id="@+id/map_info"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    class="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_below="@id/iv_info_opentime"
+                    />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -26,13 +31,14 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_INTRO;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
-public class PlaceInfoActivity extends AppCompatActivity {
+public class PlaceInfoActivity extends AppCompatActivity  implements OnMapReadyCallback {
     private PlaceItem placeItem;
     private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
     private double lat, lon;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,15 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
 //    class PlaceInfoParsing extends AsyncTask<String, String, PlaceItem> {
