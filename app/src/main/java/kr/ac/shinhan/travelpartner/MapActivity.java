@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class MapActivity extends AppCompatActivity implements MapView.POIItemEve
 
         //getIntent(), 위도경도값 받아오기
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(37.5536067, 126.9696195);
+        Log.d("hoon", "위도 경도 : ");
         mMapView.setMapCenterPoint(mapPoint, true);
 
         MapPOIItem marker = new MapPOIItem();

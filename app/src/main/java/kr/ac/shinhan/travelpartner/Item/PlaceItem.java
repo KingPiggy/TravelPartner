@@ -1,8 +1,8 @@
 package kr.ac.shinhan.travelpartner.Item;
 
 public class PlaceItem {
-    String contentType, title, tel, addr, contentId, image;
-    double latitude, longitude;
+    private String contentType, title, tel, addr, contentId, thumbnail, image;
+    private double latitude, longitude;
     public PlaceItem() {
     }
 
@@ -46,12 +46,12 @@ public class PlaceItem {
         this.addr = addr;
     }
 
-    public String getImage() {
-        return image;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public double getLatitude() {
@@ -68,5 +68,13 @@ public class PlaceItem {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

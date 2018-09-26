@@ -80,13 +80,6 @@
                     android:onClick="move"
                     android:text="MAP" />
 
-                <Button
-                    android:id="@+id/btn_main_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="move"
-                    android:text="info" />
-
             </LinearLayout>
         </LinearLayout>
 

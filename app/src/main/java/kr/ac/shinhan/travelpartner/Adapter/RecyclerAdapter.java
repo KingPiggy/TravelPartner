@@ -2,29 +2,19 @@ package kr.ac.shinhan.travelpartner.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.location.places.Place;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import kr.ac.shinhan.travelpartner.Item.PlaceItem;
 import kr.ac.shinhan.travelpartner.PlaceInfoActivity;
@@ -35,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     ArrayList<PlaceItem> items;
     int itemLayout;
     double lat, lon;
-    String contentId;
+    String contentId, image, contentTypeId, title, tel, addr;
     public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
         this.context = context;
         this.items = items;
@@ -48,33 +38,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place, null);
         return new ViewHolder(v);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemCount() <= 0 && position >= getItemCount()) {
             return;
         }
         PlaceItem item = items.get(holder.getAdapterPosition());
+        holder.cardView.setTag(position);
         holder.mTitle.setText(item.getTitle());
         holder.mContentType.setText(item.getContentType());
         holder.mTel.setText(item.getTel());
         holder.mAddr.setText(item.getAddr());
-        lat = item.getLatitude();
-        lon = item.getLongitude();
-        contentId = item.getContentId();
-        Picasso.get().load(item.getImage()).into(holder.mImage);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            Intent intent;
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(v.getContext(), PlaceInfoActivity.class);
-                intent.putExtra("latitude", lat);
-                intent.putExtra("longitude", lon);
-                intent.putExtra("contentid", contentId);
-                v.getContext().startActivity(intent);
-            }
-        });
-
+        Picasso.get().load(item.getThumbnail()).into(holder.mImage);
     }
 
     @Override
@@ -85,19 +60,48 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return this.items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mContentType, mTitle, mTel, mAddr;
         ImageView mImage;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            cardView = (CardView)itemView.findViewById(R.id.cardview_placeitem);
+            cardView.setOnClickListener(this);
             mContentType = (TextView) itemView.findViewById(R.id.tv_placeitem_contenttype);
             mTitle = (TextView) itemView.findViewById(R.id.tv_placeitem_title);
             mTel = (TextView) itemView.findViewById(R.id.tv_placeitem_tel);
             mAddr = (TextView) itemView.findViewById(R.id.tv_placeitem_addr);
             mImage = (ImageView) itemView.findViewById(R.id.iv_placeitem_thumbnail);
             cardView = (CardView) itemView.findViewById(R.id.cardview_placeitem);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = (int)v.getTag();
+            PlaceItem item = items.get(position);
+            Intent intent = new Intent(v.getContext(), PlaceInfoActivity.class);
+
+            lat = item.getLatitude();
+            lon = item.getLongitude();
+            contentId = item.getContentId();
+            contentTypeId = item.getContentType();
+            image = item.getImage();
+            title = item.getTitle();
+            tel = item.getTel();
+            addr = item.getAddr();
+
+            intent.putExtra("latitude", lat);
+            intent.putExtra("longitude", lon);
+            intent.putExtra("contentid", contentId);
+            intent.putExtra("contentTypeId", contentTypeId);
+            intent.putExtra("image", image);
+            intent.putExtra("title", title);
+            intent.putExtra("tel", tel);
+            intent.putExtra("addr", addr);
+
+            v.getContext().startActivity(intent);
         }
     }
 }

@@ -157,10 +157,6 @@ public class MainActivity extends AppCompatActivity {
     public void move(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.btn_main_info:
-                intent = new Intent(getApplicationContext(), PlaceInfoActivity.class);
-                startActivity(intent);
-                break;
             case R.id.btn_main_map:
                 intent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(intent);

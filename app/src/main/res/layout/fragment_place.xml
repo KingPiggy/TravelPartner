@@ -83,7 +83,13 @@
 
             </RelativeLayout>
         </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_place_scrollup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/mainColor"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
@@ -91,7 +97,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_place"
@@ -105,16 +111,6 @@
                 android:layout_height="wrap_content"
                 android:progressBackgroundTint="@color/cobaltblue"
                 android:layout_centerInParent="true"/>
-
         </RelativeLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_place_scrollup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:backgroundTint="@color/mainColor"
-            android:src="@drawable/icon_floatingbtn_up" />
-
     </LinearLayout>
 </FrameLayout>

@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -52,12 +51,12 @@ public class PlaceFragment extends Fragment {
 
     View view;
     private String guCode, contentType, arrange, contentId;
-    private String title, tel, addr1, thumbnail;
+    private String title, tel, addr1, thumbnail, image;
     private double latitude, longitude;
     private Spinner mAreaSpinner, mContentTypeSpinner;
     private Button mSearchBtn;
     private ProgressBar mProgressBar;
-    private FloatingActionButton mScrollBtn;
+    private Button mScrollBtn;
     private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
     private ArrayList<String> guNameList;
@@ -98,7 +97,7 @@ public class PlaceFragment extends Fragment {
         mTitleArrange.setOnClickListener(sortListener);
         mViewArrange.setOnClickListener(sortListener);
 
-        mScrollBtn = (FloatingActionButton) view.findViewById(R.id.btn_place_scrollup);
+        mScrollBtn = (Button) view.findViewById(R.id.btn_place_scrollup);
         mScrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,10 +233,14 @@ public class PlaceFragment extends Fragment {
                                 contentType = parser.getText();
                                 contentType = uiSetting.setContentTypeId(contentType);
                                 placeItem.setContentType(contentType);
+                            } else if (tag.equals("firstimage")) {
+                                parser.next();
+                                image = parser.getText();
+                                placeItem.setImage(image);
                             } else if (tag.equals("firstimage2")) {
                                 parser.next();
                                 thumbnail = parser.getText();
-                                placeItem.setImage(thumbnail);
+                                placeItem.setThumbnail(thumbnail);
                             } else if (tag.equals("mapx")) {
                                 parser.next();
                                 latitude = Double.parseDouble(parser.getText());
@@ -374,7 +377,7 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("firstimage2")) {
                                 parser.next();
                                 thumbnail = parser.getText();
-                                placeItem.setImage(thumbnail);
+                                placeItem.setThumbnail(thumbnail);
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
