@@ -73,13 +73,6 @@
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_main_map"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:onClick="move"
-                    android:text="MAP" />
-
             </LinearLayout>
         </LinearLayout>
 

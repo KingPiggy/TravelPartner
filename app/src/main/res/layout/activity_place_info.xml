@@ -121,10 +121,6 @@
                     android:text="08:00~18:00"/>
 
             </RelativeLayout>
-
-
-
-
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
