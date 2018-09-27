@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -58,6 +59,21 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("hoon", "콘텐트 ID : " + contentId);
         Log.d("hoon", "콘텐트 타입 : " + contentTypeId);
         initUI();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+//
+//        CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(37,126));
+//
+//        MarkerOptions makerOptions = new MarkerOptions();
+//        LatLng seoul = new LatLng(lat, lon);
+//        makerOptions
+//                .position(seoul)
+//                .title(title);
+//        mMap.addMarker(makerOptions).showInfoWindow();
+//
+//        //카메라를 여의도 위치로 옮긴다.
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
     }
     public void initUI(){
         mImage = (ImageView)findViewById(R.id.iv_info_image);
@@ -74,9 +90,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -90,12 +104,15 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("Bae","lat : " + lat);
         Log.d("Bae","lon : " + lon);
 
-        LatLng seoul = new LatLng(lat, lon);
         MarkerOptions makerOptions = new MarkerOptions();
+        LatLng seoul = new LatLng(lat, lon);
+        Log.d("Bae","lat : " + seoul.latitude);
+        Log.d("Bae","lon : " + seoul.longitude);
+
         makerOptions
                 .position(seoul)
-                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.");
-        mMap.addMarker(makerOptions);
+                .title(title);
+        mMap.addMarker(makerOptions).showInfoWindow();
 
         //카메라를 여의도 위치로 옮긴다.
         mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
