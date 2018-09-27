@@ -13,4 +13,7 @@
     <string name="sort_view">조회순</string>
     <string name="none_value">없음</string>
     <string name="ready_for_update">준비중입니다.</string>
+    <string name="share">공유하기</string>
+    <string name="write_review">리뷰 작성하기</string>
+    <string name="favorite">즐겨찾기</string>
 </resources>

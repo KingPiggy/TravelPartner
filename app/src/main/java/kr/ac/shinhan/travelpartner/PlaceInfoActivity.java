@@ -1,10 +1,12 @@
 package kr.ac.shinhan.travelpartner;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,14 +33,12 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_INTRO;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
-public class PlaceInfoActivity extends AppCompatActivity  implements OnMapReadyCallback {
+public class PlaceInfoActivity extends AppCompatActivity{
     private PlaceItem placeItem;
     private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
-    private double lat, lon;
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,30 @@ public class PlaceInfoActivity extends AppCompatActivity  implements OnMapReadyC
         title = intent.getStringExtra("title");
         tel = intent.getStringExtra("tel");
         addr = intent.getStringExtra("addr");
-        lat = intent.getDoubleExtra("latitude", 0);
-        lon = intent.getDoubleExtra("longitude", 0);
+
+        mTelBtn = (Button)findViewById(R.id.btn_info_tel);
+        mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
+        mTelBtn.setOnClickListener(btnListener);
+
         Log.d("hoon", "콘텐트 ID : " + contentId);
         Log.d("hoon", "콘텐트 타입 : " + contentTypeId);
         initUI();
     }
+    View.OnClickListener btnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            switch (v.getId()){
+                case R.id.btn_info_tel:
+                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
+                    startActivity(intent);
+                    break;
+                case R.id.btn_info_addr:
+                    break;
+            }
+        }
+    };
+
     public void initUI(){
         mImage = (ImageView)findViewById(R.id.iv_info_image);
         mContentTypeId = (TextView)findViewById(R.id.tv_info_contenttypeid);
@@ -73,15 +91,6 @@ public class PlaceInfoActivity extends AppCompatActivity  implements OnMapReadyC
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
 //    class PlaceInfoParsing extends AsyncTask<String, String, PlaceItem> {
