@@ -120,13 +120,91 @@
                     android:layout_marginTop="10dp"
                     android:text="08:00~18:00"/>
 
-                <fragment
-                    android:id="@+id/map"
+                <ImageView
+                    android:id="@+id/iv_info_resttime"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@id/iv_info_opentime"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_block_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_info_resttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_info_resttime"
+                    android:layout_alignBottom="@id/iv_info_resttime"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="월, 수, 금"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_info_icons"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/iv_info_resttime">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.6"
+                        android:src="@drawable/yoon"/>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.6"
+                        android:src="@drawable/yoon"/>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.6"
+                        android:src="@drawable/yoon"/>
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.6"
+                        android:src="@drawable/yoon"/>
+                </LinearLayout>
+
+                <fragment
+                    android:id="@+id/map_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/layout_info_icons"
+                    android:layout_marginTop="20dp"
                     class="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_below="@+id/tv_info_opentime"
                     />
+
+                <LinearLayout
+                    android:id="@+id/layout_info_com"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/map_info">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/share"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/write_review"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/favorite"/>
+
+                </LinearLayout>
+
 
             </RelativeLayout>
         </RelativeLayout>
