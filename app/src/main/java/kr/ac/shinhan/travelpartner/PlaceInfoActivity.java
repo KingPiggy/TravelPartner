@@ -145,8 +145,9 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
         MarkerOptions makerOptions = new MarkerOptions();
         LatLng seoul = new LatLng(lat, lon);
-        Log.d("Bae","lat : " + seoul.latitude);
-        Log.d("Bae","lon : " + seoul.longitude);
+
+        Log.d("Bae","LatLng 객체 멤버값 latitude : " + seoul.latitude);
+        Log.d("Bae","LatLng 객체 멤버값 longitude : " + seoul.longitude);
 
         makerOptions
                 .position(seoul)

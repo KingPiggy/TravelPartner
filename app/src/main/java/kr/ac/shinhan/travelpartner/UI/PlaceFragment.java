@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,15 +51,15 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_S
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
 public class PlaceFragment extends Fragment {
-
+    //java.lang.IndexOutOfBoundsException: Inconsistency detected. 예외처리
     View view;
     private String guCode, contentType, arrange, contentId;
     private String title, tel, addr1, thumbnail, image;
     private double latitude, longitude;
     private Spinner mAreaSpinner, mContentTypeSpinner;
-    private Button mSearchBtn;
     private ProgressBar mProgressBar;
-    private Button mScrollBtn;
+    private Button mSearchBtn;
+    private ImageButton mScrollBtn;
     private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
     private ArrayList<String> guNameList;
@@ -99,7 +100,8 @@ public class PlaceFragment extends Fragment {
         mTitleArrange.setOnClickListener(sortListener);
         mViewArrange.setOnClickListener(sortListener);
 
-        mScrollBtn = (Button) view.findViewById(R.id.btn_place_scrollup);
+        mScrollBtn = (ImageButton) view.findViewById(R.id.btn_place_scrollup);
+
         mScrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +191,7 @@ public class PlaceFragment extends Fragment {
         }
     };
 
+    // 지역기반 관광 정보 파싱
     class PlaceItemParsing extends AsyncTask<String, String, ArrayList<PlaceItem>> {
 
         @Override
@@ -211,7 +214,6 @@ public class PlaceFragment extends Fragment {
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
 
-                // 지역기반 관광 정보 조회 파싱
                 parser.setInput(areaBasedListURL.openStream(), "UTF-8");
                 int parserEvent = parser.getEventType();
 
@@ -288,6 +290,7 @@ public class PlaceFragment extends Fragment {
         }
     }
 
+    // 키워드 검색
     class SerachKeyword extends AsyncTask<String, String, ArrayList<PlaceItem>> {
         @Override
         protected ArrayList<PlaceItem> doInBackground(String... strings) {
@@ -360,6 +363,7 @@ public class PlaceFragment extends Fragment {
         }
     }
 
+    // 지역 코드 조회
     class AreaCode extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -410,6 +414,4 @@ public class PlaceFragment extends Fragment {
             initSpinner();
         }
     }
-
-
 }

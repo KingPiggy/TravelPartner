@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/layout_place_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor">
@@ -39,9 +39,11 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/layout_place_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@id/layout_place_search">
 
             <Spinner
                 android:id="@+id/spinner_place_area"
@@ -83,21 +85,18 @@
 
             </RelativeLayout>
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_place_scrollup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@color/mainColor"/>
+
         <View
+            android:id="@+id/view_place_boundary"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/boundary" />
+            android:background="@color/boundary"
+            android:layout_below="@id/layout_place_spinner"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/view_place_boundary">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_place"
@@ -112,6 +111,14 @@
                 android:progressBackgroundTint="@color/cobaltblue"
                 android:layout_centerInParent="true"/>
 
+            <ImageButton
+                android:id="@+id/btn_place_scrollup"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_floatingbtn_up"
+                android:background="#00000000"/>
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>
