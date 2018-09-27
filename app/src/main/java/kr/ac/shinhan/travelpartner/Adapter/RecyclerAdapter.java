@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.location.places.Place;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         PlaceItem item = items.get(holder.getAdapterPosition());
         holder.cardView.setTag(position);
         holder.mTitle.setText(item.getTitle());
-        holder.mContentType.setText(item.getContentType());
+        holder.mContentType.setText(item.getUiContentTypeId());
         holder.mTel.setText(item.getTel());
         holder.mAddr.setText(item.getAddr());
         Picasso.get().load(item.getThumbnail()).into(holder.mImage);
@@ -86,7 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             lat = item.getLatitude();
             lon = item.getLongitude();
             contentId = item.getContentId();
-            contentTypeId = item.getContentType();
+            contentTypeId = item.getContentTypeId();
             image = item.getImage();
             title = item.getTitle();
             tel = item.getTel();

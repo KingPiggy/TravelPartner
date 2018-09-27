@@ -32,23 +32,27 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.net.URL;
 
+import kr.ac.shinhan.travelpartner.Item.DetailWithTourItem;
+import kr.ac.shinhan.travelpartner.Item.PlaceInfoItem;
 import kr.ac.shinhan.travelpartner.Item.PlaceItem;
 
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.APPNAME;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.KEY;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.OS;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_INTRO;
+import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_WITH_TOUR;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
 public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback{
-    private PlaceItem placeItem;
+    private PlaceInfoItem placeInfoItem = new PlaceInfoItem();
     private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
+    private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
     private double lat, lon;
     private GoogleMap mMap;
-
+    boolean isParking, isPet, isBabycarriage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +70,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("hoon", "콘텐트 타입 : " + contentTypeId);
 
         initUI();
-
+        new PlaceInfoParsing().execute(contentId, contentTypeId);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_info);
         mapFragment.getMapAsync(this);
 //
@@ -158,54 +162,178 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
     }
 
-//    class PlaceInfoParsing extends AsyncTask<String, String, PlaceItem> {
-//
-//        @Override
-//        protected PlaceItem doInBackground(String... strings) {
-//            try {
-//                String contentId = strings[0];
-//
-//                URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_INTRO + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
-//                        "&contentId="+ contentId + "&defaultYN=Y" + "&firstImageYN=Y" + "&addrinfoYN=Y" + "&overviewYN=Y" );
-//                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
-//                XmlPullParser parser = parserCreator.newPullParser();
-//
-//                parser.setInput(detailIntroUrl.openStream(), "UTF-8");
-//                int parserEvent = parser.getEventType();
-//
-//                PlaceItem placeItem = null;
-//                while (parserEvent != XmlPullParser.END_DOCUMENT) {
-//                    switch (parserEvent) {
-//                        case XmlPullParser.START_TAG:
-//                            String tag = parser.getName();
-//                            if (tag.equals("item")) {
-//                                placeItem = new PlaceItem();
-//                            } else if (tag.equals("addr1")) {
-//                                parser.next();
-//                                addr = parser.getText();
-//                                placeItem.setAddr(addr);
-//                            }
-//                            break;
-//                        case XmlPullParser.END_TAG:
-//                            String endTag = parser.getName();
-//                            if (endTag.equals("item")) {
-//
-//                            }
-//                            break;
-//                    }
-//                    parserEvent = parser.next();
-//                }
-//            } catch (XmlPullParserException | IOException e) {
-//                e.printStackTrace();
-//            }
-//            return placeItem;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(PlaceItem placeItem) {
-//            super.onPostExecute(placeItem);
-//
-//        }
-//    }
+    class PlaceInfoParsing extends AsyncTask<String, String, PlaceInfoItem> {
+
+        @Override
+        protected PlaceInfoItem doInBackground(String... strings) {
+            try {
+                contentId = strings[0];
+                contentTypeId = strings[1];
+
+                Log.d("hoon", "콘텐트 ID : " + contentId);
+                Log.d("hoon", "콘텐트타입 : " + contentTypeId);
+
+                URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_INTRO + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
+                        "&contentId="+ contentId + "&contentTypeId=" + contentTypeId  );
+                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+                XmlPullParser parser = parserCreator.newPullParser();
+
+                parser.setInput(detailIntroUrl.openStream(), "UTF-8");
+                int parserEvent = parser.getEventType();
+
+                while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                    switch (parserEvent) {
+                        case XmlPullParser.START_TAG:
+                            String tag = parser.getName();
+                            if (tag.equals("item")) {
+                                placeInfoItem = new PlaceInfoItem();
+                            } else if (tag.contains("chkbabycarriage")) {
+                                parser.next();
+                                chkbabycarriage = parser.getText();
+                                placeInfoItem.setChkbabycarriage(chkbabycarriage);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getChkbabycarriage());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            } else if (tag.contains("chkpet")) {
+                                parser.next();
+                                chkpet = parser.getText();
+                                placeInfoItem.setChkpet(chkpet);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getChkpet());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            } else if (tag.contains("restdate")) {
+                                parser.next();
+                                restdate = parser.getText();
+                                placeInfoItem.setRestdate(restdate);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getRestdate());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            } else if (tag.contains("parking")) {
+                                parser.next();
+                                parking = parser.getText();
+                                placeInfoItem.setParking(parking);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getParking());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            } else if (tag.contains("opentime")) {
+                                parser.next();
+                                opentime = parser.getText();
+                                placeInfoItem.setOpentime(opentime);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getOpentime());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            } else if (tag.contains("usetime")) {
+                                parser.next();
+                                usetime = parser.getText();
+                                placeInfoItem.setUsetime(usetime);
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getUsetime());
+                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                            }
+                            break;
+                    }
+                    parserEvent = parser.next();
+                }
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            return placeInfoItem;
+        }
+
+        @Override
+        protected void onPostExecute(PlaceInfoItem placeInfoItem) {
+            super.onPostExecute(placeInfoItem);
+            Log.d("hoon", "placeInfoItem 값 확인 " + placeInfoItem.getParking() + placeInfoItem.getChkpet() + placeInfoItem.getChkbabycarriage()
+                   + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
+            checkBooleans(placeInfoItem);
+            Log.d("hoon", "boolean 값 확인" + "유모차 : " + isBabycarriage + "주차 : " + isParking + "펫 : " + isPet);
+            setIcons();
+        }
+
+        public void checkBooleans(PlaceInfoItem placeInfoItem){
+            if(placeInfoItem.getChkbabycarriage().contains("없음")|placeInfoItem.getChkbabycarriage().contains("불가")){
+                isBabycarriage = false;
+            }
+            else if(placeInfoItem.getChkbabycarriage().contains("있음")|placeInfoItem.getChkbabycarriage().contains("가능")){
+                isBabycarriage = true;
+            }
+            if(placeInfoItem.getChkpet().contains("없음")|placeInfoItem.getChkpet().contains("불가")){
+                isPet = false;
+            }
+            else if(placeInfoItem.getChkpet().contains("있음")|placeInfoItem.getChkpet().contains("가능")){
+                isPet = true;
+            }
+            if(placeInfoItem.getParking().contains("없음")|placeInfoItem.getParking().contains("불가")){
+                isParking = false;
+            }
+            else if(placeInfoItem.getParking().contains("있음")|placeInfoItem.getParking().contains("가능")){
+                isParking = true;
+            }
+        }
+
+        public void setIcons(){
+            ImageView mStroller = (ImageView)findViewById(R.id.iv_info_stroller);
+            ImageView mPet = (ImageView)findViewById(R.id.iv_info_pet);
+            ImageView mParking = (ImageView)findViewById(R.id.iv_info_parking);
+            if(isBabycarriage){
+                //가능할 때 아이콘 이미지 설정
+            }
+            else{
+                //불가능할 때 아이콘 이미지 설정, xml에는 아이콘이랑 사진 둘 다 모르는 상태로 정의할 것(정보 없는 것)
+            }
+            if(isPet){
+
+            }
+            else{
+
+            }
+            if(isParking){
+
+            }
+            else{
+
+            }
+        }
+    }
+
+    class DetailWithTourParsing extends AsyncTask<String, String, DetailWithTourItem> {
+
+        @Override
+        protected DetailWithTourItem doInBackground(String... strings) {
+            DetailWithTourItem detailWithTourItem = null;
+            try {
+                String contentId = strings[0];
+                String contentTypeId = strings[1];
+
+                URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_WITH_TOUR + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
+                        "&contentId="+ contentId);
+                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+                XmlPullParser parser = parserCreator.newPullParser();
+
+                parser.setInput(detailIntroUrl.openStream(), "UTF-8");
+                int parserEvent = parser.getEventType();
+
+                while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                    switch (parserEvent) {
+                        case XmlPullParser.START_TAG:
+                            String tag = parser.getName();
+                            if (tag.contains("item")) {
+                                detailWithTourItem = new DetailWithTourItem();
+                            } else if (tag.equals("chkbabycarriage")) {
+                                parser.next();
+                                //chkbabycarriage = parser.getText();
+                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
+                            }
+                            break;
+                    }
+                    parserEvent = parser.next();
+                }
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            return detailWithTourItem;
+        }
+
+        @Override
+        protected void onPostExecute(DetailWithTourItem detailWithTourItem) {
+            super.onPostExecute(detailWithTourItem);
+
+        }
+
+    }
 
 }

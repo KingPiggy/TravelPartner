@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +99,7 @@ public class PlaceFragment extends Fragment {
         mViewArrange.setOnClickListener(sortListener);
 
         mScrollBtn = (ImageButton) view.findViewById(R.id.btn_place_scrollup);
-
+        mScrollBtn.bringToFront();
         mScrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,8 +233,9 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("contenttypeid")) {
                                 parser.next();
                                 contentType = parser.getText();
+                                placeItem.setContentTypeId(contentType);
                                 contentType = uiSetting.setContentTypeId(contentType);
-                                placeItem.setContentType(contentType);
+                                placeItem.setUiContentTypeId(contentType);
                             } else if (tag.equals("firstimage")) {
                                 parser.next();
                                 image = parser.getText();
@@ -323,7 +322,7 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 contentType = parser.getText();
                                 contentType = uiSetting.setContentTypeId(contentType);
-                                placeItem.setContentType(contentType);
+                                placeItem.setUiContentTypeId(contentType);
                             } else if (tag.equals("firstimage2")) {
                                 parser.next();
                                 thumbnail = parser.getText();
