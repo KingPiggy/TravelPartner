@@ -44,7 +44,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
     private PlaceItem placeItem;
     private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
     private ImageView mImage;
-    private Button mTelBtn, mAddrBtn;
+    private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
     private double lat, lon;
     private GoogleMap mMap;
@@ -62,15 +62,12 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         tel = intent.getStringExtra("tel");
         addr = intent.getStringExtra("addr");
 
-        mTelBtn = (Button)findViewById(R.id.btn_info_tel);
-        mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
-        mTelBtn.setOnClickListener(btnListener);
-
         Log.d("hoon", "콘텐트 ID : " + contentId);
         Log.d("hoon", "콘텐트 타입 : " + contentTypeId);
+
         initUI();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_info);
         mapFragment.getMapAsync(this);
 //
 //        CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(37,126));
@@ -95,6 +92,13 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
                     startActivity(intent);
                     break;
                 case R.id.btn_info_addr:
+                    String geoCode = "geo:" + lat + "," + lon + "?q=" + title;
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoCode));
+                    startActivity(intent);
+                    break;
+                case R.id.btn_info_write_review:
+                    break;
+                case R.id.btn_info_favorite:
                     break;
             }
         }
@@ -109,6 +113,16 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         mOpenTime = (TextView)findViewById(R.id.tv_info_opentime);
         mTelBtn = (Button)findViewById(R.id.btn_info_tel);
         mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
+
+        mTelBtn = (Button)findViewById(R.id.btn_info_tel);
+        mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
+        mWriteReviewBtn = (Button)findViewById(R.id.btn_info_write_review);
+        mFavoriteBtn = (Button)findViewById(R.id.btn_info_favorite);
+
+        mTelBtn.setOnClickListener(btnListener);
+        mAddrBtn.setOnClickListener(btnListener);
+        mWriteReviewBtn.setOnClickListener(btnListener);
+        mFavoriteBtn.setOnClickListener(btnListener);
 
         Picasso.get().load(image).into(mImage);
         mContentTypeId.setText(contentTypeId);
@@ -192,4 +206,5 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 //
 //        }
 //    }
+
 }

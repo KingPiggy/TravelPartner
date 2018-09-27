@@ -42,15 +42,6 @@
                     android:textColor="@color/mainColor"
                     android:textSize="14dp" />
 
-                <ImageView
-                    android:id="@+id/iv_placeitem_select"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignTop="@id/tv_placeitem_contenttype"
-                    android:src="@drawable/ic_star_black_24dp"/>
-
                 <TextView
                     android:id="@+id/tv_placeitem_title"
                     android:layout_width="wrap_content"

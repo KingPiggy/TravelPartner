@@ -111,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:progressBackgroundTint="@color/cobaltblue"
                 android:layout_centerInParent="true"/>
+
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

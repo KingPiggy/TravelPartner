@@ -13,11 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@color/black"/>
-
             <ImageView
                 android:id="@+id/iv_info_image"
                 android:layout_width="match_parent"
@@ -186,25 +181,20 @@
                     android:layout_below="@id/map_info">
 
                     <Button
+                        android:id="@+id/btn_info_write_review"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/share"/>
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_weight="1"
                         android:text="@string/write_review"/>
 
                     <Button
+                        android:id="@+id/btn_info_favorite"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_weight="1"
                         android:text="@string/favorite"/>
 
                 </LinearLayout>
-
 
             </RelativeLayout>
         </RelativeLayout>

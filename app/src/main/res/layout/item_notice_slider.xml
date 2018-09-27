@@ -8,6 +8,8 @@
         android:id="@+id/iv_noticeslider_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:adjustViewBounds="true"/>
+        <!--android:scaleType="centerCrop"-->
+
 
 </LinearLayout>
