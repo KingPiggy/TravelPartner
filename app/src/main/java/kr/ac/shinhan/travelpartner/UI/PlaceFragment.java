@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -36,6 +37,7 @@ import kr.ac.shinhan.travelpartner.Adapter.ContentTypeSpinnerAdapter;
 import kr.ac.shinhan.travelpartner.Adapter.RecyclerAdapter;
 import kr.ac.shinhan.travelpartner.Item.PlaceItem;
 import kr.ac.shinhan.travelpartner.R;
+
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.APPNAME;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.AREA_CODE;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.KEY;
@@ -68,7 +70,7 @@ public class PlaceFragment extends Fragment {
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
 
-    public PlaceFragment(){
+    public PlaceFragment() {
 
     }
 
@@ -80,7 +82,7 @@ public class PlaceFragment extends Fragment {
         contentType = "";
         guCode = "";
 
-        mProgressBar = (ProgressBar)view.findViewById(R.id.progressbar_place_progress);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_place_progress);
         mSearchEditText = (EditText) view.findViewById(R.id.edittext_place_search);
         mSearchBtn = (Button) view.findViewById(R.id.btn_place_search);
         mSearchBtn.setOnClickListener(searchListener);
@@ -105,12 +107,12 @@ public class PlaceFragment extends Fragment {
             }
         });
 
+        mRecyclerView.setAdapter(recyclerAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
+
         new AreaCode().execute();
         PlaceItemParsing placeItemParsing = new PlaceItemParsing();
         placeItemParsing.execute(guCode, contentType, arrange);
-
-        mRecyclerView.setAdapter(recyclerAdapter);
-        mRecyclerView.setNestedScrollingEnabled(false);
 
         return view;
     }
@@ -277,12 +279,84 @@ public class PlaceFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
             super.onPostExecute(placeItems);
-            if (placeItems.isEmpty()) {
-                //items.add(new PlaceItem());
+            if (items.isEmpty()) {
+                Toast.makeText(getActivity(), "아이템이 없습니다.", Toast.LENGTH_SHORT).show();
             }
             recyclerAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    class SerachKeyword extends AsyncTask<String, String, ArrayList<PlaceItem>> {
+        @Override
+        protected ArrayList<PlaceItem> doInBackground(String... strings) {
+            try {
+                String keyword = strings[0];
+                items.clear();
+                URL url = new URL(SERVICE_URL + SERVICE_SEARCH_KEYWORD + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME
+                        + "&areaCode=" + AREA_CODE + "&keyword=" + URLEncoder.encode(keyword, "UTF-8") + "&numOfRows=" + NUM_OF_ITEM);
+
+                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+                XmlPullParser parser = parserCreator.newPullParser();
+                parser.setInput(url.openStream(), "UTF-8");
+                int parserEvent = parser.getEventType();
+                PlaceItem placeItem = null;
+                while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                    switch (parserEvent) {
+                        case XmlPullParser.START_TAG:
+                            String tag = parser.getName();
+                            if (tag.equals("item")) {
+                                placeItem = new PlaceItem();
+                            } else if (tag.equals("addr1")) {
+                                parser.next();
+                                addr1 = parser.getText();
+                                placeItem.setAddr(addr1);
+                            } else if (tag.equals("contentid")) {
+                                parser.next();
+                                contentId = parser.getText();
+                                placeItem.setContentId(contentId);
+                            } else if (tag.equals("contenttypeid")) {
+                                parser.next();
+                                contentType = parser.getText();
+                                contentType = uiSetting.setContentTypeId(contentType);
+                                placeItem.setContentType(contentType);
+                            } else if (tag.equals("firstimage2")) {
+                                parser.next();
+                                thumbnail = parser.getText();
+                                placeItem.setThumbnail(thumbnail);
+                            } else if (tag.equals("tel")) {
+                                parser.next();
+                                tel = parser.getText();
+                                placeItem.setTel(tel);
+                            } else if (tag.equals("title")) {
+                                parser.next();
+                                title = parser.getText();
+                                placeItem.setTitle(title);
+                            }
+                            break;
+                        case XmlPullParser.END_TAG:
+                            String endTag = parser.getName();
+                            if (endTag.equals("item")) {
+                                items.add(placeItem);
+                            }
+                            break;
+                    }
+                    parserEvent = parser.next();
+                }
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            return items;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
+            super.onPostExecute(placeItems);
+            if (items.isEmpty()) {
+                Toast.makeText(getActivity(), "아이템이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+            recyclerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -337,80 +411,5 @@ public class PlaceFragment extends Fragment {
         }
     }
 
-    class SerachKeyword extends AsyncTask<String, String, ArrayList<PlaceItem>> {
-        @Override
-        protected ArrayList<PlaceItem> doInBackground(String... strings) {
-            try {
-                //keyword = URLEncoder.encode(strings[0], "UTF-8");
-                String keyword = strings[0];
 
-                items.clear();
-                Log.d("hoon", "인코딩한 keyword : " + keyword);
-                URL url = new URL(SERVICE_URL + SERVICE_SEARCH_KEYWORD + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
-                        + "&keyword=" + URLEncoder.encode(keyword, "UTF-8"));
-                Log.d("hoon", "URL" + url);
-                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
-                XmlPullParser parser = parserCreator.newPullParser();
-                parser.setInput(url.openStream(), "UTF-8");
-                int parserEvent = parser.getEventType();
-
-                PlaceItem placeItem = null;
-                while (parserEvent != XmlPullParser.END_DOCUMENT) {
-                    switch (parserEvent) {
-                        case XmlPullParser.START_TAG:
-                            String tag = parser.getName();
-                            if (tag.equals("item")) {
-                                placeItem = new PlaceItem();
-                            } else if (tag.equals("addr1")) {
-                                parser.next();
-                                addr1 = parser.getText();
-                                placeItem.setAddr(addr1);
-                            } else if (tag.equals("contentid")) {
-                                parser.next();
-                                contentId = parser.getText();
-                                placeItem.setContentId(contentId);
-                            }  else if (tag.equals("contenttypeid")) {
-                                parser.next();
-                                contentType = parser.getText();
-                                contentType = uiSetting.setContentTypeId(contentType);
-                                placeItem.setContentType(contentType);
-                            } else if (tag.equals("firstimage2")) {
-                                parser.next();
-                                thumbnail = parser.getText();
-                                placeItem.setThumbnail(thumbnail);
-                            } else if (tag.equals("tel")) {
-                                parser.next();
-                                tel = parser.getText();
-                                placeItem.setTel(tel);
-                            } else if (tag.equals("title")) {
-                                parser.next();
-                                title = parser.getText();
-                                placeItem.setTitle(title);
-                                break;
-                            }
-
-                        case XmlPullParser.END_TAG:
-                            String endTag = parser.getName();
-                            if (endTag.equals("item")) {
-
-                            }
-                            break;
-                    }
-                    parserEvent = parser.next();
-                }
-            } catch (XmlPullParserException | IOException e) {
-                e.printStackTrace();
-            }
-            return items;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
-            super.onPostExecute(placeItems);
-            if (placeItems.isEmpty()) {
-                //items.add(new PlaceItem());
-            }
-            recyclerAdapter.notifyDataSetChanged();
-        }
-    }
 }
