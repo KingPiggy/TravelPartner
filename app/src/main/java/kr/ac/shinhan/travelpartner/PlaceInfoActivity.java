@@ -51,7 +51,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
-    private String contentId, image, contentTypeId, title, tel, addr;
+    private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
     private double lat, lon;
     boolean isParking, isPet, isBabycarriage;
 
@@ -64,6 +64,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         contentId = intent.getStringExtra("contentid");
         image = intent.getStringExtra("image");
         contentTypeId = intent.getStringExtra("contentTypeId");
+        uiContentType = intent.getStringExtra("uiContentTypeId");
         title = intent.getStringExtra("title");
         tel = intent.getStringExtra("tel");
         addr = intent.getStringExtra("addr");
@@ -128,7 +129,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mFavoriteBtn.setOnClickListener(btnListener);
 
         Picasso.get().load(image).into(mImage);
-        mContentTypeId.setText(contentTypeId);
+        mContentTypeId.setText(uiContentType);
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
@@ -181,6 +182,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
+                                usetime = usetime.replace("<br />", "");
                                 placeInfoItem.setUsetime(usetime);
                             }
                             break;

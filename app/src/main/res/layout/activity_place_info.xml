@@ -175,7 +175,6 @@
                     android:layout_marginLeft="10dp"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
-
                     android:background="#00000000"/>
 
                 <LinearLayout

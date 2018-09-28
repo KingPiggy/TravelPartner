@@ -24,7 +24,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     ArrayList<PlaceItem> items;
     int itemLayout;
     double lat, lon;
-    String contentId, image, contentTypeId, title, tel, addr;
+    String contentId, image, contentTypeId, uiContentTypeId, title, tel, addr;
     public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
         this.context = context;
         this.items = items;
@@ -86,6 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             lon = item.getLongitude();
             contentId = item.getContentId();
             contentTypeId = item.getContentTypeId();
+            uiContentTypeId = item.getUiContentTypeId();
             image = item.getImage();
             title = item.getTitle();
             tel = item.getTel();
@@ -95,6 +96,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             intent.putExtra("longitude", lon);
             intent.putExtra("contentid", contentId);
             intent.putExtra("contentTypeId", contentTypeId);
+            intent.putExtra("uiContentTypeId", uiContentTypeId);
             intent.putExtra("image", image);
             intent.putExtra("title", title);
             intent.putExtra("tel", tel);
