@@ -133,6 +133,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTel.setText(tel);
         mAddr.setText(addr);
         mOpenTime.setSelected(true);
+        mRestTime.setSelected(true);
 
     }
 
@@ -181,6 +182,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("restdate")) {
                                 parser.next();
                                 restdate = parser.getText();
+                                restdate = restdate.replace("<br />","");
+                                restdate = restdate.replace("<br/>","");
+                                restdate = restdate.replace("<br>","");
                                 placeInfoItem.setRestdate(restdate);
                             } else if (tag.contains("usetime")) {
                                 parser.next();

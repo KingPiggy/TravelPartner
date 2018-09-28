@@ -99,8 +99,7 @@
                     android:singleLine="true"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:layout_toRightOf="@id/iv_info_opentime"
-                    android:text="@string/ready_for_update"
-                     />
+                    android:text="@string/ready_for_update" />
 
                 <ImageView
                     android:id="@+id/iv_info_resttime"
@@ -117,6 +116,9 @@
                     android:layout_alignBottom="@id/iv_info_resttime"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:layout_toRightOf="@id/iv_info_resttime"
                     android:text="@string/ready_for_update" />
 
@@ -185,27 +187,40 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:text="전화걸기"
+                        android:background="@drawable/btnshape"
+                        android:layout_marginRight="8dp"
                         />
                     <Button
                         android:id="@+id/btn_info_addr"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:text="길 찾기" />
+                        android:text="길 찾기"
+                        android:background="@drawable/btnshape"
+                        android:layout_marginRight="8dp"
+                        />
 
                     <Button
                         android:id="@+id/btn_info_favorite"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:text="@string/favorite" />
+                        android:text="@string/favorite"
+                        android:background="@drawable/btnshape"
+                        android:layout_marginRight="5dp"
+                        />
                     </LinearLayout>
                     <Button
                         android:id="@+id/btn_info_write_review"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:text="@string/write_review" />
+                        android:text="@string/write_review"
+                        android:background="@drawable/btnshape"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+
+                        />
 
                 </LinearLayout>
             </RelativeLayout>
