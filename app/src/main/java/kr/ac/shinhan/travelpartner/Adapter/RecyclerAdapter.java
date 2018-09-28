@@ -25,6 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     int itemLayout;
     double lat, lon;
     String contentId, image, contentTypeId, uiContentTypeId, title, tel, addr;
+
     public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
         this.context = context;
         this.items = items;
