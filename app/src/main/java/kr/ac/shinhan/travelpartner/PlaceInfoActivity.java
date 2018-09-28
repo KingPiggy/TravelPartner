@@ -132,6 +132,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
+        mOpenTime.setSelected(true);
 
     }
 
@@ -168,6 +169,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("opentime")) {
                                 parser.next();
                                 opentime = parser.getText();
+                                opentime = opentime.replace("<br />","");
+                                opentime=opentime.replace("<br/>","");
+                                opentime=opentime.replace("<br>","");
                                 placeInfoItem.setOpentime(opentime);
                             } else if (tag.equals("parking") || tag.equals("parkingculture") || tag.equals("parkingleports")
                                     || tag.equals("parkinglodging") || tag.equals("parkingshopping") || tag.equals("parkingfood")) {
@@ -181,6 +185,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
+                                usetime = usetime.replace("<br />","");
+                                usetime = usetime.replace("<br/>","");
+                                usetime = usetime.replace("<br>","");
                                 placeInfoItem.setUsetime(usetime);
                             }
                             break;

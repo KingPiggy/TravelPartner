@@ -60,14 +60,6 @@
                     android:layout_toRightOf="@id/iv_info_tel"
                     android:text="@string/ready_for_update" />
 
-                <Button
-                    android:id="@+id/btn_info_tel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_alignBottom="@id/iv_info_tel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/tv_info_tel"
-                    android:text="전화걸기" />
 
                 <ImageView
                     android:id="@+id/iv_info_addr"
@@ -87,14 +79,6 @@
                     android:layout_toRightOf="@id/iv_info_addr"
                     android:text="@string/ready_for_update" />
 
-                <Button
-                    android:id="@+id/btn_info_addr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_alignBottom="@id/iv_info_addr"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/tv_info_addr"
-                    android:text="길 찾기" />
 
                 <ImageView
                     android:id="@+id/iv_info_opentime"
@@ -111,8 +95,12 @@
                     android:layout_alignBottom="@id/iv_info_opentime"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:layout_toRightOf="@id/iv_info_opentime"
-                    android:text="@string/ready_for_update" />
+                    android:text="@string/ready_for_update"
+                     />
 
                 <ImageView
                     android:id="@+id/iv_info_resttime"
@@ -184,21 +172,40 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_info_parking"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
+                    android:layout_marginRight="5dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
                     <Button
-                        android:id="@+id/btn_info_write_review"
+                        android:id="@+id/btn_info_tel"
                         android:layout_width="0dp"
-                        android:layout_height="70dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:text="@string/write_review" />
+                        android:text="전화걸기"
+                        />
+                    <Button
+                        android:id="@+id/btn_info_addr"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:text="길 찾기" />
 
                     <Button
                         android:id="@+id/btn_info_favorite"
                         android:layout_width="0dp"
-                        android:layout_height="70dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:text="@string/favorite" />
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_info_write_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/write_review" />
 
                 </LinearLayout>
             </RelativeLayout>
