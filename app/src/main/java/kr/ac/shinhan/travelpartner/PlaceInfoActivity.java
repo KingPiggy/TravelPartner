@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,16 +44,17 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_D
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_DETAIL_WITH_TOUR;
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
-public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class PlaceInfoActivity extends AppCompatActivity {
     private PlaceInfoItem placeInfoItem = new PlaceInfoItem();
-    private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime;
+    private TextView mContentTypeId, mTitle, mTel, mAddr, mOpenTime, mRestTime;
+    private ImageView mStroller, mPet, mParking;
     private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
     private String contentId, image, contentTypeId, title, tel, addr;
     private double lat, lon;
-    private GoogleMap mMap;
     boolean isParking, isPet, isBabycarriage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,30 +73,24 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
         initUI();
         new PlaceInfoParsing().execute(contentId, contentTypeId);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_info);
-        mapFragment.getMapAsync(this);
-//
-//        CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(37,126));
-//
-//        MarkerOptions makerOptions = new MarkerOptions();
-//        LatLng seoul = new LatLng(lat, lon);
-//        makerOptions
-//                .position(seoul)
-//                .title(title);
-//        mMap.addMarker(makerOptions).showInfoWindow();
-//
-//        //카메라를 여의도 위치로 옮긴다.
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
+
     }
+
     View.OnClickListener btnListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent;
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_info_tel:
-                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
-                    startActivity(intent);
-                    break;
+                    if(tel != null){
+                        intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
+                        startActivity(intent);
+                        break;
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "전화번호 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                 case R.id.btn_info_addr:
                     String geoCode = "geo:" + lat + "," + lon + "?q=" + title;
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoCode));
@@ -108,20 +104,25 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         }
     };
 
-    public void initUI(){
-        mImage = (ImageView)findViewById(R.id.iv_info_image);
-        mContentTypeId = (TextView)findViewById(R.id.tv_info_contenttypeid);
-        mTitle = (TextView)findViewById(R.id.tv_info_title);
-        mTel = (TextView)findViewById(R.id.tv_info_tel);
-        mAddr = (TextView)findViewById(R.id.tv_info_addr);
-        mOpenTime = (TextView)findViewById(R.id.tv_info_opentime);
-        mTelBtn = (Button)findViewById(R.id.btn_info_tel);
-        mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
+    public void initUI() {
+        mImage = (ImageView) findViewById(R.id.iv_info_image);
+        mContentTypeId = (TextView) findViewById(R.id.tv_info_contenttypeid);
+        mTitle = (TextView) findViewById(R.id.tv_info_title);
+        mTel = (TextView) findViewById(R.id.tv_info_tel);
+        mAddr = (TextView) findViewById(R.id.tv_info_addr);
+        mOpenTime = (TextView) findViewById(R.id.tv_info_opentime);
+        mRestTime = (TextView) findViewById(R.id.tv_info_resttime);
+        mTelBtn = (Button) findViewById(R.id.btn_info_tel);
+        mAddrBtn = (Button) findViewById(R.id.btn_info_addr);
 
-        mTelBtn = (Button)findViewById(R.id.btn_info_tel);
-        mAddrBtn = (Button)findViewById(R.id.btn_info_addr);
-        mWriteReviewBtn = (Button)findViewById(R.id.btn_info_write_review);
-        mFavoriteBtn = (Button)findViewById(R.id.btn_info_favorite);
+        mTelBtn = (Button) findViewById(R.id.btn_info_tel);
+        mAddrBtn = (Button) findViewById(R.id.btn_info_addr);
+        mWriteReviewBtn = (Button) findViewById(R.id.btn_info_write_review);
+        mFavoriteBtn = (Button) findViewById(R.id.btn_info_favorite);
+
+        mStroller = (ImageView) findViewById(R.id.iv_info_stroller);
+        mPet = (ImageView) findViewById(R.id.iv_info_pet);
+        mParking = (ImageView) findViewById(R.id.iv_info_parking);
 
         mTelBtn.setOnClickListener(btnListener);
         mAddrBtn.setOnClickListener(btnListener);
@@ -136,32 +137,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        Intent intent = getIntent();
-        lat = intent.getDoubleExtra("latitude", 0);  //위도
-        lon = intent.getDoubleExtra("longitude", 0); //경도
-        title = intent.getStringExtra("title");
-        Log.d("Bae","title : " + title);
-        Log.d("Bae","lat : " + lat);
-        Log.d("Bae","lon : " + lon);
-
-        MarkerOptions makerOptions = new MarkerOptions();
-        LatLng seoul = new LatLng(lat, lon);
-
-        Log.d("Bae","LatLng 객체 멤버값 latitude : " + seoul.latitude);
-        Log.d("Bae","LatLng 객체 멤버값 longitude : " + seoul.longitude);
-
-        makerOptions
-                .position(seoul)
-                .title(title);
-        mMap.addMarker(makerOptions).showInfoWindow();
-
-        //카메라를 여의도 위치로 옮긴다.
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
-    }
-
     class PlaceInfoParsing extends AsyncTask<String, String, PlaceInfoItem> {
 
         @Override
@@ -170,11 +145,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
                 contentId = strings[0];
                 contentTypeId = strings[1];
 
-                Log.d("hoon", "콘텐트 ID : " + contentId);
-                Log.d("hoon", "콘텐트타입 : " + contentTypeId);
-
                 URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_INTRO + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
-                        "&contentId="+ contentId + "&contentTypeId=" + contentTypeId  );
+                        "&contentId=" + contentId + "&contentTypeId=" + contentTypeId);
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
 
@@ -191,38 +163,32 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
                                 parser.next();
                                 chkbabycarriage = parser.getText();
                                 placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getChkbabycarriage());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem 유모차" + placeInfoItem.getChkbabycarriage());
                             } else if (tag.contains("chkpet")) {
                                 parser.next();
                                 chkpet = parser.getText();
                                 placeInfoItem.setChkpet(chkpet);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getChkpet());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem 펫 " + placeInfoItem.getChkpet());
                             } else if (tag.contains("restdate")) {
                                 parser.next();
                                 restdate = parser.getText();
                                 placeInfoItem.setRestdate(restdate);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getRestdate());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem 쉬는날 " + placeInfoItem.getRestdate());
                             } else if (tag.contains("parking")) {
                                 parser.next();
                                 parking = parser.getText();
                                 placeInfoItem.setParking(parking);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getParking());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem 주차 " + placeInfoItem.getParking());
                             } else if (tag.contains("opentime")) {
                                 parser.next();
                                 opentime = parser.getText();
                                 placeInfoItem.setOpentime(opentime);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getOpentime());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem opentime" + placeInfoItem.getOpentime());
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
                                 placeInfoItem.setUsetime(usetime);
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + placeInfoItem.getUsetime());
-                                Log.d("hoon", "placeInfoItem 값 들어오니?? " + parser.getText());
+                                Log.d("hoon", "placeInfoItem usetime" + placeInfoItem.getUsetime());
                             }
                             break;
                     }
@@ -237,55 +203,73 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         @Override
         protected void onPostExecute(PlaceInfoItem placeInfoItem) {
             super.onPostExecute(placeInfoItem);
+
             Log.d("hoon", "placeInfoItem 값 확인 " + placeInfoItem.getParking() + placeInfoItem.getChkpet() + placeInfoItem.getChkbabycarriage()
-                   + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
+                    + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
             checkBooleans(placeInfoItem);
             Log.d("hoon", "boolean 값 확인" + "유모차 : " + isBabycarriage + "주차 : " + isParking + "펫 : " + isPet);
-            setIcons();
+            setUI();
         }
 
-        public void checkBooleans(PlaceInfoItem placeInfoItem){
-            if(placeInfoItem.getChkbabycarriage().contains("없음")|placeInfoItem.getChkbabycarriage().contains("불가")){
-                isBabycarriage = false;
+        public void checkBooleans(PlaceInfoItem placeInfoItem) {
+            Log.d("hoon", "placeInfoItem 매개변수값 " + placeInfoItem.getParking() + placeInfoItem.getChkpet() + placeInfoItem.getChkbabycarriage()
+                    + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
+            if (placeInfoItem.getChkbabycarriage() != null) {
+                if (placeInfoItem.getChkbabycarriage().contains("없음") | placeInfoItem.getChkbabycarriage().contains("불가")) {
+                    isBabycarriage = false;
+                } else if (placeInfoItem.getChkbabycarriage().contains("있음") | placeInfoItem.getChkbabycarriage().contains("가능")) {
+                    isBabycarriage = true;
+                } else {
+                    mStroller.setVisibility(View.INVISIBLE);
+                }
             }
-            else if(placeInfoItem.getChkbabycarriage().contains("있음")|placeInfoItem.getChkbabycarriage().contains("가능")){
-                isBabycarriage = true;
+            if (placeInfoItem.getChkpet() != null) {
+                if (placeInfoItem.getChkpet().contains("없음") | placeInfoItem.getChkpet().contains("불가")) {
+                    isPet = false;
+                } else if (placeInfoItem.getChkpet().contains("있음") | placeInfoItem.getChkpet().contains("가능")) {
+                    isPet = true;
+                } else {
+                    mPet.setVisibility(View.INVISIBLE);
+                }
             }
-            if(placeInfoItem.getChkpet().contains("없음")|placeInfoItem.getChkpet().contains("불가")){
-                isPet = false;
-            }
-            else if(placeInfoItem.getChkpet().contains("있음")|placeInfoItem.getChkpet().contains("가능")){
-                isPet = true;
-            }
-            if(placeInfoItem.getParking().contains("없음")|placeInfoItem.getParking().contains("불가")){
-                isParking = false;
-            }
-            else if(placeInfoItem.getParking().contains("있음")|placeInfoItem.getParking().contains("가능")){
-                isParking = true;
+            if (placeInfoItem.getParking() != null) {
+                if (placeInfoItem.getParking().contains("없음") | placeInfoItem.getParking().contains("불가")) {
+                    isParking = false;
+                } else if (placeInfoItem.getParking().contains("있음") | placeInfoItem.getParking().contains("가능")) {
+                    isParking = true;
+                } else {
+                    mParking.setVisibility(View.INVISIBLE);
+                }
             }
         }
 
-        public void setIcons(){
-            ImageView mStroller = (ImageView)findViewById(R.id.iv_info_stroller);
-            ImageView mPet = (ImageView)findViewById(R.id.iv_info_pet);
-            ImageView mParking = (ImageView)findViewById(R.id.iv_info_parking);
-            if(isBabycarriage){
+        public void setUI() {
+
+            if (isBabycarriage) {
                 //가능할 때 아이콘 이미지 설정
-            }
-            else{
-                //불가능할 때 아이콘 이미지 설정, xml에는 아이콘이랑 사진 둘 다 모르는 상태로 정의할 것(정보 없는 것)
-            }
-            if(isPet){
+                mStroller.setImageResource(R.drawable.ic_stroller);
+            } else {
+                mStroller.setImageResource(R.drawable.ic_stroller_gray);
 
             }
-            else{
-
+            if (isPet) {
+                mPet.setImageResource(R.drawable.ic_pet);
+            } else {
+                mPet.setImageResource(R.drawable.ic_pet_gray);
             }
-            if(isParking){
-
+            if (isParking) {
+                mParking.setImageResource(R.drawable.ic_parking);
+            } else {
+                mParking.setImageResource(R.drawable.ic_parking_gray);
             }
-            else{
-
+            if (placeInfoItem.getOpentime() != null) {
+                mOpenTime.setText(placeInfoItem.getOpentime());
+            }
+            if (placeInfoItem.getUsetime() != null) {
+                mOpenTime.setText(placeInfoItem.getUsetime());
+            }
+            if (placeInfoItem.getRestdate() != null) {
+                mRestTime.setText(placeInfoItem.getRestdate());
             }
         }
     }
@@ -300,7 +284,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
                 String contentTypeId = strings[1];
 
                 URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_WITH_TOUR + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
-                        "&contentId="+ contentId);
+                        "&contentId=" + contentId);
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
 
