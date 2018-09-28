@@ -58,7 +58,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/iv_info_tel"
-                    android:text="Phone Number" />
+                    android:text="@string/ready_for_update" />
 
                 <Button
                     android:id="@+id/btn_info_tel"
@@ -85,7 +85,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/iv_info_addr"
-                    android:text="경기도 의정부시" />
+                    android:text="@string/ready_for_update" />
 
                 <Button
                     android:id="@+id/btn_info_addr"
@@ -112,7 +112,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/iv_info_opentime"
-                    android:text="08:00~18:00" />
+                    android:text="@string/ready_for_update" />
 
                 <ImageView
                     android:id="@+id/iv_info_resttime"
@@ -130,7 +130,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/iv_info_resttime"
-                    android:text="RestTime" />
+                    android:text="@string/ready_for_update" />
 
 
                 <ImageView
@@ -201,7 +201,6 @@
                         android:text="@string/favorite" />
 
                 </LinearLayout>
-
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

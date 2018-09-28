@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -93,7 +94,8 @@
             android:background="@color/boundary"
             android:layout_below="@id/layout_place_spinner"/>
 
-        <RelativeLayout
+
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/view_place_boundary">
@@ -108,17 +110,20 @@
                 android:id="@+id/progressbar_place_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:progressBackgroundTint="@color/cobaltblue"
                 android:layout_centerInParent="true"/>
 
-            <ImageButton
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/btn_place_scrollup"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:padding="0dp"
-                android:scaleType="fitCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/icon_floatingbtn_up"
-                android:background="#00000000"/>
-        </RelativeLayout>
+                app:backgroundTint="@color/bottomBar"
+                android:layout_marginBottom="60dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="bottom|end"/>
+
+        </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 </FrameLayout>

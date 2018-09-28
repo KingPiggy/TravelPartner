@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class PlaceFragment extends Fragment {
     private Spinner mAreaSpinner, mContentTypeSpinner;
     private ProgressBar mProgressBar;
     private Button mSearchBtn;
-    private ImageButton mScrollBtn;
+    private FloatingActionButton mScrollBtn;
     private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
     private ArrayList<String> guNameList;
@@ -98,7 +99,7 @@ public class PlaceFragment extends Fragment {
         mTitleArrange.setOnClickListener(sortListener);
         mViewArrange.setOnClickListener(sortListener);
 
-        mScrollBtn = (ImageButton) view.findViewById(R.id.btn_place_scrollup);
+        mScrollBtn = (FloatingActionButton) view.findViewById(R.id.btn_place_scrollup);
         mScrollBtn.bringToFront();
         mScrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override

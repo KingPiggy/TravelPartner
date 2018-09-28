@@ -67,9 +67,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
         title = intent.getStringExtra("title");
         tel = intent.getStringExtra("tel");
         addr = intent.getStringExtra("addr");
-
-        Log.d("hoon", "콘텐트 ID : " + contentId);
-        Log.d("hoon", "콘텐트 타입 : " + contentTypeId);
+        lat = intent.getDoubleExtra("latitude", 0);
+        lon = intent.getDoubleExtra("longitude", 0);
 
         initUI();
         new PlaceInfoParsing().execute(contentId, contentTypeId);
@@ -82,12 +81,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
             Intent intent;
             switch (v.getId()) {
                 case R.id.btn_info_tel:
-                    if(tel != null){
+                    if (tel != null) {
                         intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
                         startActivity(intent);
                         break;
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "전화번호 정보가 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     }
@@ -163,32 +161,27 @@ public class PlaceInfoActivity extends AppCompatActivity {
                                 parser.next();
                                 chkbabycarriage = parser.getText();
                                 placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                                Log.d("hoon", "placeInfoItem 유모차" + placeInfoItem.getChkbabycarriage());
                             } else if (tag.contains("chkpet")) {
                                 parser.next();
                                 chkpet = parser.getText();
                                 placeInfoItem.setChkpet(chkpet);
-                                Log.d("hoon", "placeInfoItem 펫 " + placeInfoItem.getChkpet());
-                            } else if (tag.contains("restdate")) {
-                                parser.next();
-                                restdate = parser.getText();
-                                placeInfoItem.setRestdate(restdate);
-                                Log.d("hoon", "placeInfoItem 쉬는날 " + placeInfoItem.getRestdate());
-                            } else if (tag.contains("parking")) {
-                                parser.next();
-                                parking = parser.getText();
-                                placeInfoItem.setParking(parking);
-                                Log.d("hoon", "placeInfoItem 주차 " + placeInfoItem.getParking());
                             } else if (tag.contains("opentime")) {
                                 parser.next();
                                 opentime = parser.getText();
                                 placeInfoItem.setOpentime(opentime);
-                                Log.d("hoon", "placeInfoItem opentime" + placeInfoItem.getOpentime());
+                            } else if (tag.equals("parking") || tag.equals("parkingculture") || tag.equals("parkingleports")
+                                    || tag.equals("parkinglodging") || tag.equals("parkingshopping") || tag.equals("parkingfood")) {
+                                parser.next();
+                                parking = parser.getText();
+                                placeInfoItem.setParking(parking);
+                            } else if (tag.contains("restdate")) {
+                                parser.next();
+                                restdate = parser.getText();
+                                placeInfoItem.setRestdate(restdate);
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
                                 placeInfoItem.setUsetime(usetime);
-                                Log.d("hoon", "placeInfoItem usetime" + placeInfoItem.getUsetime());
                             }
                             break;
                     }
@@ -203,17 +196,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(PlaceInfoItem placeInfoItem) {
             super.onPostExecute(placeInfoItem);
-
-            Log.d("hoon", "placeInfoItem 값 확인 " + placeInfoItem.getParking() + placeInfoItem.getChkpet() + placeInfoItem.getChkbabycarriage()
-                    + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
             checkBooleans(placeInfoItem);
-            Log.d("hoon", "boolean 값 확인" + "유모차 : " + isBabycarriage + "주차 : " + isParking + "펫 : " + isPet);
             setUI();
         }
 
         public void checkBooleans(PlaceInfoItem placeInfoItem) {
-            Log.d("hoon", "placeInfoItem 매개변수값 " + placeInfoItem.getParking() + placeInfoItem.getChkpet() + placeInfoItem.getChkbabycarriage()
-                    + placeInfoItem.getOpentime() + placeInfoItem.getUsetime() + placeInfoItem.getRestdate());
             if (placeInfoItem.getChkbabycarriage() != null) {
                 if (placeInfoItem.getChkbabycarriage().contains("없음") | placeInfoItem.getChkbabycarriage().contains("불가")) {
                     isBabycarriage = false;
@@ -246,7 +233,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
         public void setUI() {
 
             if (isBabycarriage) {
-                //가능할 때 아이콘 이미지 설정
                 mStroller.setImageResource(R.drawable.ic_stroller);
             } else {
                 mStroller.setImageResource(R.drawable.ic_stroller_gray);
