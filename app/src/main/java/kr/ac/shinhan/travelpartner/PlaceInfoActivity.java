@@ -73,6 +73,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         initUI();
         new PlaceInfoParsing().execute(contentId, contentTypeId);
+        //new DetailWithTourParsing().execute(contentId);
 
     }
 
@@ -279,7 +280,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
             DetailWithTourItem detailWithTourItem = null;
             try {
                 String contentId = strings[0];
-                String contentTypeId = strings[1];
 
                 URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_WITH_TOUR + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
                         "&contentId=" + contentId);
@@ -296,6 +296,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             if (tag.contains("item")) {
                                 detailWithTourItem = new DetailWithTourItem();
                             } else if (tag.equals("chkbabycarriage")) {
+
                                 parser.next();
                                 //chkbabycarriage = parser.getText();
                                 //placeInfoItem.setChkbabycarriage(chkbabycarriage);

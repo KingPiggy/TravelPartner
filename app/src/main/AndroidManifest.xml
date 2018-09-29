@@ -9,11 +9,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
     <application
         android:name=".UI.Font"
         android:allowBackup="false"
@@ -22,8 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyARz3oGBFIi8M6r03yHbaRIYJ_eNWP8OVg"/>
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="e172e319329f44bfe3ec8c7cfa6b2273" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyARz3oGBFIi8M6r03yHbaRIYJ_eNWP8OVg" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="e172e319329f44bfe3ec8c7cfa6b2273" />
+
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

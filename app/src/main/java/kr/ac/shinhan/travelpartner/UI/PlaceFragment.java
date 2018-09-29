@@ -1,6 +1,7 @@
 package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
@@ -8,9 +9,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,6 +86,21 @@ public class PlaceFragment extends Fragment {
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_place_progress);
         mSearchEditText = (EditText) view.findViewById(R.id.edittext_place_search);
+
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        mSearchBtn.performClick();
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+
         mSearchBtn = (Button) view.findViewById(R.id.btn_place_search);
         mSearchBtn.setOnClickListener(searchListener);
 
@@ -133,6 +152,9 @@ public class PlaceFragment extends Fragment {
     View.OnClickListener searchListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mSearchEditText.clearFocus();
+            InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
             String keyword = mSearchEditText.getText().toString();
             new SerachKeyword().execute(keyword);
         }
