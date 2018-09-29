@@ -46,4 +46,12 @@ dependencies {
     implementation 'com.android.support:support-v13:27.1.1'
     //URL image 로딩
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // 파이어베이스
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation "com.google.firebase:firebase-database:16.0.1"
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
 }
+apply plugin: 'com.google.gms.google-services'

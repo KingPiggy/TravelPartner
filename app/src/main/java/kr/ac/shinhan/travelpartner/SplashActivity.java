@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
+
 public class SplashActivity extends AppCompatActivity {
     private Handler handler;
 
     Runnable runnable = new Runnable() {
         public void run() {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, GoogleSignInActivity.class);
             startActivity(intent);
             finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
