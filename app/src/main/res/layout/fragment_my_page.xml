@@ -64,6 +64,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/boundary" />
         </LinearLayout>
 
@@ -87,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="#00000000"
-                android:drawable="@drawable/selector_clicked_event"
                 android:gravity="center"
                 android:text="@string/about_us"
                 android:textSize="14dp" />
@@ -102,7 +102,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="#00000000"
-                android:drawable="@drawable/selector_clicked_event"
                 android:gravity="center"
                 android:text="@string/about_us"
                 android:textSize="14dp" />

@@ -1,6 +1,7 @@
 package kr.ac.shinhan.travelpartner.Firebase;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import kr.ac.shinhan.travelpartner.MainActivity;
 import kr.ac.shinhan.travelpartner.R;
+
+import static kr.ac.shinhan.travelpartner.MainActivity.PREFNAME;
 
 public class GoogleSignInActivity extends BaseActivity implements
         View.OnClickListener {
@@ -135,12 +138,22 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     // [START signin]
     private void signIn() {
+        SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("isSigned", "true");
+        editor.apply();
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
 
     private void signOut() {
+        SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("isSigned", "false");
+        editor.apply();
+
         // Firebase sign out
         mAuth.signOut();
 

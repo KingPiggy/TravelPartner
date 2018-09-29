@@ -3,13 +3,10 @@ package kr.ac.shinhan.travelpartner;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,8 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
-
 import static kr.ac.shinhan.travelpartner.MainActivity.PREFNAME;
 
 public class AccountActivity extends AppCompatActivity {
@@ -37,7 +32,6 @@ public class AccountActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +57,10 @@ public class AccountActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = settings.edit();
                 String isSigned = settings.getString("isSigned","");
                 if(isSigned.equals("true")){
-                    signOut();
+                    signOutDialog();
                 }
                 else if (isSigned.equals("false")){
-                    signIn();
+                    signInDialog();
                 }
             }
         });
@@ -123,18 +117,18 @@ public class AccountActivity extends AppCompatActivity {
     private void signIn() {
         SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("isSigned", true);
+        editor.putString("isSigned", "true");
         editor.apply();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void signOut() {
-        mAuth.signOut();
         SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("isSigned", false);
+        editor.putString("isSigned", "false");
         editor.apply();
+        mAuth.signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this,
                 new OnCompleteListener<Void>() {
                     @Override
@@ -143,17 +137,6 @@ public class AccountActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    private void revokeAccess() {
-        mAuth.signOut();
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
     }
 
     private void updateUI(FirebaseUser user) {
@@ -166,7 +149,6 @@ public class AccountActivity extends AppCompatActivity {
             mEmail.setText("");
         }
     }
-
 
     private void makeDialog() {
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(AccountActivity.this);
@@ -194,4 +176,41 @@ public class AccountActivity extends AppCompatActivity {
         alert.show();
     }
 
+    public void signInDialog(){
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(AccountActivity.this);
+        alt_bld.setTitle("로그인").setIcon(R.drawable.ic_photo).setCancelable(
+                false).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        signIn();
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // 취소 클릭. dialog 닫기.
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
+    }
+
+    public void signOutDialog(){
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(AccountActivity.this);
+        alt_bld.setTitle("로그아웃").setIcon(R.drawable.ic_photo).setCancelable(
+                false).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        signOut();
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // 취소 클릭. dialog 닫기.
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
+    }
 }
