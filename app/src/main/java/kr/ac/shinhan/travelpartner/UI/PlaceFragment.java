@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -85,6 +86,8 @@ public class PlaceFragment extends Fragment {
         guCode = "";
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_place_progress);
+        mProgressBar.setIndeterminate(true);
+        mProgressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#00498c"), PorterDuff.Mode.MULTIPLY);
         mSearchEditText = (EditText) view.findViewById(R.id.edittext_place_search);
 
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

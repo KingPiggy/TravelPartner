@@ -60,7 +60,6 @@
                     android:layout_toRightOf="@id/iv_info_tel"
                     android:text="@string/ready_for_update" />
 
-
                 <ImageView
                     android:id="@+id/iv_info_addr"
                     android:layout_width="18dp"
@@ -95,10 +94,10 @@
                     android:layout_alignBottom="@id/iv_info_opentime"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:marqueeRepeatLimit="marquee_forever"
                     android:layout_toRightOf="@id/iv_info_opentime"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:text="@string/ready_for_update" />
 
                 <ImageView
@@ -116,10 +115,10 @@
                     android:layout_alignBottom="@id/iv_info_resttime"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:marqueeRepeatLimit="marquee_forever"
                     android:layout_toRightOf="@id/iv_info_resttime"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:text="@string/ready_for_update" />
 
 
@@ -127,99 +126,106 @@
                     android:id="@+id/iv_info_parking"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
                     android:layout_below="@id/iv_info_resttime"
+                    android:layout_marginTop="20dp"
                     android:background="#00000000"
                     android:padding="0dp"
-                    android:scaleType="fitCenter"
-/>
+                    android:scaleType="fitCenter" />
 
                 <ImageView
                     android:id="@+id/iv_info_pet"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_toRightOf="@id/iv_info_parking"
                     android:layout_alignTop="@id/iv_info_parking"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/iv_info_parking"
+                    android:background="#00000000"
                     android:padding="0dp"
-                    android:scaleType="fitCenter"
-                    android:background="#00000000"/>
+                    android:scaleType="fitCenter" />
 
                 <ImageView
                     android:id="@+id/iv_info_stroller"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_toRightOf="@id/iv_info_pet"
                     android:layout_alignTop="@id/iv_info_pet"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/iv_info_pet"
+                    android:background="#00000000"
                     android:padding="0dp"
-                    android:scaleType="fitCenter"
-                    android:background="#00000000"/>
+                    android:scaleType="fitCenter" />
 
                 <ImageButton
                     android:id="@+id/btn_info_info"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_toRightOf="@id/iv_info_stroller"
-                    android:layout_alignTop="@id/iv_info_stroller"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/tv_info_contenttypeid"
+                    android:layout_marginRight="20dp"
+                    android:background="#00000000"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
-                    android:background="#00000000"/>
+                    android:src="@drawable/ic_info"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/btn_info_info"
+                    android:layout_below="@id/btn_info_info"
+                    android:layout_marginTop="5dp"
+                    android:text="무장애정보조회"
+                    android:textSize="10dp" />
 
                 <LinearLayout
                     android:id="@+id/layout_info_com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_info_parking"
-                    android:layout_marginTop="20dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-                    <Button
-                        android:id="@+id/btn_info_tel"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="전화걸기"
-                        android:background="@drawable/btnshape"
-                        android:layout_marginRight="8dp"
-                        />
-                    <Button
-                        android:id="@+id/btn_info_addr"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="길 찾기"
-                        android:background="@drawable/btnshape"
-                        android:layout_marginRight="8dp"
-                        />
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btn_info_favorite"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="@string/favorite"
-                        android:background="@drawable/btnshape"
-                        android:layout_marginRight="5dp"
-                        />
+                        <Button
+                            android:id="@+id/btn_info_tel"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btnshape"
+                            android:text="전화걸기" />
+
+                        <Button
+                            android:id="@+id/btn_info_addr"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btnshape"
+                            android:text="길 찾기" />
+
+                        <Button
+                            android:id="@+id/btn_info_favorite"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btnshape"
+                            android:text="@string/favorite" />
                     </LinearLayout>
+
                     <Button
                         android:id="@+id/btn_info_write_review"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="@string/write_review"
-                        android:background="@drawable/btnshape"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-
-                        />
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btnshape"
+                        android:text="@string/write_review" />
 
                 </LinearLayout>
             </RelativeLayout>

@@ -8,13 +8,7 @@
     android:orientation="vertical"
     android:id="@+id/main_layout"
     tools:context=".Firebase.GoogleSignInActivity">
-    <!--
-    어플 설치 후 한 번만 실행되는 액티비티임.
-    사용자 환경설정하고 메인 액티비티로 넘어감
-    사용자 타입 : 장애인, 비장애인
-    보행보조기 : 목발 휠체어 보조기등
-    선택하는 건 라디오 버튼이나 스피너로 만들기
-    -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -108,12 +102,4 @@
 
     </RelativeLayout>
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="이동 수단"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="보행보조기"/>-->
 </LinearLayout>

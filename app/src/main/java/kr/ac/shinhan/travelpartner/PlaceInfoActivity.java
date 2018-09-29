@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
     private ImageView mImage;
     private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
+    private ImageButton mInfoBtn;
     private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
     private double lat, lon;
     boolean isParking, isPet, isBabycarriage;
@@ -73,8 +75,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         initUI();
         new PlaceInfoParsing().execute(contentId, contentTypeId);
-        //new DetailWithTourParsing().execute(contentId);
-
     }
 
     View.OnClickListener btnListener = new View.OnClickListener() {
@@ -112,13 +112,12 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mAddr = (TextView) findViewById(R.id.tv_info_addr);
         mOpenTime = (TextView) findViewById(R.id.tv_info_opentime);
         mRestTime = (TextView) findViewById(R.id.tv_info_resttime);
-        mTelBtn = (Button) findViewById(R.id.btn_info_tel);
-        mAddrBtn = (Button) findViewById(R.id.btn_info_addr);
 
         mTelBtn = (Button) findViewById(R.id.btn_info_tel);
         mAddrBtn = (Button) findViewById(R.id.btn_info_addr);
         mWriteReviewBtn = (Button) findViewById(R.id.btn_info_write_review);
         mFavoriteBtn = (Button) findViewById(R.id.btn_info_favorite);
+        mInfoBtn = (ImageButton) findViewById(R.id.btn_info_info);
 
         mStroller = (ImageView) findViewById(R.id.iv_info_stroller);
         mPet = (ImageView) findViewById(R.id.iv_info_pet);
@@ -128,6 +127,15 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mAddrBtn.setOnClickListener(btnListener);
         mWriteReviewBtn.setOnClickListener(btnListener);
         mFavoriteBtn.setOnClickListener(btnListener);
+        mInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DetailInfoActivity.class);
+                intent.putExtra("contentId", contentId);
+                intent.putExtra("title", title);
+                startActivity(intent);
+            }
+        });
 
         Picasso.get().load(image).into(mImage);
         mContentTypeId.setText(uiContentType);
@@ -136,8 +144,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mAddr.setText(addr);
         mOpenTime.setSelected(true);
         mRestTime.setSelected(true);
-
     }
+
 
     class PlaceInfoParsing extends AsyncTask<String, String, PlaceInfoItem> {
 
@@ -172,9 +180,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("opentime")) {
                                 parser.next();
                                 opentime = parser.getText();
-                                opentime = opentime.replace("<br />","");
-                                opentime=opentime.replace("<br/>","");
-                                opentime=opentime.replace("<br>","");
+                                opentime = opentime.replace("<br />", "");
+                                opentime = opentime.replace("<br/>", "");
+                                opentime = opentime.replace("<br>", "");
                                 placeInfoItem.setOpentime(opentime);
                             } else if (tag.equals("parking") || tag.equals("parkingculture") || tag.equals("parkingleports")
                                     || tag.equals("parkinglodging") || tag.equals("parkingshopping") || tag.equals("parkingfood")) {
@@ -184,16 +192,16 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("restdate")) {
                                 parser.next();
                                 restdate = parser.getText();
-                                restdate = restdate.replace("<br />","");
-                                restdate = restdate.replace("<br/>","");
-                                restdate = restdate.replace("<br>","");
+                                restdate = restdate.replace("<br />", "");
+                                restdate = restdate.replace("<br/>", "");
+                                restdate = restdate.replace("<br>", "");
                                 placeInfoItem.setRestdate(restdate);
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
-                                usetime = usetime.replace("<br />","");
-                                usetime = usetime.replace("<br/>","");
-                                usetime = usetime.replace("<br>","");
+                                usetime = usetime.replace("<br />", "");
+                                usetime = usetime.replace("<br/>", "");
+                                usetime = usetime.replace("<br>", "");
                                 placeInfoItem.setUsetime(usetime);
                             }
                             break;
@@ -272,51 +280,4 @@ public class PlaceInfoActivity extends AppCompatActivity {
             }
         }
     }
-
-    class DetailWithTourParsing extends AsyncTask<String, String, DetailWithTourItem> {
-
-        @Override
-        protected DetailWithTourItem doInBackground(String... strings) {
-            DetailWithTourItem detailWithTourItem = null;
-            try {
-                String contentId = strings[0];
-
-                URL detailIntroUrl = new URL(SERVICE_URL + SERVICE_DETAIL_WITH_TOUR + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME +
-                        "&contentId=" + contentId);
-                XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
-                XmlPullParser parser = parserCreator.newPullParser();
-
-                parser.setInput(detailIntroUrl.openStream(), "UTF-8");
-                int parserEvent = parser.getEventType();
-
-                while (parserEvent != XmlPullParser.END_DOCUMENT) {
-                    switch (parserEvent) {
-                        case XmlPullParser.START_TAG:
-                            String tag = parser.getName();
-                            if (tag.contains("item")) {
-                                detailWithTourItem = new DetailWithTourItem();
-                            } else if (tag.equals("chkbabycarriage")) {
-
-                                parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            }
-                            break;
-                    }
-                    parserEvent = parser.next();
-                }
-            } catch (XmlPullParserException | IOException e) {
-                e.printStackTrace();
-            }
-            return detailWithTourItem;
-        }
-
-        @Override
-        protected void onPostExecute(DetailWithTourItem detailWithTourItem) {
-            super.onPostExecute(detailWithTourItem);
-
-        }
-
-    }
-
 }
