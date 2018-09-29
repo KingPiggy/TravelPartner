@@ -1,7 +1,7 @@
 package kr.ac.shinhan.travelpartner.Item;
 
 public class PlaceInfoItem {
-    String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
+    private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
 
     public PlaceInfoItem() {
     }
@@ -53,4 +53,5 @@ public class PlaceInfoItem {
     public void setOpentime(String opentime) {
         this.opentime = opentime;
     }
+
 }

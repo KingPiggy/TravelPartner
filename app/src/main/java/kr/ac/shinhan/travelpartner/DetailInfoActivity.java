@@ -34,8 +34,7 @@ public class DetailInfoActivity extends AppCompatActivity {
     private DetailWithTourItem detailWithTourItem = new DetailWithTourItem();
     private TextView mTitle;
     private Button mCloseBtn;
-    private String contentId, title;
-    private RecyclerView mRecyclerView;
+    private String title;
     private DetailRecyclerAdapter detailRecyclerAdapter;
     private ArrayList<DetailWithTourItem> firstItems = new ArrayList<DetailWithTourItem>();
     LinearLayoutManager mLayoutManager;
@@ -50,34 +49,21 @@ public class DetailInfoActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        contentId = intent.getStringExtra("contentId");
+        String contentId = intent.getStringExtra("contentId");
         title = intent.getStringExtra("title");
 
         initUI();
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerview_detail);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_detail);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-        firstItems.add(new DetailWithTourItem());
-
-
 
         detailRecyclerAdapter = new DetailRecyclerAdapter(getApplicationContext(), firstItems, R.layout.activity_detail_info);
 
         mRecyclerView.setAdapter(detailRecyclerAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-        //new DetailWithTourParsing().execute(contentId);
+        new DetailWithTourParsing().execute(contentId);
     }
 
     public void initUI() {
@@ -92,10 +78,10 @@ public class DetailInfoActivity extends AppCompatActivity {
         });
     }
 
-    class DetailWithTourParsing extends AsyncTask<String, String, DetailWithTourItem> {
+    class DetailWithTourParsing extends AsyncTask<String, String, ArrayList<DetailWithTourItem>>{
         @Override
-        protected DetailWithTourItem doInBackground(String... strings) {
-            DetailWithTourItem detailWithTourItem = null;
+        protected ArrayList<DetailWithTourItem> doInBackground(String... strings) {
+            ArrayList<DetailWithTourItem> newItems = new ArrayList<DetailWithTourItem>();
             try {
                 String contentId = strings[0];
 
@@ -107,36 +93,93 @@ public class DetailInfoActivity extends AppCompatActivity {
                 parser.setInput(detailIntroUrl.openStream(), "UTF-8");
                 int parserEvent = parser.getEventType();
 
+                DetailWithTourItem detailWithTourItem = null;
                 while (parserEvent != XmlPullParser.END_DOCUMENT) {
                     switch (parserEvent) {
                         case XmlPullParser.START_TAG:
                             String tag = parser.getName();
+                            String infoContents = "";
+                            String infoTitle = "";
                             if (tag.contains("item")) {
                                 detailWithTourItem = new DetailWithTourItem();
-                            } else if (tag.equals("chkbabycarriage")) {
+                            } else if (tag.equals("parking")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            } else if (tag.equals("chkbabycarriage")) {
+                                infoTitle = "장애인 주차 구역";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("publictransport")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            } else if (tag.equals("chkbabycarriage")) {
+                                infoTitle = "접근로";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("wheelchair")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            } else if (tag.equals("chkbabycarriage")) {
+                                infoTitle = "휠체어";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("exit")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            } else if (tag.equals("chkbabycarriage")) {
+                                infoTitle = "출입 통로";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("elevator")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
-                            } else if (tag.equals("chkbabycarriage")) {
+                                infoTitle = "엘리베이터";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("restroom")) {
                                 parser.next();
-                                //chkbabycarriage = parser.getText();
-                                //placeInfoItem.setChkbabycarriage(chkbabycarriage);
+                                infoTitle = "화장실";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("braileblock")) {
+                                parser.next();
+                                infoTitle = "점자블록";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("helpdog")) {
+                                parser.next();
+                                infoTitle = "보조견 동반";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("audioguide")) {
+                                parser.next();
+                                infoTitle = "오디오 가이드";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("signguide")) {
+                                parser.next();
+                                infoTitle = "수화안내";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("stroller")) {
+                                parser.next();
+                                infoTitle = "유모차";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            } else if (tag.equals("lactationroom")) {
+                                parser.next();
+                                infoTitle = "수유실";
+                                infoContents = parser.getText();
+                                detailWithTourItem.setTitle(infoTitle);
+                                detailWithTourItem.setContents(infoContents);
+                            }
+                            break;
+                        case XmlPullParser.END_TAG:
+                            String endTag = parser.getName();
+                            if (endTag.equals("item")) {
+                                newItems.add(detailWithTourItem);
                             }
                             break;
                     }
@@ -145,13 +188,15 @@ public class DetailInfoActivity extends AppCompatActivity {
             } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             }
-            return detailWithTourItem;
+            return newItems;
         }
 
         @Override
-        protected void onPostExecute(DetailWithTourItem detailWithTourItem) {
-            super.onPostExecute(detailWithTourItem);
-
+        protected void onPostExecute(ArrayList<DetailWithTourItem> newItems) {
+            super.onPostExecute(newItems);
+            firstItems.clear();
+            firstItems.addAll(newItems);
+            detailRecyclerAdapter.notifyDataSetChanged();
         }
 
     }

@@ -1,6 +1,7 @@
 package kr.ac.shinhan.travelpartner.Adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,11 +41,51 @@ public class DetailRecyclerAdapter extends RecyclerView.Adapter<DetailRecyclerAd
             return;
         }
         DetailWithTourItem item = items.get(holder.getAdapterPosition());
-        holder.mIcon.setImageResource(R.drawable.ic_parking);
-        holder.mTitle.setText(item.getTitle());
+        String title = item.getTitle();
+        setImage(title, holder.mIcon);
+        holder.mTitle.setText(title);
         holder.mContents.setText(item.getContents());
     }
-
+    public void setImage(String title, ImageView mIcon){
+        switch (title){
+            case "장애인 주차 구역":
+                mIcon.setImageResource(R.drawable.ic_disabledparking);
+                break;
+            case "접근로":
+                mIcon.setImageResource(R.drawable.ic_entrance);
+                break;
+            case "휠체어":
+                mIcon.setImageResource(R.drawable.ic_wheelchair);
+                break;
+            case "출입 통로":
+                mIcon.setImageResource(R.drawable.ic_exit);
+                break;
+            case "엘리베이터":
+                mIcon.setImageResource(R.drawable.ic_elevator);
+                break;
+            case "화장실":
+                mIcon.setImageResource(R.drawable.ic_toilet);
+                break;
+            case "점자블록":
+                mIcon.setImageResource(R.drawable.ic_braileblock);
+                break;
+            case "보조견 동반":
+                mIcon.setImageResource(R.drawable.ic_dog);
+                break;
+            case "오디오 가이드":
+                mIcon.setImageResource(R.drawable.ic_headphones);
+                break;
+            case "수화안내":
+                mIcon.setImageResource(R.drawable.ic_signlanguage);
+                break;
+            case "유모차":
+                mIcon.setImageResource(R.drawable.ic_stroller_color);
+                break;
+            case "수유실":
+                mIcon.setImageResource(R.drawable.ic_baby_bottle);
+                break;
+        }
+    }
     @Override
     public int getItemCount() {
         if (items == null) {
