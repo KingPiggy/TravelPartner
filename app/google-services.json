@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "409995637669",
+    "firebase_url": "https://travelpartner-7d968.firebaseio.com",
+    "project_id": "travelpartner-7d968",
+    "storage_bucket": "travelpartner-7d968.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409995637669:android:a3255d86dea76204",
+        "android_client_info": {
+          "package_name": "kr.ac.shinhan.travelpartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409995637669-h5atqkg1r345810jl0e3fm2ad1je9puj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.shinhan.travelpartner",
+            "certificate_hash": "86dcbdebf09625f79ca224a65acf05bca64ca226"
+          }
+        },
+        {
+          "client_id": "409995637669-usop0g59arnm1inhjhr4pg7rc78q4qpg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.shinhan.travelpartner",
+            "certificate_hash": "c0337409b62b0c78c0979e03e5647fd68023e1c4"
+          }
+        },
+        {
+          "client_id": "409995637669-m16cuunlu1ma10s6fel7igfm5u3572fd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.shinhan.travelpartner",
+            "certificate_hash": "c127e25c0f1bb3d4e178233038bcde25e652d6e6"
+          }
+        },
+        {
+          "client_id": "409995637669-46si0khngv78hmakmj80p14qfcibf2tb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8Vv5ttEUH2kSsskLG7a21kIxz-tws7Vs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409995637669-46si0khngv78hmakmj80p14qfcibf2tb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

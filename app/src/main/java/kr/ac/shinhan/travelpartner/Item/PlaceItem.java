@@ -1,7 +1,7 @@
 package kr.ac.shinhan.travelpartner.Item;
 
 public class PlaceItem {
-    private String uiContentTypeId, title, tel, addr, contentId, thumbnail, image, contentTypeId;
+    private String uiContentTypeId, title, tel, addr, contentId, image, contentTypeId;
     private double latitude, longitude;
     public PlaceItem() {
     }
@@ -44,14 +44,6 @@ public class PlaceItem {
 
     public void setAddr(String addr) {
         this.addr = addr;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
     }
 
     public double getLatitude() {

@@ -26,10 +26,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     double lat, lon;
     String contentId, image, contentTypeId, uiContentTypeId, title, tel, addr;
 
-    public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int item_layout) {
+    public RecyclerAdapter(Context context, ArrayList<PlaceItem> items, int itemLayout) {
         this.context = context;
         this.items = items;
-        this.itemLayout = item_layout;
+        this.itemLayout = itemLayout;
     }
 
     @NonNull
@@ -38,6 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place, null);
         return new ViewHolder(v);
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemCount() <= 0 && position >= getItemCount()) {
@@ -48,8 +49,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.mTitle.setText(item.getTitle());
         holder.mContentType.setText(item.getUiContentTypeId());
         holder.mTel.setText(item.getTel());
+        holder.mTel.setSelected(true);
         holder.mAddr.setText(item.getAddr());
-        Picasso.get().load(item.getThumbnail()).into(holder.mImage);
+        Picasso.get().load(item.getImage()).into(holder.mImage);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView)itemView.findViewById(R.id.cardview_placeitem);
+            cardView = (CardView) itemView.findViewById(R.id.cardview_placeitem);
             cardView.setOnClickListener(this);
             mContentType = (TextView) itemView.findViewById(R.id.tv_placeitem_contenttype);
             mTitle = (TextView) itemView.findViewById(R.id.tv_placeitem_title);
@@ -79,7 +81,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            int position = (int)v.getTag();
+            int position = (int) v.getTag();
             PlaceItem item = items.get(position);
             Intent intent = new Intent(v.getContext(), PlaceInfoActivity.class);
 

@@ -23,6 +23,8 @@
                 android:layout_marginTop="7dp"
                 android:layout_toLeftOf="@id/btn_place_search"
                 android:background="#fff"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:hint="@string/search"
@@ -111,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:progressBackgroundTint="@color/cobaltblue"
+                android:progressTint="@color/cobaltblue"
                 android:layout_centerInParent="true"/>
 
             <android.support.design.widget.FloatingActionButton

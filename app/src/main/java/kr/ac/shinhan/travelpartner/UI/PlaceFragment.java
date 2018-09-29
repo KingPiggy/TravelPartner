@@ -1,16 +1,22 @@
 package kr.ac.shinhan.travelpartner.UI;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,7 +87,24 @@ public class PlaceFragment extends Fragment {
         guCode = "";
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_place_progress);
+        mProgressBar.setIndeterminate(true);
+        mProgressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#00498c"), PorterDuff.Mode.MULTIPLY);
         mSearchEditText = (EditText) view.findViewById(R.id.edittext_place_search);
+
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        mSearchBtn.performClick();
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+
         mSearchBtn = (Button) view.findViewById(R.id.btn_place_search);
         mSearchBtn.setOnClickListener(searchListener);
 
@@ -133,6 +156,9 @@ public class PlaceFragment extends Fragment {
     View.OnClickListener searchListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mSearchEditText.clearFocus();
+            InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
             String keyword = mSearchEditText.getText().toString();
             new SerachKeyword().execute(keyword);
         }
@@ -240,10 +266,6 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 image = parser.getText();
                                 placeItem.setImage(image);
-                            } else if (tag.equals("firstimage2")) {
-                                parser.next();
-                                thumbnail = parser.getText();
-                                placeItem.setThumbnail(thumbnail);
                             } else if (tag.equals("mapx")) {
                                 parser.next();
                                 latitude = Double.parseDouble(parser.getText());
@@ -255,6 +277,9 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
+                                tel = tel.replace("<br />", "");
+                                tel = tel.replace("<br/>", "");
+                                tel = tel.replace("<br>", "");
                                 placeItem.setTel(tel);
                             } else if (tag.equals("title")) {
                                 parser.next();
@@ -331,21 +356,34 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("contenttypeid")) {
                                 parser.next();
                                 contentType = parser.getText();
+                                placeItem.setContentTypeId(contentType);
                                 contentType = uiSetting.setContentTypeId(contentType);
                                 placeItem.setUiContentTypeId(contentType);
-                            } else if (tag.equals("firstimage2")) {
+                            } else if (tag.equals("firstimage")) {
                                 parser.next();
-                                thumbnail = parser.getText();
-                                placeItem.setThumbnail(thumbnail);
+                                image = parser.getText();
+                                placeItem.setImage(image);
+                            } else if (tag.equals("mapx")) {
+                                parser.next();
+                                latitude = Double.parseDouble(parser.getText());
+                                placeItem.setLatitude(latitude);
+                            } else if (tag.equals("mapy")) {
+                                parser.next();
+                                longitude = Double.parseDouble(parser.getText());
+                                placeItem.setLongitude(longitude);
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
+                                tel = tel.replace("<br />", "");
+                                tel = tel.replace("<br/>", "");
+                                tel = tel.replace("<br>", "");
                                 placeItem.setTel(tel);
                             } else if (tag.equals("title")) {
                                 parser.next();
                                 title = parser.getText();
                                 placeItem.setTitle(title);
                             }
+
                             break;
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
