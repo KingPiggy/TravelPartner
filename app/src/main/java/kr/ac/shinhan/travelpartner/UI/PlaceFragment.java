@@ -157,7 +157,7 @@ public class PlaceFragment extends Fragment {
         @Override
         public void onClick(View v) {
             mSearchEditText.clearFocus();
-            InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
             String keyword = mSearchEditText.getText().toString();
             new SerachKeyword().execute(keyword);
@@ -349,20 +349,24 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 addr1 = parser.getText();
                                 placeItem.setAddr(addr1);
+
                             } else if (tag.equals("contentid")) {
                                 parser.next();
                                 contentId = parser.getText();
                                 placeItem.setContentId(contentId);
+
                             } else if (tag.equals("contenttypeid")) {
                                 parser.next();
                                 contentType = parser.getText();
                                 placeItem.setContentTypeId(contentType);
+
                                 contentType = uiSetting.setContentTypeId(contentType);
                                 placeItem.setUiContentTypeId(contentType);
                             } else if (tag.equals("firstimage")) {
                                 parser.next();
                                 image = parser.getText();
                                 placeItem.setImage(image);
+
                             } else if (tag.equals("mapx")) {
                                 parser.next();
                                 latitude = Double.parseDouble(parser.getText());
@@ -374,10 +378,13 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
-                                tel = tel.replace("<br />", "");
-                                tel = tel.replace("<br/>", "");
-                                tel = tel.replace("<br>", "");
+                                if(tel != null){
+                                    tel = tel.replace("<br />", "");
+                                    tel = tel.replace("<br/>", "");
+                                    tel = tel.replace("<br>", "");
+                                }
                                 placeItem.setTel(tel);
+
                             } else if (tag.equals("title")) {
                                 parser.next();
                                 title = parser.getText();

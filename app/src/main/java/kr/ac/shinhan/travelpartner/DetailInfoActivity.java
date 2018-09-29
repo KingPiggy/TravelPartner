@@ -38,6 +38,7 @@ public class DetailInfoActivity extends AppCompatActivity {
     private DetailRecyclerAdapter detailRecyclerAdapter;
     private ArrayList<DetailWithTourItem> firstItems = new ArrayList<DetailWithTourItem>();
     LinearLayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,7 @@ public class DetailInfoActivity extends AppCompatActivity {
 
     public void initUI() {
         mTitle = (TextView) findViewById(R.id.tv_detail_title);
-        mCloseBtn = (Button)findViewById(R.id.btn_detail_close);
+        mCloseBtn = (Button) findViewById(R.id.btn_detail_close);
         mTitle.setText(title);
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +79,7 @@ public class DetailInfoActivity extends AppCompatActivity {
         });
     }
 
-    class DetailWithTourParsing extends AsyncTask<String, String, ArrayList<DetailWithTourItem>>{
+    class DetailWithTourParsing extends AsyncTask<String, String, ArrayList<DetailWithTourItem>> {
         @Override
         protected ArrayList<DetailWithTourItem> doInBackground(String... strings) {
             ArrayList<DetailWithTourItem> newItems = new ArrayList<DetailWithTourItem>();
@@ -100,85 +101,102 @@ public class DetailInfoActivity extends AppCompatActivity {
                             String tag = parser.getName();
                             String infoContents = "";
                             String infoTitle = "";
-                            if (tag.contains("item")) {
-                                detailWithTourItem = new DetailWithTourItem();
-                            } else if (tag.equals("parking")) {
+                            if (tag.equals("parking")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "장애인 주차 구역";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("publictransport")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "접근로";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("wheelchair")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "휠체어";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
+
                             } else if (tag.equals("exit")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "출입 통로";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("elevator")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "엘리베이터";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("restroom")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "화장실";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("braileblock")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "점자블록";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("helpdog")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "보조견 동반";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("audioguide")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "오디오 가이드";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("signguide")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "수화안내";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("stroller")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "유모차";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
+                                newItems.add(detailWithTourItem);
                             } else if (tag.equals("lactationroom")) {
                                 parser.next();
+                                detailWithTourItem = new DetailWithTourItem();
                                 infoTitle = "수유실";
                                 infoContents = parser.getText();
                                 detailWithTourItem.setTitle(infoTitle);
                                 detailWithTourItem.setContents(infoContents);
-                            }
-                            break;
-                        case XmlPullParser.END_TAG:
-                            String endTag = parser.getName();
-                            if (endTag.equals("item")) {
                                 newItems.add(detailWithTourItem);
                             }
                             break;

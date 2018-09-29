@@ -187,9 +187,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("opentime")) {
                                 parser.next();
                                 opentime = parser.getText();
-                                opentime = opentime.replace("<br />", "");
-                                opentime = opentime.replace("<br/>", "");
-                                opentime = opentime.replace("<br>", "");
+                                if( opentime != null) {
+                                    opentime = opentime.replace("<br />", "");
+                                    opentime = opentime.replace("<br/>", "");
+                                    opentime = opentime.replace("<br>", "");
+                                }
                                 placeInfoItem.setOpentime(opentime);
                             } else if (tag.equals("parking") || tag.equals("parkingculture") || tag.equals("parkingleports")
                                     || tag.equals("parkinglodging") || tag.equals("parkingshopping") || tag.equals("parkingfood")) {
@@ -199,16 +201,20 @@ public class PlaceInfoActivity extends AppCompatActivity {
                             } else if (tag.contains("restdate")) {
                                 parser.next();
                                 restdate = parser.getText();
-                                restdate = restdate.replace("<br />", "");
-                                restdate = restdate.replace("<br/>", "");
-                                restdate = restdate.replace("<br>", "");
+                                if( restdate != null) {
+                                    restdate = restdate.replace("<br />", "");
+                                    restdate = restdate.replace("<br/>", "");
+                                    restdate = restdate.replace("<br>", "");
+                                }
                                 placeInfoItem.setRestdate(restdate);
                             } else if (tag.contains("usetime")) {
                                 parser.next();
                                 usetime = parser.getText();
-                                usetime = usetime.replace("<br />", "");
-                                usetime = usetime.replace("<br/>", "");
-                                usetime = usetime.replace("<br>", "");
+                                if( usetime != null){
+                                    usetime = usetime.replace("<br />", "");
+                                    usetime = usetime.replace("<br/>", "");
+                                    usetime = usetime.replace("<br>", "");
+                                }
                                 placeInfoItem.setUsetime(usetime);
                             }
                             break;
