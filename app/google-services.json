@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "409995637669-usop0g59arnm1inhjhr4pg7rc78q4qpg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.shinhan.travelpartner",
+            "certificate_hash": "c0337409b62b0c78c0979e03e5647fd68023e1c4"
+          }
+        },
+        {
           "client_id": "409995637669-46si0khngv78hmakmj80p14qfcibf2tb.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
 import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
 import kr.ac.shinhan.travelpartner.Adapter.MenuFragmentAdapter;
 import kr.ac.shinhan.travelpartner.UI.FavoriteFragment;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("isFirstTime", false);
             editor.apply();
 
-            Intent intent = new Intent(getApplicationContext(), UserPrefActivity.class);
+            Intent intent = new Intent(getApplicationContext(), GoogleSignInActivity.class);
             startActivityForResult(intent, USERSETTINGS);
         } else {
         }
