@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 
 import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
 import kr.ac.shinhan.travelpartner.Adapter.MenuFragmentAdapter;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int PERMISSION_INTERNET = 100;
     public static final int PERMISSON_ACCESS_FINE_LOCATION = 200;
     BottomNavigationView bottomNavigationView;
+    private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
+    private double lat, lon;
 
     HomeFragment homeFragment;
     PlaceFragment placeFragment;
@@ -168,5 +171,84 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(myPageFragment);
 
         viewPager.setAdapter(adapter);
+    }
+
+    public void onClick(View v){
+        Intent intent;
+        switch (v.getId()){
+            case R.id.menu2_btn1:
+                contentTypeId ="12";
+                uiContentType = "#관광지";
+                lat= 126.9769930325;
+                lon = 37.5788222356;
+                contentId = "126508";
+                image ="http://tong.visitkorea.or.kr/cms/resource/40/1568040_image2_1.jpg";
+                title ="경복궁";
+                tel ="02-3700-3900";
+                addr ="서울특별시 종로구 사직로 161";
+
+                intent = new Intent(getApplicationContext(), PlaceInfoActivity.class);
+                intent.putExtra("latitude", lat);
+                intent.putExtra("longitude", lon);
+                intent.putExtra("contentid", contentId);
+                intent.putExtra("contentTypeId", contentTypeId);
+                intent.putExtra("uiContentTypeId", uiContentType);
+                intent.putExtra("image", image);
+                intent.putExtra("title", title);
+                intent.putExtra("tel", tel);
+                intent.putExtra("addr", addr);
+                startActivity(intent);
+                break;
+
+            case R.id.menu2_btn2:
+                contentTypeId ="12";
+                uiContentType = "#관광지";
+                lat= 126.9876206116;
+                lon = 37.5516394747;
+                contentId = "126535";
+                image ="http://tong.visitkorea.or.kr/cms/resource/30/2477030_image2_1.jpg";
+                title ="남산서울타워";
+                tel ="02-3455-9277";
+                addr ="서울특별시 용산구 남산공원길 105";
+
+                intent = new Intent(getApplicationContext(), PlaceInfoActivity.class);
+                intent.putExtra("latitude", lat);
+                intent.putExtra("longitude", lon);
+                intent.putExtra("contentid", contentId);
+                intent.putExtra("contentTypeId", contentTypeId);
+                intent.putExtra("uiContentTypeId", uiContentType);
+                intent.putExtra("image", image);
+                intent.putExtra("title", title);
+                intent.putExtra("tel", tel);
+                intent.putExtra("addr", addr);
+                startActivity(intent);
+                break;
+
+            case R.id.menu2_btn3:
+                contentTypeId ="12";
+                uiContentType = "#관광지";
+                lat= 126.9940059289;
+                lon =  37.5591248302;
+                contentId = "126747";
+                image =" http://tong.visitkorea.or.kr/cms/resource/62/1946562_image2_1.jpg";
+                title ="남산골한옥마을";
+                tel ="02-2261-0517";
+                addr ="서울특별시 중구 퇴계로34길 28";
+
+                intent = new Intent(getApplicationContext(), PlaceInfoActivity.class);
+                intent.putExtra("latitude", lat);
+                intent.putExtra("longitude", lon);
+                intent.putExtra("contentid", contentId);
+                intent.putExtra("contentTypeId", contentTypeId);
+                intent.putExtra("uiContentTypeId", uiContentType);
+                intent.putExtra("image", image);
+                intent.putExtra("title", title);
+                intent.putExtra("tel", tel);
+                intent.putExtra("addr", addr);
+                startActivity(intent);
+                break;
+
+        }
+
     }
 }
