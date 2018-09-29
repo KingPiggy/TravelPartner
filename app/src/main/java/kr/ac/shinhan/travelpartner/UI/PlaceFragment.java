@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +49,6 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_S
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_URL;
 
 public class PlaceFragment extends Fragment {
-    //java.lang.IndexOutOfBoundsException: Inconsistency detected. 예외처리
     View view;
     private String guCode, contentType, arrange, contentId;
     private String title, tel, addr1, thumbnail, image;
@@ -62,10 +60,10 @@ public class PlaceFragment extends Fragment {
     private TextView mTitleArrange, mViewArrange;
     private EditText mSearchEditText;
     private ArrayList<String> guNameList;
-    private ArrayList<PlaceItem> items = new ArrayList<PlaceItem>();
+    private ArrayList<PlaceItem> firstItems = new ArrayList<PlaceItem>();
     private HashMap<String, String> guCodeMap;
     private UISetting uiSetting = new UISetting();
-    private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getActivity(), items, R.layout.activity_main);
+    private RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getActivity(), firstItems, R.layout.activity_main);
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -201,12 +199,13 @@ public class PlaceFragment extends Fragment {
 
         @Override
         protected ArrayList<PlaceItem> doInBackground(String... strings) {
+            ArrayList<PlaceItem> newItems = new ArrayList<PlaceItem>();
+
             try {
                 String guCode, contentType, arrange, page;
                 guCode = strings[0];
                 contentType = strings[1];
                 arrange = strings[2];
-                items.clear();
 
                 URL areaBasedListURL = new URL(SERVICE_URL + SERVICE_AREA_BASED_LIST + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME + "&areaCode=" + AREA_CODE
                         + "&numOfRows=" + NUM_OF_ITEM + "&arrange=" + arrange + "&contentTypeId=" + contentType + "&sigunguCode=" + guCode);
@@ -266,7 +265,7 @@ public class PlaceFragment extends Fragment {
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
                             if (endTag.equals("item")) {
-                                items.add(placeItem);
+                                newItems.add(placeItem);
                             }
                             break;
                     }
@@ -275,15 +274,17 @@ public class PlaceFragment extends Fragment {
             } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             }
-            return items;
+            return newItems;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
-            super.onPostExecute(placeItems);
-            if (items.isEmpty()) {
+        protected void onPostExecute(ArrayList<PlaceItem> newItems) {
+            super.onPostExecute(newItems);
+            if (newItems.isEmpty()) {
                 Toast.makeText(getActivity(), "아이템이 없습니다.", Toast.LENGTH_SHORT).show();
             }
+            firstItems.clear();
+            firstItems.addAll(newItems);
             recyclerAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
@@ -292,11 +293,19 @@ public class PlaceFragment extends Fragment {
 
     // 키워드 검색
     class SerachKeyword extends AsyncTask<String, String, ArrayList<PlaceItem>> {
+        ArrayList<PlaceItem> newItems = new ArrayList<PlaceItem>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected ArrayList<PlaceItem> doInBackground(String... strings) {
             try {
                 String keyword = strings[0];
-                items.clear();
+
                 URL url = new URL(SERVICE_URL + SERVICE_SEARCH_KEYWORD + "ServiceKey=" + KEY + "&MobileOS=" + OS + "&MobileApp=" + APPNAME
                         + "&areaCode=" + AREA_CODE + "&keyword=" + URLEncoder.encode(keyword, "UTF-8") + "&numOfRows=" + NUM_OF_ITEM);
 
@@ -341,7 +350,7 @@ public class PlaceFragment extends Fragment {
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();
                             if (endTag.equals("item")) {
-                                items.add(placeItem);
+                                newItems.add(placeItem);
                             }
                             break;
                     }
@@ -350,16 +359,20 @@ public class PlaceFragment extends Fragment {
             } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             }
-            return items;
+            return newItems;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PlaceItem> placeItems) {
-            super.onPostExecute(placeItems);
-            if (items.isEmpty()) {
+        protected void onPostExecute(ArrayList<PlaceItem> newItems) {
+            super.onPostExecute(newItems);
+            if (newItems.isEmpty()) {
                 Toast.makeText(getActivity(), "아이템이 없습니다.", Toast.LENGTH_SHORT).show();
             }
+            firstItems.clear();
+            firstItems.addAll(newItems);
             recyclerAdapter.notifyDataSetChanged();
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 
