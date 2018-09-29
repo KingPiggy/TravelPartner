@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,7 +19,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
+import kr.ac.shinhan.travelpartner.Adapter.DetailRecyclerAdapter;
 import kr.ac.shinhan.travelpartner.Item.DetailWithTourItem;
 
 import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.APPNAME;
@@ -31,7 +35,10 @@ public class DetailInfoActivity extends AppCompatActivity {
     private TextView mTitle;
     private Button mCloseBtn;
     private String contentId, title;
-
+    private RecyclerView mRecyclerView;
+    private DetailRecyclerAdapter detailRecyclerAdapter;
+    private ArrayList<DetailWithTourItem> firstItems = new ArrayList<DetailWithTourItem>();
+    LinearLayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,15 @@ public class DetailInfoActivity extends AppCompatActivity {
         title = intent.getStringExtra("title");
 
         initUI();
+        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerview_detail);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        detailRecyclerAdapter = new DetailRecyclerAdapter(getApplicationContext(), firstItems, R.layout.activity_detail_info);
+
+//        mRecyclerView.setAdapter(detailRecyclerAdapter);
+//        mRecyclerView.setNestedScrollingEnabled(false);
 
         //new DetailWithTourParsing().execute(contentId);
     }

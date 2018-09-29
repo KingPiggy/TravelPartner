@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -265,10 +266,6 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 image = parser.getText();
                                 placeItem.setImage(image);
-                            } else if (tag.equals("firstimage2")) {
-                                parser.next();
-                                thumbnail = parser.getText();
-                                placeItem.setThumbnail(thumbnail);
                             } else if (tag.equals("mapx")) {
                                 parser.next();
                                 latitude = Double.parseDouble(parser.getText());
@@ -280,6 +277,9 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
+                                tel = tel.replace("<br />", "");
+                                tel = tel.replace("<br/>", "");
+                                tel = tel.replace("<br>", "");
                                 placeItem.setTel(tel);
                             } else if (tag.equals("title")) {
                                 parser.next();
@@ -356,21 +356,34 @@ public class PlaceFragment extends Fragment {
                             } else if (tag.equals("contenttypeid")) {
                                 parser.next();
                                 contentType = parser.getText();
+                                placeItem.setContentTypeId(contentType);
                                 contentType = uiSetting.setContentTypeId(contentType);
                                 placeItem.setUiContentTypeId(contentType);
-                            } else if (tag.equals("firstimage2")) {
+                            } else if (tag.equals("firstimage")) {
                                 parser.next();
-                                thumbnail = parser.getText();
-                                placeItem.setThumbnail(thumbnail);
+                                image = parser.getText();
+                                placeItem.setImage(image);
+                            } else if (tag.equals("mapx")) {
+                                parser.next();
+                                latitude = Double.parseDouble(parser.getText());
+                                placeItem.setLatitude(latitude);
+                            } else if (tag.equals("mapy")) {
+                                parser.next();
+                                longitude = Double.parseDouble(parser.getText());
+                                placeItem.setLongitude(longitude);
                             } else if (tag.equals("tel")) {
                                 parser.next();
                                 tel = parser.getText();
+                                tel = tel.replace("<br />", "");
+                                tel = tel.replace("<br/>", "");
+                                tel = tel.replace("<br>", "");
                                 placeItem.setTel(tel);
                             } else if (tag.equals("title")) {
                                 parser.next();
                                 title = parser.getText();
                                 placeItem.setTitle(title);
                             }
+
                             break;
                         case XmlPullParser.END_TAG:
                             String endTag = parser.getName();

@@ -58,6 +58,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/iv_info_tel"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:text="@string/ready_for_update" />
 
                 <ImageView
@@ -78,12 +81,11 @@
                     android:layout_toRightOf="@id/iv_info_addr"
                     android:text="@string/ready_for_update" />
 
-
                 <ImageView
                     android:id="@+id/iv_info_opentime"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_below="@id/iv_info_addr"
+                    android:layout_below="@id/tv_info_addr"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/ic_time_black_24dp" />
 

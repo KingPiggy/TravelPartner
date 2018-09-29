@@ -148,6 +148,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         mTitle.setText(title);
         mTel.setText(tel);
         mAddr.setText(addr);
+        mTel.setSelected(true);
         mOpenTime.setSelected(true);
         mRestTime.setSelected(true);
     }
