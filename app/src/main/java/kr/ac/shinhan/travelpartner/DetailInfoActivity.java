@@ -59,10 +59,23 @@ public class DetailInfoActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+        firstItems.add(new DetailWithTourItem());
+
+
+
         detailRecyclerAdapter = new DetailRecyclerAdapter(getApplicationContext(), firstItems, R.layout.activity_detail_info);
 
-//        mRecyclerView.setAdapter(detailRecyclerAdapter);
-//        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setAdapter(detailRecyclerAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
         //new DetailWithTourParsing().execute(contentId);
     }

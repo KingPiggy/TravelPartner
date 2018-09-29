@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00000000">
+    android:background="#fff">
+
+
+    <TextView
+        android:id="@+id/tv_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:text="@string/default_info_title"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btn_detail_close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_close_black_24dp"
+        android:gravity="center"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/view_detail_boundary"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/spaceGray"
+        android:layout_below="@id/tv_detail_title"/>
 
     <LinearLayout
-        android:layout_width="320dp"
+        android:id="@+id/layout_detail_contents"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/view_detail_boundary"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/mainColor"
-            android:gravity="center"
-            android:text="Title"
-            android:textColor="#fff"
-            android:textSize="20dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:text="무장애정보 전체 조회"
+            android:textSize="19dp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_detail_close"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/boundary_textview"
-                android:gravity="center"
-                android:onClick="mOnClose"
-                android:text="닫기"
-                android:textColor="@color/mainColor"
-                android:textSize="15dp" />
-
-        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

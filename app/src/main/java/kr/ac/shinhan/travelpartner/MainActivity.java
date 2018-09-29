@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    public void onClick(View v){
+    public void recommendedPlace(View v){
         Intent intent;
         switch (v.getId()){
             case R.id.menu2_btn1:

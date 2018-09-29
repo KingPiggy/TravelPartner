@@ -81,7 +81,7 @@
                     android:layout_weight="2.5"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/gyeong"
-                    android:onClick="onClick" />
+                    android:onClick="recommendedPlace" />
 
                 <Button
                     android:id="@+id/menu2_btn2"
@@ -90,7 +90,7 @@
                     android:layout_weight="2.5"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/ntower"
-                    android:onClick="onClick"/>
+                    android:onClick="recommendedPlace"/>
 
                 <Button
                     android:id="@+id/menu2_btn3"
@@ -99,7 +99,7 @@
                     android:layout_weight="2.5"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/hanok"
-                    android:onClick="onClick"/>
+                    android:onClick="recommendedPlace"/>
 
             </LinearLayout>
 
