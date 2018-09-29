@@ -17,6 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
 
 import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
 import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
@@ -30,8 +36,6 @@ import kr.ac.shinhan.travelpartner.UI.PlaceFragment;
 public class MainActivity extends AppCompatActivity {
     public static final String PREFNAME = "Preferences";
     public static final int USERSETTINGS = 10000;
-    public static final int PERMISSION_INTERNET = 100;
-    public static final int PERMISSON_ACCESS_FINE_LOCATION = 200;
     BottomNavigationView bottomNavigationView;
     private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
     private double lat, lon;
@@ -52,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        permission();
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("권한이 허가되지 않으면\n일부 서비스가 제공되지 않습니다.")
+                .setPermissions(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+
+
         isFirstTime();
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.parseColor("#FAD956"));
@@ -110,29 +120,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void permission() {
-        //checkSelfPermission으로 권한 확인, 권한 승인은 PERMISSION_GRANTED, 거절은 PERMISSION_DENIED
-        // 인터넷 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
-                // 이전에 거부 하였을 경우 권한 요청
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_INTERNET);
-            } else {
-                // 최초 권한 요청
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_INTERNET);
-            }
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
         }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSON_ACCESS_FINE_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSON_ACCESS_FINE_LOCATION);
-            }
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(MainActivity.this, "권한이 거부되었습니다.\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
-
-    }
+    };
 
     public void isFirstTime() {
         SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
@@ -144,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), GoogleSignInActivity.class);
             startActivityForResult(intent, USERSETTINGS);
         } else {
+            //한 번 실행되어 false라면 그 액티비티로 안넘어감
         }
     }
 

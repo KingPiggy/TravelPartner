@@ -72,4 +72,10 @@
     <string name="email_fmt">Email: %s</string>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec condimentum ante, quis mattis mi. Proin ut rhoncus libero, ac euismod neque. Ut suscipit, enim a facilisis consequat, orci lacus venenatis orci, at ultricies orci nulla sed ex. In condimentum viverra velit, eget feugiat libero imperdiet vel. Aenean pretium, lectus vitae bibendum bibendum, diam turpis convallis eros, quis tristique leo sapien at ipsum. Praesent eu odio id nulla lobortis auctor. Donec eget dolor eget nisl euismod commodo vel a lacus. Quisque ut justo vitae urna pharetra accumsan. Etiam dignissim neque iaculis mauris viverra, blandit rhoncus odio porttitor. Phasellus nibh arcu.</string>
+    <string name="username">UserName</string>
+    <string name="useremail">UserEmail</string>
+    <string name="account">계정</string>
+    <string name="settings">설정</string>
+    <string name="about_us">About Us</string>
+    <string name="add_profile_photo">프로필 사진 선택</string>
 </resources>
