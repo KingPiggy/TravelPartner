@@ -4,19 +4,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -35,10 +32,11 @@ import kr.ac.shinhan.travelpartner.UI.PlaceFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static final String PREFNAME = "Preferences";
-    public static final int USERSETTINGS = 10000;
+    public static final int LOG_IN = 10000;
     BottomNavigationView bottomNavigationView;
     private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
     private double lat, lon;
+    private BackPressHandler backPressCloseHandler;
 
     HomeFragment homeFragment;
     PlaceFragment placeFragment;
@@ -55,15 +53,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage("권한이 허가되지 않으면\n일부 서비스가 제공되지 않습니다.")
-                .setPermissions(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-                .check();
-
+//        backPressCloseHandler = new BackPressHandler(this);
 
         isFirstTime();
+
+        TedPermission.with(getApplicationContext())
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("권한이 허가되지 않으면\n일부 서비스가 제공되지 않습니다.")
+                .setPermissions(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.parseColor("#FAD956"));
         }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
 
             Intent intent = new Intent(getApplicationContext(), GoogleSignInActivity.class);
-            startActivityForResult(intent, USERSETTINGS);
+            startActivityForResult(intent, LOG_IN);
 
         } else {
             //한 번 실행되어 false라면 그 액티비티로 안넘어감
@@ -146,16 +146,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        GoogleSignInActivity remoteActivity = (GoogleSignInActivity)GoogleSignInActivity.cloneActivity;
+        remoteActivity.finish();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case USERSETTINGS:
+            case LOG_IN:
                 if (resultCode == Activity.RESULT_OK) {
+                    Log.d("hoon", "메인으로 돌아왔니" + resultCode);
+                    GoogleSignInActivity remoteActivity = (GoogleSignInActivity)GoogleSignInActivity.cloneActivity;
+                    remoteActivity.finish();
                 }
                 break;
         }
     }
-
     public void setupViewPager(ViewPager viewPager) {
         adapter = new MenuFragmentAdapter(getFragmentManager());
 

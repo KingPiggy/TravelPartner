@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="kr.ac.shinhan.travelpartner">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -38,8 +39,8 @@
         <activity
             android:name=".DetailInfoActivity"
             android:theme="@style/Theme.MyDialog" />
-        <activity android:name=".AccountActivity"></activity>
-        <activity android:name=".ReviewActivity"/>
+        <activity android:name=".AccountActivity" />
+        <activity android:name=".ReviewActivity" />
     </application>
 
 </manifest>

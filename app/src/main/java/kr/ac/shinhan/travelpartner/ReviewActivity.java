@@ -2,6 +2,8 @@ package kr.ac.shinhan.travelpartner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,7 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReviewActivity extends  AppCompatActivity {
+public class ReviewActivity extends AppCompatActivity {
 
     private static final String TAG = "ReviewActivity";
     private static final String REQUIRED = "Required";
@@ -42,10 +44,13 @@ public class ReviewActivity extends  AppCompatActivity {
     PlaceInfoActivity.PlaceInfoParsing contentParsing ;
 
     @Override
-    protected  void onCreate(@Nullable Bundle saveInstanceState) {
+    protected void onCreate(@Nullable Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_review);
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(Color.parseColor("#FAD956"));
+        }
         mContext = ReviewActivity.this;
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -58,6 +63,7 @@ public class ReviewActivity extends  AppCompatActivity {
 
 
         userid =user.getUid();
+        userid = user.getUid();
 
     mBtnSend.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -69,6 +75,14 @@ public class ReviewActivity extends  AppCompatActivity {
             writeNewPost(userid, title, content, contentId);
         }
     });
+        mBtnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = mTitle.getText().toString();
+                content = mContent.getText().toString();
+                writeNewPost(userid, title, content, contentId);
+            }
+        });
     }
     private void writeNewPost(String userId, String title, String content, String contentId) {
         User user = new User(userId, title, content, contentId);
@@ -76,3 +90,4 @@ public class ReviewActivity extends  AppCompatActivity {
         mFirebaseDatabase.child("users").push().setValue(user);
     }
 }
+

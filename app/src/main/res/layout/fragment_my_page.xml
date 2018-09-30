@@ -89,7 +89,7 @@
                 android:layout_height="100dp"
                 android:background="#00000000"
                 android:gravity="center"
-                android:text="@string/about_us"
+                android:text=""
                 android:textSize="14dp" />
 
             <View
@@ -103,7 +103,7 @@
                 android:layout_height="100dp"
                 android:background="#00000000"
                 android:gravity="center"
-                android:text="@string/about_us"
+                android:text=""
                 android:textSize="14dp" />
 
             <View
@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="#00000000"
-                android:drawable="@drawable/selector_clicked_event"
+                android:drawable="@drawable/selector_clicked_menu"
                 android:gravity="center"
                 android:text="@string/about_us"
                 android:textSize="14dp" />
