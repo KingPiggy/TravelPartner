@@ -118,7 +118,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="#ffffff"
-                android:drawable="@drawable/selector_clicked_event"
                 android:gravity="center"
                 android:text="현재 버전 1.0"
                 android:textColor="#B0B0B0"

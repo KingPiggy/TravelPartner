@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_above="@id/tv_sign_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/logob" />
+
+    <TextView
+        android:id="@+id/tv_sign_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="TravelPartner"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/tv_sign_teamname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_sign_logo"
+        android:layout_centerHorizontal="true"
+        android:text="Conding In The Trap"
+        android:textColor="#fad956"
+        android:textSize="15dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_sign_google"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_sign_teamname"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btn_sign_visitor"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/btn_sign_google"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="둘러보기"/>
+
+</RelativeLayout>

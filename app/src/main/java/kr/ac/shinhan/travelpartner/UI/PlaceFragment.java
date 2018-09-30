@@ -57,7 +57,7 @@ import static kr.ac.shinhan.travelpartner.XMLparsing.ServiceDefinition.SERVICE_U
 public class PlaceFragment extends Fragment {
     View view;
     private String guCode, contentType, arrange, contentId;
-    private String title, tel, addr1, thumbnail, image;
+    private String title, tel, addr1, image;
     private double latitude, longitude;
     private Spinner mAreaSpinner, mContentTypeSpinner;
     private ProgressBar mProgressBar;

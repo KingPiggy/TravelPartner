@@ -33,14 +33,4 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/logo"/>
 
-    <!--<ImageView-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dpdp"-->
-        <!--android:src="@drawable/cheese"-->
-        <!--android:layout_marginTop="190dp"-->
-        <!--android:layout_alignLeft="@id/logo"-->
-        <!--android:layout_below="@id/logo"-->
-        <!--/>-->
-
-
 </RelativeLayout>

@@ -1,13 +1,14 @@
 package kr.ac.shinhan.travelpartner.Firebase;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,87 +30,69 @@ import static kr.ac.shinhan.travelpartner.MainActivity.PREFNAME;
 
 public class GoogleSignInActivity extends BaseActivity implements
         View.OnClickListener {
-
-    private static final String TAG = "GoogleActivity";
+    private Button mNewVisitor;
+    public static GoogleSignInActivity cloneActivity;
+    private com.google.android.gms.common.SignInButton mGoogleSignIn;
     private static final int RC_SIGN_IN = 9001;
-
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
     private GoogleSignInClient mGoogleSignInClient;
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_pref);
+        setContentView(R.layout.activity_google_sign_in);
 
-        // Views
-        mStatusTextView = findViewById(R.id.tv_status);
-        mDetailTextView = findViewById(R.id.tv_detail);
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(Color.parseColor("#FAD956"));
+        }
 
-        // Button listeners
-        findViewById(R.id.btn_sign_in).setOnClickListener(this);
-        findViewById(R.id.btn_sign_out).setOnClickListener(this);
-        findViewById(R.id.btn_disconnect).setOnClickListener(this);
-        findViewById(R.id.btn_in_main).setOnClickListener(this);
+        cloneActivity = GoogleSignInActivity.this;
+        SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("isFirstTime", false);
+        editor.apply();
 
-        // [START config_signin]
-        // Configure Google Sign In
+        mNewVisitor = (Button) findViewById(R.id.btn_sign_visitor);
+        mGoogleSignIn = (com.google.android.gms.common.SignInButton) findViewById(R.id.btn_sign_google);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+
+        mNewVisitor.setOnClickListener(this);
+        mGoogleSignIn.setOnClickListener(this);
     }
 
-    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
-    // [END on_start_check_user]
 
-    // [START onactivityresult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
-                updateUI(null);
-                // [END_EXCLUDE]
-            }
+        switch (requestCode){
+            case RC_SIGN_IN:
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    firebaseAuthWithGoogle(account);
+                } catch (ApiException e) {
+                    updateUI(null);
+                }
+                break;
         }
     }
-    // [END onactivityresult]
 
-    // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
         showProgressDialog();
-        // [END_EXCLUDE]
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -117,26 +100,16 @@ public class GoogleSignInActivity extends BaseActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // [START_EXCLUDE]
                         hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
     }
-    // [END auth_with_google]
 
-    // [START signin]
     private void signIn() {
         SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
@@ -146,71 +119,29 @@ public class GoogleSignInActivity extends BaseActivity implements
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signin]
-
-    private void signOut() {
-        SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("isSigned", "false");
-        editor.apply();
-
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
-
-    private void revokeAccess() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-            findViewById(R.id.btn_sign_in).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            findViewById(R.id.btn_in_main).setVisibility(View.VISIBLE);
+            setResult(Activity.RESULT_OK);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         } else {
-            mStatusTextView.setText("로그인하세요!");
-//            mDetailTextView.setText(null);
-
-            findViewById(R.id.btn_sign_in).setVisibility(View.VISIBLE);
-            findViewById(R.id.btn_in_main).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.btn_sign_in) {
+        if (i == R.id.btn_sign_google) {
             signIn();
-        } else if (i == R.id.btn_sign_out) {
-            signOut();
-        } else if (i == R.id.btn_disconnect) {
-            revokeAccess();
-        }else if (i==R.id.btn_in_main){
-            Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
+        } else if (i == R.id.btn_sign_visitor) {
+            SharedPreferences settings = getSharedPreferences(PREFNAME, MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("isSigned", "false");
+            editor.apply();
+            setResult(Activity.RESULT_OK);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
     }

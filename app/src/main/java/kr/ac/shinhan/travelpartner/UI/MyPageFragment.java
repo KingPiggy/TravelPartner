@@ -13,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,10 +38,11 @@ import kr.ac.shinhan.travelpartner.R;
 public class MyPageFragment extends Fragment {
     private LinearLayout profileLayout;
     View view;
+    private TextView mName, mEmail;
     private FirebaseAuth mAuth;
-    private Bitmap photoBitmap;
+    private GoogleSignInClient mGoogleSignInClient;
     private Button mProfile,mUse;
-    public MyPageFragment(){
+    public MyPageFragment() {
 
     }
 
@@ -66,7 +71,7 @@ public class MyPageFragment extends Fragment {
             }
         });
 
-        profileLayout = (LinearLayout)view.findViewById(R.id.layout_profile_profile);
+        profileLayout = (LinearLayout) view.findViewById(R.id.layout_profile_profile);
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +82,7 @@ public class MyPageFragment extends Fragment {
         profileLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         profileLayout.setBackgroundColor(Color.parseColor("#ffffff"));
                         break;
@@ -94,38 +99,35 @@ public class MyPageFragment extends Fragment {
         return view;
     }
 
-    public void setProfile(){
+    public void setProfile() {
+        mName = (TextView) view.findViewById(R.id.tv_profile_name);
+        mEmail = (TextView) view.findViewById(R.id.tv_profile_email);
+        de.hdodenhof.circleimageview.CircleImageView userPhoto = view.findViewById(R.id.iv_profile_image);
+
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-        de.hdodenhof.circleimageview.CircleImageView userPhoto = view.findViewById(R.id.iv_profile_image);
-//        Thread mThread= new Thread(){
-//            @Override
-//            public void run() {
-//                try{
-//                    //현재로그인한 사용자 정보를 통해 PhotoUrl 가져오기
-//                    URL url = new URL(user.getPhotoUrl().toString());
-//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                    conn.setDoInput(true);
-//                    conn.connect();
-//                    InputStream is = conn.getInputStream();
-//                    photoBitmap = BitmapFactory.decodeStream(is);
-//                } catch (MalformedURLException ee) {
-//                    ee.printStackTrace();
-//                }catch (IOException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//        mThread.start();
-//
-//        try{
-//            mThread.join();
-//            //변환한 bitmap적용
-//            userPhoto.setImageBitmap(photoBitmap);
-//
-//        }catch (InterruptedException e){
-//            e.printStackTrace();
-//        }
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(view.getContext(), gso);
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            mName.setText(user.getDisplayName());
+            mEmail.setText(user.getEmail());
+
+        } else {
+            mName.setText("로그인이 필요합니다.");
+            mEmail.setText("");
+        }
     }
 
 }
