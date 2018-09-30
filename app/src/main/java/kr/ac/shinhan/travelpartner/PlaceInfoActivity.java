@@ -53,7 +53,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private ImageView mStroller, mPet, mParking;
     private String chkbabycarriage, chkpet, restdate, parking, usetime, opentime;
     private ImageView mImage;
-    private Button mTelBtn, mAddrBtn, mWriteReviewBtn, mFavoriteBtn;
+    private Button mTelBtn, mAddrBtn;
     private ImageButton mInfoBtn;
     private String contentId, image, contentTypeId, uiContentType, title, tel, addr;
     private double lat, lon;
@@ -103,12 +103,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoCode));
                     startActivity(intent);
                     break;
-                case R.id.btn_info_write_review:
-                    intent = new Intent(PlaceInfoActivity.this, ReviewActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btn_info_favorite:
-                    break;
+
             }
         }
     };
@@ -124,8 +119,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         mTelBtn = (Button) findViewById(R.id.btn_info_tel);
         mAddrBtn = (Button) findViewById(R.id.btn_info_addr);
-        mWriteReviewBtn = (Button) findViewById(R.id.btn_info_write_review);
-        mFavoriteBtn = (Button) findViewById(R.id.btn_info_favorite);
         mInfoBtn = (ImageButton) findViewById(R.id.btn_info_info);
 
         mStroller = (ImageView) findViewById(R.id.iv_info_stroller);
@@ -134,8 +127,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         mTelBtn.setOnClickListener(btnListener);
         mAddrBtn.setOnClickListener(btnListener);
-        mWriteReviewBtn.setOnClickListener(btnListener);
-        mFavoriteBtn.setOnClickListener(btnListener);
         mInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

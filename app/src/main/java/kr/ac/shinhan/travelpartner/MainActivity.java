@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
 import kr.ac.shinhan.travelpartner.UI.BottomBar.BottomNavigationViewHelper;
 import kr.ac.shinhan.travelpartner.Adapter.MenuFragmentAdapter;
-import kr.ac.shinhan.travelpartner.UI.FavoriteFragment;
 import kr.ac.shinhan.travelpartner.UI.HomeFragment;
 import kr.ac.shinhan.travelpartner.UI.MyPageFragment;
 import kr.ac.shinhan.travelpartner.UI.PlaceFragment;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     HomeFragment homeFragment;
     PlaceFragment placeFragment;
-    FavoriteFragment favoriteFragment;
     MyPageFragment myPageFragment;
 
     private ViewPager mainViewPager;
@@ -89,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_place:
                         currentMenu = R.id.action_place;
                         mainViewPager.setCurrentItem(1);
-                        break;
-                    case R.id.action_favorites:
-                        currentMenu = R.id.action_favorites;
-                        mainViewPager.setCurrentItem(2);
                         break;
                     case R.id.action_my_page:
                         currentMenu = R.id.action_my_page;
@@ -170,12 +164,10 @@ public class MainActivity extends AppCompatActivity {
 
         homeFragment = new HomeFragment();
         placeFragment = new PlaceFragment();
-        favoriteFragment = new FavoriteFragment();
         myPageFragment = new MyPageFragment();
 
         adapter.addFragment(homeFragment);
         adapter.addFragment(placeFragment);
-        adapter.addFragment(favoriteFragment);
         adapter.addFragment(myPageFragment);
 
         viewPager.setAdapter(adapter);

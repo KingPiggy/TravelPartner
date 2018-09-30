@@ -41,14 +41,7 @@
                     android:hint="#관광타입"
                     android:textColor="@color/mainColor"
                     android:textSize="14dp" />
-                <Button
-                    android:id="@+id/btn_placeitem_favorite"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/btn_favorite"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="3dp"/>
+
                 <TextView
                     android:id="@+id/tv_placeitem_title"
                     android:layout_width="wrap_content"

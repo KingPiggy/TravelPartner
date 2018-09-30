@@ -166,7 +166,7 @@
                     android:background="#00000000"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_info"/>
+                    android:src="@drawable/ic_info" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                         <Button
                             android:id="@+id/btn_info_tel"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="50dp"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
                             android:background="@drawable/btnshape"
@@ -203,31 +203,14 @@
                         <Button
                             android:id="@+id/btn_info_addr"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="50dp"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
                             android:background="@drawable/btnshape"
                             android:text="길 찾기" />
 
-                        <Button
-                            android:id="@+id/btn_info_favorite"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/btnshape"
-                            android:text="@string/favorite" />
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btn_info_write_review"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/btnshape"
-                        android:text="@string/write_review" />
 
                 </LinearLayout>
             </RelativeLayout>

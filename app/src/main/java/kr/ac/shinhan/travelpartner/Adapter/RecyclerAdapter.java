@@ -61,30 +61,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.mTel.setText(item.getTel());
         holder.mTel.setSelected(true);
         holder.mAddr.setText(item.getAddr());
-        holder.mFavorite.setTag(position);
-        holder.mFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (int) v.getTag();
-                PlaceItem item = items.get(position);
-                MyCoolFragment.this.getActivity().
-                SharedPreferences favoriteItems = context.getApplicationContext().getSharedPreferences(PREFNAME, MODE_PRIVATE);
-                SharedPreferences.Editor editor = favoriteItems.edit();
-                int itemCount =  favoriteItems.getInt("itemCount", 0);
-                editor.putString(itemCount + "latitude", String.valueOf(item.getLatitude()));
-                editor.putString(itemCount + "longitude", String.valueOf(item.getLongitude()));
-                editor.putString(itemCount + "contentid", item.getContentId());
-                editor.putString(itemCount + "contentTypeId", item.getContentTypeId());
-                editor.putString(itemCount + "uiContentTypeId", item.getUiContentTypeId());
-                editor.putString(itemCount + "image", item.getImage());
-                editor.putString(itemCount + "title", item.getTitle());
-                editor.putString(itemCount + "tel", item.getTel());
-                editor.putString(itemCount + "addr", item.getAddr());
-                itemCount = itemCount++;
-                editor.putInt("itemCount", 0);
-                editor.apply();
-            }
-        });
         Picasso.get().load(item.getImage()).into(holder.mImage);
     }
 
@@ -96,9 +72,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return this.items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mContentType, mTitle, mTel, mAddr;
-        Button mFavorite;
         ImageView mImage;
         CardView cardView;
 
@@ -112,7 +87,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             mAddr = (TextView) itemView.findViewById(R.id.tv_placeitem_addr);
             mImage = (ImageView) itemView.findViewById(R.id.iv_placeitem_thumbnail);
             cardView = (CardView) itemView.findViewById(R.id.cardview_placeitem);
-            mFavorite = (Button) itemView.findViewById(R.id.btn_placeitem_favorite);
         }
 
         @Override
@@ -142,41 +116,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             intent.putExtra("addr", addr);
 
             v.getContext().startActivity(intent);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            int position = (int) v.getTag();
-            AlertDialog.Builder alt_bld = new AlertDialog.Builder(context.getApplicationContext());
-            alt_bld.setTitle("아이템을 삭제하시겠습니까?").setIcon(R.drawable.ic_photo).setCancelable(
-                    false).setPositiveButton("확인",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            SharedPreferences favoriteItems = context.getSharedPreferences(PREFNAME, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = favoriteItems.edit();
-                            int itemCount =  favoriteItems.getInt("itemCount", 0);
-                            editor.remove(itemCount + "latitude");
-                            editor.remove(itemCount + "longitude");
-                            editor.remove(itemCount + "contentid");
-                            editor.remove(itemCount + "contentTypeId");
-                            editor.remove(itemCount + "uiContentTypeId");
-                            editor.remove(itemCount + "image");
-                            editor.remove(itemCount + "title");
-                            editor.remove(itemCount + "tel");
-                            editor.remove(itemCount + "addr");
-                            itemCount = itemCount--;
-                            editor.putInt("itemCount", 0);
-                            editor.apply();
-                        }
-                    }).setNegativeButton("취소",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alt_bld.create();
-            alert.show();
-            return false;
         }
     }
 }
