@@ -45,6 +45,7 @@
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_below="@id/btn_sign_google"
+        android:background="@drawable/btn_change"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="둘러보기"/>

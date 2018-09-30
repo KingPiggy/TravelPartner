@@ -39,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:drawable="@drawable/selector_clicked_menu"
+        android:background="@drawable/btn_change"
         android:gravity="center"
         android:text="@string/add_profile_photo"
         android:textSize="14dp" />
@@ -55,8 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:drawable="@drawable/selector_clicked_menu"
+        android:background="@drawable/btn_change"
         android:gravity="center"
         android:text="로그인 / 로그아웃"
         android:textSize="14dp" />
