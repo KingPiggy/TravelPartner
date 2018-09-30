@@ -61,9 +61,7 @@ public class ReviewActivity extends AppCompatActivity {
         mContent = (EditText) findViewById(R.id.et_content);
         mBtnSend = (Button) findViewById(R.id.btn_send_review);
 
-
         userid =user.getUid();
-        userid = user.getUid();
 
     mBtnSend.setOnClickListener(new View.OnClickListener() {
         @Override

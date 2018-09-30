@@ -298,6 +298,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                Log.d("hoon", "다운로드 URL" + downloadUrl);
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "업로드 완료", Toast.LENGTH_SHORT).show();
             }
