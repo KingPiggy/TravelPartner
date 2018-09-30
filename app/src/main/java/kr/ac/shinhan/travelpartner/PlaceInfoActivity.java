@@ -79,6 +79,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         lat = intent.getDoubleExtra("latitude", 0);
         lon = intent.getDoubleExtra("longitude", 0);
 
+
         initUI();
         new PlaceInfoParsing().execute(contentId, contentTypeId);
     }

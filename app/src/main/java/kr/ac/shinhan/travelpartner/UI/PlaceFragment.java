@@ -349,11 +349,14 @@ public class PlaceFragment extends Fragment {
                                 parser.next();
                                 addr1 = parser.getText();
                                 placeItem.setAddr(addr1);
+                                Log.d("Bae","addr1");
+
 
                             } else if (tag.equals("contentid")) {
                                 parser.next();
                                 contentId = parser.getText();
                                 placeItem.setContentId(contentId);
+                                Log.i("Bae","contentId");
 
                             } else if (tag.equals("contenttypeid")) {
                                 parser.next();
