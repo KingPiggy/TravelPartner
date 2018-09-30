@@ -39,6 +39,7 @@
             android:name=".DetailInfoActivity"
             android:theme="@style/Theme.MyDialog" />
         <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".ReviewActivity"/>
     </application>
 
 </manifest>

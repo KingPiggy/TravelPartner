@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/boundary_textview">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="8"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_content_gallery"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_camera2"/>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:background="@drawable/boundary_textview">
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="내용"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_send_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="리뷰 작성하기"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/bottomBar"/>
+</LinearLayout>

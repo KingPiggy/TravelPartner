@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), GoogleSignInActivity.class);
             startActivityForResult(intent, USERSETTINGS);
+
         } else {
             //한 번 실행되어 false라면 그 액티비티로 안넘어감
         }

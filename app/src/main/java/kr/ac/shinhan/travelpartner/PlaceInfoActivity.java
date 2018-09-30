@@ -103,6 +103,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.btn_info_write_review:
+                    intent = new Intent(PlaceInfoActivity.this, ReviewActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.btn_info_favorite:
                     break;
