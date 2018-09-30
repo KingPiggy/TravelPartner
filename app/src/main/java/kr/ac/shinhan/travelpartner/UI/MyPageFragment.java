@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ import java.net.URL;
 
 import kr.ac.shinhan.travelpartner.AccountActivity;
 import kr.ac.shinhan.travelpartner.Firebase.GoogleSignInActivity;
+import kr.ac.shinhan.travelpartner.PlaceInfoActivity;
+import kr.ac.shinhan.travelpartner.ProfileNotice;
+import kr.ac.shinhan.travelpartner.ProfileUse;
 import kr.ac.shinhan.travelpartner.R;
 
 public class MyPageFragment extends Fragment {
@@ -32,6 +36,7 @@ public class MyPageFragment extends Fragment {
     View view;
     private FirebaseAuth mAuth;
     private Bitmap photoBitmap;
+    private Button mProfile,mUse;
     public MyPageFragment(){
 
     }
@@ -41,7 +46,25 @@ public class MyPageFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_my_page, container, false);
 
+        mProfile = (Button)view.findViewById(R.id.btn_profile_btn1);
+        mUse =  (Button)view.findViewById(R.id.btn_profile_btn2);
         setProfile();
+        mProfile.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent in = new Intent(view.getContext(), ProfileNotice.class);
+                                            startActivity(in);
+                                        }
+                                    }
+
+        );
+        mUse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(view.getContext(), ProfileUse.class);
+                startActivity(in);
+            }
+        });
 
         profileLayout = (LinearLayout)view.findViewById(R.id.layout_profile_profile);
         profileLayout.setOnClickListener(new View.OnClickListener() {
@@ -104,4 +127,5 @@ public class MyPageFragment extends Fragment {
 //            e.printStackTrace();
 //        }
     }
+
 }

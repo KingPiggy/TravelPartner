@@ -11,6 +11,19 @@
         android:background="#fff"
         android:orientation="vertical">
 
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:text="Travel Partner"
+           android:gravity="center"
+           android:textSize="20dp"
+           android:textColor="@color/bottomBar"
+           />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/boundary" />
+
         <LinearLayout
             android:id="@+id/menu1"
             android:layout_width="match_parent"
@@ -22,10 +35,10 @@
                 android:id="@+id/viewPager_main_notice"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="16dp"
-                android:layout_weight="9.0"
+                android:layout_weight="6.0"
                 android:overScrollMode="never" />
 
             <RelativeLayout
@@ -137,32 +150,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="20dp"
             android:background="@color/boundary" />
 
-        <LinearLayout
-            android:id="@+id/menu3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3.0"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="리뷰"
-                android:textColor="#1D1D1D"
-                android:textSize="14dp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/boundary" />
     </LinearLayout>
 
 </FrameLayout>

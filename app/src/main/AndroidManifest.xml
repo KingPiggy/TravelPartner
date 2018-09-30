@@ -17,13 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyARz3oGBFIi8M6r03yHbaRIYJ_eNWP8OVg" />
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="e172e319329f44bfe3ec8c7cfa6b2273" />
-
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -38,8 +31,10 @@
         <activity
             android:name=".DetailInfoActivity"
             android:theme="@style/Theme.MyDialog" />
-        <activity android:name=".AccountActivity"></activity>
-        <activity android:name=".ReviewActivity"/>
+        <activity android:name=".AccountActivity" />
+        <activity android:name=".ReviewActivity" />
+        <activity android:name=".ProfileNotice" />
+        <activity android:name=".ProfileUse"></activity>
     </application>
 
 </manifest>

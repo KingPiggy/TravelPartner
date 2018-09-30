@@ -87,10 +87,11 @@
                 android:id="@+id/btn_profile_btn1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#00000000"
+                android:background="@drawable/btn_change"
                 android:gravity="center"
-                android:text="@string/about_us"
-                android:textSize="14dp" />
+                android:text="공지사항"
+                android:textSize="14dp"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -101,10 +102,11 @@
                 android:id="@+id/btn_profile_btn2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#00000000"
+                android:background="@drawable/btn_change"
                 android:gravity="center"
-                android:text="@string/about_us"
-                android:textSize="14dp" />
+                android:text="이용방법"
+                android:textSize="14dp" >
+            </Button>
 
             <View
                 android:layout_width="match_parent"
@@ -115,10 +117,11 @@
                 android:id="@+id/btn_profile_btn3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#00000000"
+                android:background="#ffffff"
                 android:drawable="@drawable/selector_clicked_event"
                 android:gravity="center"
-                android:text="@string/about_us"
+                android:text="현재 버전 1.0"
+                android:textColor="#B0B0B0"
                 android:textSize="14dp" />
 
             <View
